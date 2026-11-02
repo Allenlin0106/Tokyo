@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>越後・上州 9 日｜新潟 → 東京</title>
+<style>
+:root{
+  --bg:#f6f5f1; --panel:#ffffff; --fg:#1b1d1f; --muted:#52575c; --line:#d6d3cb; --line-strong:#a9a59b; --grid:#ebe8e1;
+  --accent:#9a3a21;
+  --head-bg:#ecebe5;
+  --b-book:#9a3a21; --b-info:#1d5a7a; --b-ok:#2c6636; --b-warn:#7d5300; --b-mute:#5a6066; --b-fg:#ffffff;
+  --c-warn:#b07a12; --c-info:#1d5a7a; --c-ok:#2c6636; --c-book:#9a3a21;
+  --f-sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;
+  --f-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141719; --panel:#1b1f22; --fg:#e8eae8; --muted:#a3aaae; --line:#30373b; --line-strong:#4a5358; --grid:#262c30;
+  --accent:#f0a080;
+  --head-bg:#232a2e;
+  --b-book:#f0a080; --b-info:#8cc8e8; --b-ok:#93d09b; --b-warn:#e8c070; --b-mute:#a3aaae; --b-fg:#141719;
+  --c-warn:#e8c070; --c-info:#8cc8e8; --c-ok:#93d09b; --c-book:#f0a080;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#141719; --panel:#1b1f22; --fg:#e8eae8; --muted:#a3aaae; --line:#30373b; --line-strong:#4a5358; --grid:#262c30;
+  --accent:#f0a080;
+  --head-bg:#232a2e;
+  --b-book:#f0a080; --b-info:#8cc8e8; --b-ok:#93d09b; --b-warn:#e8c070; --b-mute:#a3aaae; --b-fg:#141719;
+  --c-warn:#e8c070; --c-info:#8cc8e8; --c-ok:#93d09b; --c-book:#f0a080;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-sans);font-size:15px;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--accent)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line-strong);padding:28px 0 20px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+h1{font-size:30px;line-height:1.3;margin:6px 0 8px;letter-spacing:.02em}
+.lede{color:var(--muted);margin:0;max-width:62ch}
+
+/* ---------- tabs ---------- */
+.tabbar{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--line)}
+.tabbar .wrap{display:flex;gap:6px;align-items:center;overflow-x:auto;padding-block:10px;scrollbar-width:thin}
+.tab{flex:none;font:inherit;font-size:13px;line-height:1.3;color:var(--fg);border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:5px 10px;cursor:pointer;white-space:nowrap;text-align:left}
+.tab b{font-family:var(--f-mono);font-weight:600;margin-right:4px}
+.tab small{display:block;font-size:11px;color:var(--muted)}
+.tab:hover{border-color:var(--accent)}
+.tab[aria-selected="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.tab[aria-selected="true"] small{color:var(--bg)}
+#themeBtn{margin-left:auto;flex:none;position:sticky;right:0;box-shadow:-10px 0 8px var(--bg);font:inherit;font-size:13px;background:var(--panel);color:var(--fg);border:1px solid var(--line-strong);border-radius:6px;padding:7px 12px;cursor:pointer}
+
+.panel{padding:30px 0 12px}
+.panel[hidden]{display:none}
+h2{font-size:22px;margin:0 0 4px;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+h2 .num{font-family:var(--f-mono);color:var(--accent);font-size:15px;letter-spacing:.06em}
+h2 .date{font-family:var(--f-mono);font-size:13px;color:var(--muted);font-weight:400}
+h3{font-size:15px;margin:24px 0 8px;letter-spacing:.04em}
+.theme-line{color:var(--muted);margin:0 0 14px}
+.tbl{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:9px 12px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{background:var(--head-bg);color:var(--fg);font-weight:600;font-size:12.5px;letter-spacing:.06em;white-space:nowrap}
+td.t{font-family:var(--f-mono);white-space:nowrap;font-variant-numeric:tabular-nums}
+td.mv{white-space:nowrap}
+.day td:nth-child(3){white-space:nowrap}
+td small{display:block;color:var(--muted);font-size:12.5px}
+.num-r{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.badge{display:inline-block;font-size:11.5px;font-weight:600;line-height:1.5;padding:0 6px;border-radius:4px;color:var(--b-fg);margin:0 4px 2px 0;white-space:nowrap}
+.badge.book{background:var(--b-book)} .badge.info{background:var(--b-info)} .badge.ok{background:var(--b-ok)} .badge.warn{background:var(--b-warn)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:8px;padding:12px 14px}
+.card h4{margin:0 0 4px;font-size:13px;letter-spacing:.06em}
+.card p,.card ul{margin:0;font-size:14px}
+.card ul{padding-left:18px}
+.card.stay{--c:var(--c-info)} .card.planb{--c:var(--c-ok)} .card.note{--c:var(--c-warn)}
+.callout{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--c-book);border-radius:8px;padding:12px 16px;margin:14px 0}
+.callout p{margin:0}
+ul.plain{margin:6px 0;padding-left:20px}
+ul.plain li{margin:3px 0}
+.route{font-size:15px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin:14px 0}
+.route b{color:var(--accent)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted);margin-top:10px}
+.daylink{font-family:var(--f-mono);font-weight:600}
+.pager{display:flex;justify-content:space-between;gap:10px;margin:26px 0 6px}
+.pager button{font:inherit;font-size:13.5px;background:var(--panel);color:var(--fg);border:1px solid var(--line-strong);border-radius:8px;padding:8px 14px;cursor:pointer;max-width:48%;text-align:left}
+.pager button.next{margin-left:auto;text-align:right}
+.pager button:hover{border-color:var(--accent)}
+
+/* ---------- map ---------- */
+.map{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:6px 0 16px}
+.map .stage{position:relative;height:380px}
+.map svg{display:block;width:100%;height:100%;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+.map svg.dragging{cursor:grabbing}
+.map .ctl{position:absolute;right:10px;top:10px;display:grid;gap:4px;z-index:2}
+.map .ctl button{width:34px;height:34px;font:600 17px var(--f-sans);line-height:1;background:var(--panel);color:var(--fg);border:1px solid var(--line-strong);border-radius:6px;cursor:pointer}
+.map .ctl button:hover{border-color:var(--accent)}
+.map .lg{display:flex;flex-wrap:wrap;gap:4px 14px;padding:8px 12px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);align-items:center}
+.map .lg svg{width:30px;height:10px;display:inline-block;vertical-align:middle;margin-right:4px;cursor:default}
+.map .lg i{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;border-top:1px solid var(--line)}
+.chip{font:inherit;font-size:12.5px;line-height:1.4;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:3px 10px 3px 4px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip .n{display:inline-grid;place-items:center;min-width:20px;height:20px;border-radius:50%;font:700 11px var(--f-mono);color:var(--b-fg);padding:0 4px}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--panel)}
+.info{border-top:1px solid var(--line);padding:12px 14px;min-height:58px}
+.info .empty{color:var(--muted);font-size:13px;margin:0}
+.info h4{margin:0;font-size:15px}
+.info .jp{color:var(--muted);font-size:12.5px}
+.info .note{margin:2px 0 8px;font-size:13.5px}
+.info .acts{display:flex;flex-wrap:wrap;gap:6px}
+.mbtn{font:600 12.5px var(--f-sans);text-decoration:none;border-radius:6px;padding:6px 10px;border:1px solid var(--line-strong);color:var(--fg);background:var(--panel);white-space:nowrap}
+.mbtn:hover{border-color:var(--accent)}
+.mbtn.go{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.map .note-s{padding:0 14px 10px;font-size:12px;color:var(--muted)}
+
+/* svg classes */
+.g-line{stroke:var(--grid);stroke-width:1}
+.g-lab{fill:var(--muted);font:10px var(--f-mono)}
+.sc-bar{stroke:var(--fg);stroke-width:2;fill:none}
+.sc-lab{fill:var(--fg);font:600 10.5px var(--f-mono)}
+.n-arrow{fill:var(--muted);font:600 11px var(--f-mono)}
+.seg{fill:none;stroke-linejoin:round;stroke-linecap:round}
+.seg-car{stroke:var(--c-book);stroke-width:3}
+.seg-rail{stroke:var(--c-info);stroke-width:3;stroke-dasharray:9 6;stroke-linecap:butt}
+.seg-walk{stroke:var(--muted);stroke-width:2.5;stroke-dasharray:1 6}
+.seg-rope{stroke:var(--c-ok);stroke-width:2.5;stroke-dasharray:12 4 2 4;stroke-linecap:butt}
+.mk{cursor:pointer}
+.mk circle.d{stroke:var(--panel);stroke-width:2}
+.mk text.num{fill:var(--b-fg);font:700 11px var(--f-mono);text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.mk text.lab{fill:var(--fg);font:500 12px var(--f-sans);paint-order:stroke;stroke:var(--panel);stroke-width:3.5px;stroke-linejoin:round;pointer-events:none}
+.mk.sel circle.ring{fill:none;stroke:var(--accent);stroke-width:2.5}
+.k-tr{fill:var(--b-info);background:var(--b-info)} .k-sight{fill:var(--b-book);background:var(--b-book)}
+.k-stay{fill:var(--b-ok);background:var(--b-ok)} .k-act{fill:var(--b-warn);background:var(--b-warn)} .k-alt{fill:var(--b-mute);background:var(--b-mute)}
+
+footer{padding:24px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+footer ol{padding-left:20px}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:760px){
+  h1{font-size:24px}
+  .grid{grid-template-columns:minmax(0,1fr)}
+  body{font-size:14.5px}
+  .map .stage{height:320px}
+}
+@media print{
+  .tabbar,.pager,.map .ctl{display:none}
+  .panel[hidden]{display:block}
+  .card,.tbl,.map{break-inside:avoid}
+  :root{--bg:#fff;--panel:#fff}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">2027.07.17 — 07.25 ・ 羽田進出 ・ v1 越後・上州</div>
+    <h1>新潟 → 越後妻有 → 湯澤 → 水上 → 草津 → 輕井澤 → 品川</h1>
+    <p class="lede">親子 4 人（2 大人＋國中生＋小學生）9 天 8 夜。新幹線北上新潟，中段自駕走山線，輕井澤還車搭北陸新幹線回東京。大地藝術祭第 10 屆 7/17 開幕，與本次行程完全重疊。</p>
+  </div>
+</header>
+
+<div class="tabbar">
+  <div class="wrap" role="tablist" aria-label="行程分頁">
+    <button class="tab" role="tab" id="tab-overview" aria-controls="overview" data-p="overview"><b>00</b>總覽<small>路線・死線</small></button>
+    <button class="tab" role="tab" id="tab-d1" aria-controls="d1" data-p="d1"><b>D1</b>7/17 六<small>抵達新潟</small></button>
+    <button class="tab" role="tab" id="tab-d2" aria-controls="d2" data-p="d2"><b>D2</b>7/18 日<small>水族館・松代</small></button>
+    <button class="tab" role="tab" id="tab-d3" aria-controls="d3" data-p="d3"><b>D3</b>7/19 一<small>清津峽・湯澤</small></button>
+    <button class="tab" role="tab" id="tab-d4" aria-controls="d4" data-p="d4"><b>D4</b>7/20 二<small>高原・水上</small></button>
+    <button class="tab" role="tab" id="tab-d5" aria-controls="d5" data-p="d5"><b>D5</b>7/21 三<small>泛舟・谷川岳</small></button>
+    <button class="tab" role="tab" id="tab-d6" aria-controls="d6" data-p="d6"><b>D6</b>7/22 四<small>草津</small></button>
+    <button class="tab" role="tab" id="tab-d7" aria-controls="d7" data-p="d7"><b>D7</b>7/23 五<small>輕井澤</small></button>
+    <button class="tab" role="tab" id="tab-d8" aria-controls="d8" data-p="d8"><b>D8</b>7/24 六<small>回東京</small></button>
+    <button class="tab" role="tab" id="tab-d9" aria-controls="d9" data-p="d9"><b>D9</b>7/25 日<small>回程</small></button>
+    <button class="tab" role="tab" id="tab-prep" aria-controls="prep" data-p="prep"><b>P</b>行前<small>預約・票券</small></button>
+    <button class="tab" role="tab" id="tab-risk" aria-controls="risk" data-p="risk"><b>R</b>風險<small>假設・待確認</small></button>
+    <button id="themeBtn" type="button" aria-label="切換深淺色">深色</button>
+  </div>
+</div>
+
+<main class="wrap">
+
+<!-- ================= 總覽 ================= -->
+<section class="panel" id="overview" role="tabpanel" aria-labelledby="tab-overview">
+  <h2><span class="num">00</span>行程總覽</h2>
+  <div class="route"><b>主軸：</b>羽田 →（上越新幹線）新潟取車 → 大地藝術祭（松代・松之山・清津峽・十日町）→ 越後湯澤 → 水上連住 2 晚 → 草津 → 北輕井澤 → 輕井澤還車 →（北陸新幹線）品川 → 羽田。</div>
+
+  <div class="map" data-map="overview"></div>
+
+  <h3>每日摘要</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Day</th><th>日期</th><th>主題</th><th>一句話</th><th>住宿</th></tr></thead>
+    <tbody>
+      <tr><td><a class="daylink" href="#d1">D1</a></td><td class="t">7/17 六</td><td>抵達・北上</td><td>羽田入境，新幹線 2 小時到新潟，晚上萬代橋散步。</td><td>新潟站</td></tr>
+      <tr><td><a class="daylink" href="#d2">D2</a></td><td class="t">7/18 日</td><td>水族館＋藝術祭</td><td>站前取車，早上水族館，下午松代「農舞台」與美人林。</td><td>松之山溫泉</td></tr>
+      <tr><td><a class="daylink" href="#d3">D3</a></td><td class="t">7/19 一 <small>海の日</small></td><td>清津峽・十日町</td><td>8:30 搶頭班進光之隧道，再看 MonET，傍晚入住湯澤。</td><td>越後湯澤</td></tr>
+      <tr><td><a class="daylink" href="#d4">D4</a></td><td class="t">7/20 二</td><td>高原・移動</td><td>湯澤高原纜車玩半天，午後翻關越到水上。</td><td>水上溫泉</td></tr>
+      <tr><td><a class="daylink" href="#d5">D5</a></td><td class="t">7/21 三</td><td>戶外日</td><td>上午利根川泛舟，下午谷川岳纜車上天神平。</td><td>水上溫泉（續住）</td></tr>
+      <tr><td><a class="daylink" href="#d6">D6</a></td><td class="t">7/22 四</td><td>草津溫泉</td><td>途經八ッ場水壩，下午西之河原露天風呂＋湯もみ秀。</td><td>草津（湯畑圈）</td></tr>
+      <tr><td><a class="daylink" href="#d7">D7</a></td><td class="t">7/23 五</td><td>火山・輕井澤</td><td>鬼押出し園、白絲瀑布、榆樹街，下午還車逛 Outlet。</td><td>輕井澤站</td></tr>
+      <tr><td><a class="daylink" href="#d8">D8</a></td><td class="t">7/24 六</td><td>回東京</td><td>雲場池＋舊輕銀座，中午新幹線到東京，入住品川。</td><td>品川站</td></tr>
+      <tr><td><a class="daylink" href="#d9">D9</a></td><td class="t">7/25 日</td><td>回程</td><td>京急 15 分到羽田。</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>關鍵預約死線（依日期排序）</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>期限</th><th>項目</th><th>說明</th></tr></thead>
+    <tbody>
+      <tr><td class="t">立即</td><td><span class="badge book">預約</span>機票＋全程住宿</td><td>7/17–19 為海の日三連休＋藝術祭開幕；松之山、湯澤、草津（含貸切風呂）最先滿。</td></tr>
+      <tr><td class="t">立即–2027 春</td><td><span class="badge book">預約</span>租車（新潟站取／輕井澤站還）</td><td>甲地乙還跨縣須付回送費，報價時一併確認；開放預約時點依各家而定。</td></tr>
+      <tr><td class="t">2027/02/28 起</td><td><span class="badge info">開賣</span>大地藝術祭護照預售</td><td>預售期 2/28–7/16；一般 ¥4,000、小中學生 ¥1,000（當日券 ¥5,000／¥2,000）。</td></tr>
+      <tr><td class="t">2027/05–06</td><td><span class="badge book">預約</span>水上泛舟（7/21 上午）</td><td>選明確收 6 歲／小學生的家庭行程。</td></tr>
+      <tr><td class="t">待公告</td><td><span class="badge warn">確認</span>清津峽 7/19 預約</td><td>2026 年 7/18–20 為預約制；2027 開放日期需追官網。</td></tr>
+      <tr><td class="t">2027/06/17 10:00</td><td><span class="badge book">開賣</span>東京→新潟 とき（7/17）</td><td>JR 東日本乘車日前 1 個月開賣；えきねっと「トクだ値」可再省。</td></tr>
+      <tr><td class="t">2027/06/24 10:00</td><td><span class="badge book">開賣</span>輕井澤→東京 北陸新幹線（7/24）</td><td>週六中午班次易滿，開賣即訂。</td></tr>
+      <tr><td class="t">2027/07/16</td><td><span class="badge warn">截止</span>藝術祭護照預售最後一天</td><td>錯過即以當日價購買（全家多付約 ¥4,000）。</td></tr>
+    </tbody>
+  </table></div>
+  <div class="legend"><span><span class="badge book">預約</span>需事先預訂</span><span><span class="badge info">資訊</span>營業／票價</span><span><span class="badge ok">免費</span>免費入場</span><span><span class="badge warn">確認</span>需自行確認</span></div>
+</section>
+
+<!-- ================= D1 ================= -->
+<section class="panel" id="d1" role="tabpanel" aria-labelledby="tab-d1" hidden>
+  <h2><span class="num">DAY 1</span>抵達・北上新潟<span class="date">2027/07/17（六）</span></h2>
+  <p class="theme-line">今天只做一件事：把全家安全送到新潟。</p>
+  <div class="map" data-map="d1"></div>
+  <div class="tbl"><table class="day">
+    <thead><tr><th>時間</th><th>地點</th><th>停留</th><th>移動</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td class="t">12:00</td><td>羽田機場 第 3 航廈 入境</td><td>60 分</td><td class="mv">—</td><td>假設中午抵達；入境＋領行李</td></tr>
+      <tr><td class="t">13:15</td><td>機場利木津巴士 → 東京站八重洲</td><td>—</td><td class="mv">巴士 40–60 分</td><td>帶行李優先巴士；週六午後可能塞車</td></tr>
+      <tr><td class="t">14:40</td><td>東京站 上越新幹線「とき」</td><td>—</td><td class="mv">新幹線 約 2 小時</td><td><span class="badge book">預約</span>指定席通常期 ¥10,980；三連休屬繁忙期 +¥200</td></tr>
+      <tr><td class="t">16:45</td><td>新潟站 → 飯店寄放行李</td><td>20 分</td><td class="mv">步行 5 分</td><td>選隔天取車點步行範圍內</td></tr>
+      <tr><td class="t">17:30</td><td>萬代橋・信濃川畔</td><td>45 分</td><td class="mv">步行 15 分</td><td><span class="badge ok">免費</span>傍晚散步、看夕陽</td></tr>
+      <tr><td class="t">18:30</td><td>新潟站周邊晚餐（へぎそば／タレカツ丼）</td><td>75 分</td><td class="mv">步行 15 分</td><td>店家公休日須以「週六」查證</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid">
+    <div class="card stay"><h4>住宿</h4><p>新潟站周邊商務飯店。理由：隔天 8:00 站前取車，免拖行李移動。</p></div>
+    <div class="card planb"><h4>Plan B</h4><ul><li>航班延誤：改搭較晚班「とき」（班次密集）。</li><li>體力不足：晚餐改在站內解決，不出門。</li></ul></div>
+    <div class="card note"><h4>注意事項</h4><ul><li>羽田→東京站備案：京急到品川，轉 JR 到東京（約 10 分）。</li><li>新幹線大件行李規定：三邊合計超過 160 cm 需預約行李座位。</li></ul></div>
+  </div>
+</section>
+
+<!-- ================= D2 ================= -->
+<section class="panel" id="d2" role="tabpanel" aria-labelledby="tab-d2" hidden>
+  <h2><span class="num">DAY 2</span>水族館 → 大地藝術祭・松代<span class="date">2027/07/18（日）</span></h2>
+  <p class="theme-line">藝術祭開幕第二天；週二、三休，所以藝術祭集中排在 D2、D3。</p>
+  <div class="map" data-map="d2"></div>
+  <div class="tbl"><table class="day">
+    <thead><tr><th>時間</th><th>地點</th><th>停留</th><th>移動</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td class="t">08:00</td><td>新潟站前 取車</td><td>30 分</td><td class="mv">步行 5 分</td><td><span class="badge book">預約</span>台灣駕照正本＋日文譯本</td></tr>
+      <tr><td class="t">08:45</td><td>新潟市水族館 マリンピア日本海</td><td>2 小時</td><td class="mv">車 15 分</td><td><span class="badge info">資訊</span>9:00–17:00；大人 ¥1,500／小中 ¥600；免費停車</td></tr>
+      <tr><td class="t">11:00</td><td>移動＋午餐（長岡周邊休息站）</td><td>—</td><td class="mv">車 約 2 小時</td><td>高速＋一般道</td></tr>
+      <tr><td class="t">13:30</td><td>まつだい「農舞台」＋周邊田野作品</td><td>2 小時</td><td class="mv">—</td><td><span class="badge info">資訊</span>10:00–17:00；週二、三休；可用藝術祭護照</td></tr>
+      <tr><td class="t">16:00</td><td>美人林（松之山）</td><td>40 分</td><td class="mv">車 20 分</td><td><span class="badge ok">免費</span>山毛櫸林，傍晚光線最好</td></tr>
+      <tr><td class="t">17:00</td><td>松之山溫泉 入住</td><td>—</td><td class="mv">車 15 分</td><td>泡湯、晚餐在旅館</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid">
+    <div class="card stay"><h4>住宿</h4><p>松之山溫泉。理由：緊鄰松代與美人林，隔天到清津峽約 50 分，可搶 8:30 開門。</p></div>
+    <div class="card planb"><h4>Plan B</h4><ul><li>大雨：戶外田野作品縮短，改看農舞台室內展。</li><li>體力不足：跳過美人林，提早入住。</li></ul></div>
+    <div class="card note"><h4>注意事項</h4><ul><li>開幕週末人潮大，作品停車場小，避免正午時段集中。</li><li>護照需在 7/16 前預售購買。</li></ul></div>
+  </div>
+</section>
+
+<!-- ================= D3 ================= -->
+<section class="panel" id="d3" role="tabpanel" aria-labelledby="tab-d3" hidden>
+  <h2><span class="num">DAY 3</span>清津峽 → 十日町 → 越後湯澤<span class="date">2027/07/19（一・海の日）</span></h2>
+  <p class="theme-line">國定假日，清津峽預約制機率極高；第一個時段進場人最少。</p>
+  <div class="map" data-map="d3"></div>
+  <div class="tbl"><table class="day">
+    <thead><tr><th>時間</th><th>地點</th><th>停留</th><th>移動</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td class="t">07:50</td><td>松之山出發</td><td>—</td><td class="mv">車 50 分</td><td>—</td></tr>
+      <tr><td class="t">08:40</td><td>清津峽溪谷隧道（光之隧道）</td><td>1.5 小時</td><td class="mv">—</td><td><span class="badge book">預約</span>8:30–17:00；大人 ¥1,200／小中 ¥500；免費停車場</td></tr>
+      <tr><td class="t">10:30</td><td>越後妻有里山現代美術館 MonET（十日町）</td><td>1.5 小時</td><td class="mv">車 40 分</td><td><span class="badge info">資訊</span>10:00–17:00；可用護照</td></tr>
+      <tr><td class="t">12:15</td><td>十日町午餐（へぎそば）</td><td>1 小時</td><td class="mv">步行／車 5 分</td><td>國定假日排隊，提早入店</td></tr>
+      <tr><td class="t">13:30</td><td>十日町市區作品（依當日地圖挑 1–2 件）</td><td>1 小時</td><td class="mv">車 10 分</td><td>選短時間、近停車場者</td></tr>
+      <tr><td class="t">15:00</td><td>前往越後湯澤</td><td>—</td><td class="mv">車 約 1 小時</td><td>—</td></tr>
+      <tr><td class="t">16:30</td><td>入住；越後湯澤站「ぽんしゅ館」</td><td>1 小時</td><td class="mv">步行</td><td>站內伴手禮、米食</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid">
+    <div class="card stay"><h4>住宿</h4><p>越後湯澤溫泉（站周邊）。理由：隔天湯澤高原纜車山麓站步行可達，免開車。</p></div>
+    <div class="card planb"><h4>Plan B</h4><ul><li>清津峽沒搶到預約：改 MonET 先行，十日町作品加量；清津峽列 D4 早上（週二是否為預約日需確認）。</li><li>大雨：隧道為室內，可照常；田野作品取消。</li></ul></div>
+    <div class="card note"><h4>注意事項</h4><ul><li>三連休最後一天，下午關越道上行塞車，本日行進方向不受影響。</li><li>清津峽第 1 停車場 18:00–翌 7:00 封閉。</li></ul></div>
+  </div>
+</section>
+
+<!-- ================= D4 ================= -->
+<section class="panel" id="d4" role="tabpanel" aria-labelledby="tab-d4" hidden>
+  <h2><span class="num">DAY 4</span>湯澤高原 → 水上<span class="date">2027/07/20（二）</span></h2>
+  <p class="theme-line">藝術祭週二休館，這天改玩高原與移動。</p>
+  <div class="map" data-map="d4"></div>
+  <div class="tbl"><table class="day">
+    <thead><tr><th>時間</th><th>地點</th><th>停留</th><th>移動</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td class="t">09:00</td><td>湯澤高原パノラマパーク（纜車）</td><td>3 小時</td><td class="mv">步行 10 分</td><td><span class="badge info">資訊</span>國中以上 ¥3,500／小學以下 ¥1,700；Summer Bobsleigh 小二以上可單人</td></tr>
+      <tr><td class="t">12:15</td><td>湯澤午餐</td><td>1 小時</td><td class="mv">步行</td><td>—</td></tr>
+      <tr><td class="t">13:30</td><td>關越道 → 水上</td><td>—</td><td class="mv">車 約 45 分</td><td>經關越隧道</td></tr>
+      <tr><td class="t">14:30</td><td>諏訪峽・笹笛橋散步</td><td>1 小時</td><td class="mv">—</td><td><span class="badge ok">免費</span>溪谷步道，熱天較涼</td></tr>
+      <tr><td class="t">16:00</td><td>水上溫泉 入住（連住 2 晚）</td><td>—</td><td class="mv">車 10 分</td><td>可洗衣整理行李</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid">
+    <div class="card stay"><h4>住宿</h4><p>水上溫泉（連住 2 晚）。理由：泛舟集合點與谷川岳纜車都在 25 分車程內，少一次搬行李。</p></div>
+    <div class="card planb"><h4>Plan B</h4><ul><li>山上起霧／雨：湯澤高原取消，上午逛溫泉街後提早前往水上。</li><li>體力不足：直接移動到水上休息。</li></ul></div>
+    <div class="card note"><h4>注意事項</h4><ul><li>2026 年湯澤高原夏季營運為 7/18–8/23；2027 年起始日需確認。</li><li>水遊び廣場需自備泳衣。</li></ul></div>
+  </div>
+</section>
+
+<!-- ================= D5 ================= -->
+<section class="panel" id="d5" role="tabpanel" aria-labelledby="tab-d5" hidden>
+  <h2><span class="num">DAY 5</span>水上 戶外日<span class="date">2027/07/21（三）</span></h2>
+  <p class="theme-line">全程最「動」的一天；兩個活動都受天氣影響，先看當天預報調整前後順序。</p>
+  <div class="map" data-map="d5"></div>
+  <div class="tbl"><table class="day">
+    <thead><tr><th>時間</th><th>地點</th><th>停留</th><th>移動</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td class="t">08:30</td><td>利根川泛舟（半日家庭團）</td><td>3–3.5 小時</td><td class="mv">車 10–15 分</td><td><span class="badge book">預約</span>7 月起多家收 6 歲／小學生；半日大人約 ¥6,000 起；集合點依業者</td></tr>
+      <tr><td class="t">12:30</td><td>午餐（水上站周邊）</td><td>1 小時</td><td class="mv">車 10 分</td><td>—</td></tr>
+      <tr><td class="t">14:00</td><td>谷川岳纜車 土合口 → 天神平</td><td>2 小時</td><td class="mv">車 20 分</td><td><span class="badge info">資訊</span>平日 8:00–17:00；大人 ¥3,000／小學生 ¥1,500</td></tr>
+      <tr><td class="t">14:30</td><td>天神平 展望台・1 小時周遊步道</td><td>（含上）</td><td class="mv">纜車 約 15 分</td><td>7 月中旬日光黃萓、高山花</td></tr>
+      <tr><td class="t">17:00</td><td>回飯店</td><td>—</td><td class="mv">車 20 分</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid">
+    <div class="card stay"><h4>住宿</h4><p>水上溫泉（續住）。</p></div>
+    <div class="card planb"><h4>Plan B</h4><ul><li>午後雷雨預報：纜車改上午、泛舟改下午場（需業者有下午團）。</li><li>河水過高泛舟取消：改月夜野玻璃工房體驗（營業日需確認）。</li></ul></div>
+    <div class="card note"><h4>注意事項</h4><ul><li>泛舟準備：泳衣當內層、防水涼鞋、毛巾、換洗衣物。</li><li>國中生多數業者依成人計價。</li></ul></div>
+  </div>
+</section>
+
+<!-- ================= D6 ================= -->
+<section class="panel" id="d6" role="tabpanel" aria-labelledby="tab-d6" hidden>
+  <h2><span class="num">DAY 6</span>水上 → 草津<span class="date">2027/07/22（四）</span></h2>
+  <p class="theme-line">海拔約 1,200 m，比平地涼；湯畑周邊步行即可。</p>
+  <div class="map" data-map="d6"></div>
+  <div class="tbl"><table class="day">
+    <thead><tr><th>時間</th><th>地點</th><th>停留</th><th>移動</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td class="t">09:30</td><td>水上出發 → 八ッ場水壩（途中停）</td><td>40 分</td><td class="mv">車 約 1 小時 20 分</td><td><span class="badge ok">免費</span>停車與展望免費，順路休息點</td></tr>
+      <tr><td class="t">11:30</td><td>→ 草津溫泉</td><td>—</td><td class="mv">車 30 分</td><td>停車場選湯畑周邊收費場</td></tr>
+      <tr><td class="t">12:00</td><td>湯畑・午餐</td><td>1.5 小時</td><td class="mv">步行</td><td><span class="badge ok">免費</span>湯畑本體</td></tr>
+      <tr><td class="t">13:30</td><td>西之河原公園・露天風呂</td><td>1.5 小時</td><td class="mv">步行 15 分</td><td><span class="badge info">資訊</span>7:00–20:00；大人 ¥800／小人 ¥400；無洗髮精，毛巾付費</td></tr>
+      <tr><td class="t">15:30</td><td>熱乃湯「湯もみと踊り」</td><td>30 分</td><td class="mv">步行 15 分</td><td>午後場 15:30／16:00／16:30；開演前 30 分售票</td></tr>
+      <tr><td class="t">16:30</td><td>旅館入住；晚間湯畑點燈</td><td>—</td><td class="mv">步行</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid">
+    <div class="card stay"><h4>住宿</h4><p>湯畑步行 5 分內、附貸切風呂的旅館。理由：國中生與異性家長無法同泡大浴場。備案：大滝乃湯貸切 60 分 ¥2,000（電話預約）。</p></div>
+    <div class="card planb"><h4>Plan B</h4><ul><li>雨天：西之河原改大滝乃湯（室內大浴場＋貸切，地圖灰色標記）。</li><li>體力不足：跳過八ッ場，直達草津。</li></ul></div>
+    <div class="card note"><h4>注意事項</h4><ul><li>西之河原週五 17:30 起為混浴日，本日週四不受影響。</li><li>強酸性泉，泡後沖淨飾品、避免泡太久。</li></ul></div>
+  </div>
+</section>
+
+<!-- ================= D7 ================= -->
+<section class="panel" id="d7" role="tabpanel" aria-labelledby="tab-d7" hidden>
+  <h2><span class="num">DAY 7</span>草津 → 北輕井澤 → 輕井澤<span class="date">2027/07/23（五）</span></h2>
+  <p class="theme-line">最後一天開車；下午在輕井澤站還車，晚上不用再碰車。</p>
+  <div class="map" data-map="d7"></div>
+  <div class="tbl"><table class="day">
+    <thead><tr><th>時間</th><th>地點</th><th>停留</th><th>移動</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td class="t">09:00</td><td>草津出發</td><td>—</td><td class="mv">車 50 分</td><td>—</td></tr>
+      <tr><td class="t">10:00</td><td>鬼押出し園（淺間山熔岩）</td><td>1 小時</td><td class="mv">—</td><td><span class="badge info">資訊</span>8:00–17:00；大人 ¥700／小孩 ¥500</td></tr>
+      <tr><td class="t">11:15</td><td>白絲瀑布</td><td>40 分</td><td class="mv">車 30 分</td><td>白糸ハイランドウェイ為收費道路</td></tr>
+      <tr><td class="t">12:30</td><td>榆樹街小鎮（ハルニレテラス）午餐</td><td>1.5 小時</td><td class="mv">車 15 分</td><td>停車場僅收現金</td></tr>
+      <tr><td class="t">14:30</td><td>輕井澤站 還車</td><td>20 分</td><td class="mv">車 15 分</td><td>還車前加滿油</td></tr>
+      <tr><td class="t">15:00</td><td>輕井澤王子購物廣場</td><td>2.5 小時</td><td class="mv">步行 3 分</td><td>10:00–19:00；草地區可讓小孩放電</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid">
+    <div class="card stay"><h4>住宿</h4><p>輕井澤站周邊。理由：已還車，隔天步行上新幹線。</p></div>
+    <div class="card planb"><h4>Plan B</h4><ul><li>淺間山警戒或大霧：跳過鬼押出し，草津直走國道到輕井澤。</li><li>雨天：購物廣場提前，白絲瀑布取消。</li></ul></div>
+    <div class="card note"><h4>注意事項</h4><ul><li>甲地乙還（新潟→長野跨縣）回送費需於訂車時確認。</li><li>輕井澤市區假日前夕傍晚塞車，還車時間預留餘裕。</li></ul></div>
+  </div>
+</section>
+
+<!-- ================= D8 ================= -->
+<section class="panel" id="d8" role="tabpanel" aria-labelledby="tab-d8" hidden>
+  <h2><span class="num">DAY 8</span>輕井澤 → 品川<span class="date">2027/07/24（六）</span></h2>
+  <p class="theme-line">早上趁人少走雲場池，中午回東京，下午留給品川自由時間。</p>
+  <div class="map" data-map="d8"></div>
+  <div class="tbl"><table class="day">
+    <thead><tr><th>時間</th><th>地點</th><th>停留</th><th>移動</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td class="t">08:30</td><td>雲場池</td><td>45 分</td><td class="mv">計程車 10 分</td><td><span class="badge ok">免費</span>週六 9 點後人潮湧入；夏季蚊多</td></tr>
+      <tr><td class="t">09:30</td><td>舊輕井澤銀座通</td><td>1.5 小時</td><td class="mv">步行 15 分</td><td>—</td></tr>
+      <tr><td class="t">11:15</td><td>回飯店取行李 → 輕井澤站</td><td>30 分</td><td class="mv">計程車 10 分</td><td>—</td></tr>
+      <tr><td class="t">12:15</td><td>北陸新幹線 → 東京</td><td>—</td><td class="mv">新幹線 約 1 小時 10 分</td><td><span class="badge book">預約</span>指定席約 ¥6,020（2026 改定前價格）</td></tr>
+      <tr><td class="t">13:30</td><td>東京 → 品川，入住</td><td>30 分</td><td class="mv">JR 10 分</td><td>—</td></tr>
+      <tr><td class="t">15:00</td><td>品川站周邊自由時間（水族館／購物）</td><td>3 小時</td><td class="mv">步行</td><td><span class="badge warn">確認</span>品川水族館營業時間</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid">
+    <div class="card stay"><h4>住宿</h4><p>品川站高輪口。理由：京急直達羽田約 15 分，最後一晚零轉乘。</p></div>
+    <div class="card planb"><h4>Plan B</h4><ul><li>雨天：取消雲場池，上午改王子購物廣場，提早一班新幹線。</li><li>體力不足：下午留在飯店休息、整理行李。</li></ul></div>
+    <div class="card note"><h4>注意事項</h4><ul><li>週六中午新幹線易滿，6/24 開賣即訂。</li><li>伴手禮可在東京站或羽田補買，不必在輕井澤一次買齊。</li></ul></div>
+  </div>
+</section>
+
+<!-- ================= D9 ================= -->
+<section class="panel" id="d9" role="tabpanel" aria-labelledby="tab-d9" hidden>
+  <h2><span class="num">DAY 9</span>回程<span class="date">2027/07/25（日）</span></h2>
+  <div class="map" data-map="d9"></div>
+  <div class="tbl"><table class="day">
+    <thead><tr><th>時間</th><th>地點</th><th>停留</th><th>移動</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td class="t">起飛 −3h</td><td>品川站 京急 → 羽田機場 第 3 航廈</td><td>—</td><td class="mv">京急 約 15 分</td><td>國際線起飛前 2.5 小時到</td></tr>
+      <tr><td class="t">起飛 −2.5h</td><td>報到、退稅、出境</td><td>—</td><td class="mv">—</td><td>依實際航班</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid">
+    <div class="card stay"><h4>住宿</h4><p>—</p></div>
+    <div class="card planb"><h4>Plan B</h4><p>京急異常：改搭機場利木津巴士或計程車（約 20–30 分）。</p></div>
+    <div class="card note"><h4>注意事項</h4><p>週日上午羽田出境人潮多，預留時間。</p></div>
+  </div>
+</section>
+
+<!-- ================= 行前 ================= -->
+<section class="panel" id="prep" role="tabpanel" aria-labelledby="tab-prep" hidden>
+  <h2><span class="num">PREP</span>行前準備清單</h2>
+
+  <h3>需預約項目</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>項目</th><th>日期</th><th>開放預約</th><th>狀態</th></tr></thead>
+    <tbody>
+      <tr><td>機票（羽田進出）</td><td class="t">7/17、7/25</td><td>已開放</td><td><span class="badge book">立即</span></td></tr>
+      <tr><td>住宿 8 晚（草津需貸切風呂）</td><td class="t">7/17–7/24</td><td>多數已開放</td><td><span class="badge book">立即</span></td></tr>
+      <tr><td>租車 新潟站→輕井澤站（甲地乙還）</td><td class="t">7/18–7/23</td><td>依租車公司</td><td><span class="badge warn">確認回送費</span></td></tr>
+      <tr><td>大地藝術祭護照（預售）</td><td class="t">7/18–19 使用</td><td>2027/02/28–07/16</td><td><span class="badge info">2 月開賣</span></td></tr>
+      <tr><td>清津峽溪谷隧道</td><td class="t">7/19 08:30</td><td>待官網公告</td><td><span class="badge warn">追蹤</span></td></tr>
+      <tr><td>水上泛舟半日家庭團</td><td class="t">7/21 上午</td><td>各業者（建議 5–6 月）</td><td><span class="badge book">預約</span></td></tr>
+      <tr><td>上越新幹線 東京→新潟</td><td class="t">7/17</td><td>2027/06/17 10:00</td><td><span class="badge book">預約</span></td></tr>
+      <tr><td>北陸新幹線 輕井澤→東京</td><td class="t">7/24</td><td>2027/06/24 10:00</td><td><span class="badge book">預約</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>交通 Pass 試算（每位大人）</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>方案</th><th>內容</th><th class="num-r">金額</th><th>結論</th></tr></thead>
+    <tbody>
+      <tr><td>單買</td><td>東京→新潟 指定 ¥11,180（繁忙期）＋輕井澤→東京 指定 約 ¥6,020</td><td class="num-r">≈ ¥17,200</td><td><span class="badge ok">採用</span></td></tr>
+      <tr><td>單買＋トクだ値14</td><td>東京→新潟 ¥7,530（14 天前，名額有限）＋輕井澤→東京</td><td class="num-r">≈ ¥13,550</td><td>可搶則更省</td></tr>
+      <tr><td>JR EAST PASS 5 日</td><td>連續 5 日；兩段新幹線相隔 8 天，5 日券無法同時涵蓋</td><td class="num-r">¥35,000</td><td>不划算</td></tr>
+      <tr><td>JR EAST PASS 10 日</td><td>可涵蓋兩段，但中段自駕不用 JR</td><td class="num-r">¥50,000</td><td>不划算</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><p>全家（3 位大人票＋1 位兒童票）單買新幹線合計約 <b>¥60,000</b>；Pass 方案最低也要 ¥120,000 以上。結論：<b>單買，能搶トクだ値就搶</b>。</p></div>
+
+  <h3>主要門票估算（2 大＋國中生＋小學生）</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>項目</th><th>單價</th><th class="num-r">全家</th></tr></thead>
+    <tbody>
+      <tr><td>大地藝術祭護照（預售）</td><td>一般 ¥4,000／小中 ¥1,000</td><td class="num-r">¥10,000</td></tr>
+      <tr><td>清津峽溪谷隧道</td><td>大人 ¥1,200／小中 ¥500</td><td class="num-r">¥3,400</td></tr>
+      <tr><td>マリンピア日本海</td><td>大人 ¥1,500／小中 ¥600</td><td class="num-r">¥4,200</td></tr>
+      <tr><td>湯澤高原パノラマパーク</td><td>國中以上 ¥3,500／小學以下 ¥1,700</td><td class="num-r">¥12,200</td></tr>
+      <tr><td>水上泛舟（估）</td><td>大人約 ¥6,000／小學生約 ¥5,000</td><td class="num-r">≈ ¥23,000</td></tr>
+      <tr><td>谷川岳纜車</td><td>大人 ¥3,000／小學生 ¥1,500</td><td class="num-r">¥10,500</td></tr>
+      <tr><td>西之河原露天風呂</td><td>大人 ¥800／小人 ¥400</td><td class="num-r">≈ ¥2,800</td></tr>
+      <tr><td>鬼押出し園</td><td>大人 ¥700／小孩 ¥500</td><td class="num-r">≈ ¥2,600</td></tr>
+      <tr><td><b>合計</b></td><td>不含交通、住宿、餐飲</td><td class="num-r"><b>≈ ¥68,700</b></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>裝備提醒（7 月下旬）</h3>
+  <ul class="plain">
+    <li><b>雙溫層衣物：</b>平地 30°C 以上、草津與天神平約低 8–10°C，帶薄外套。</li>
+    <li><b>雨具：</b>山區午後雷陣雨常見，輕便雨衣比傘好用（藝術祭田野作品多在戶外）。</li>
+    <li><b>泛舟：</b>泳衣、防水涼鞋（腳跟有扣帶）、毛巾、整套換洗衣物、防水手機袋。</li>
+    <li><b>防蚊防曬：</b>美人林、田野作品、溪谷步道、雲場池蚊蟲多。</li>
+    <li><b>溫泉：</b>自備毛巾（西之河原付費）、沐浴用品。</li>
+    <li><b>自駕：</b>台灣駕照正本＋日文譯本、ETC 卡（租車加購）、手機車架；榆樹街停車場備零錢。</li>
+  </ul>
+</section>
+
+<!-- ================= 風險 ================= -->
+<section class="panel" id="risk" role="tabpanel" aria-labelledby="tab-risk" hidden>
+  <h2><span class="num">RISK</span>已知風險與假設</h2>
+  <h3>本次規劃假設</h3>
+  <ul class="plain">
+    <li>航班：7/17 約 12:00 抵羽田、7/25 下午起飛（未定航班）。</li>
+    <li>成員：2 大人＋國中生（12 歲以上，JR 與多數設施以大人計，藝術祭護照以小中學生計）＋小學生（6–11 歲）。若老大已是高中生，護照改一般價，全家多 ¥3,000。</li>
+    <li>中段自駕，新潟站取車、輕井澤站還車；駕照以台灣駕照＋日文譯本。</li>
+    <li>大地藝術祭第 10 屆會期 2027/07/17–11/07，週二、三休（8/10、8/11、11/3 除外）。</li>
+    <li>各設施票價沿用 2025–2026 公開資訊，2027 年可能調整。</li>
+    <li>地圖座標以 Google 地點資料查證（2026/10/13）；地圖上的路線為站點間示意直線，非實際道路。</li>
+  </ul>
+  <h3>風險與對策</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>風險</th><th>影響</th><th>對策</th></tr></thead>
+    <tbody>
+      <tr><td>海の日三連休＋藝術祭開幕重疊</td><td>D1–D3 住宿難訂、作品與清津峽排隊</td><td>住宿立即訂；清津峽搶 8:30 頭班；作品避開正午</td></tr>
+      <tr><td>藝術祭週二、三休</td><td>D4、D5 無法看作品</td><td>已將藝術祭排在 D2（日）、D3（一）</td></tr>
+      <tr><td>甲地乙還回送費</td><td>新潟→長野跨縣，費用未知</td><td>訂車時多家比價；替代：越後湯澤取車可縮短一段</td></tr>
+      <tr><td>山區午後雷雨</td><td>纜車、泛舟、高原中止</td><td>戶外排上午；各日 Plan B</td></tr>
+      <tr><td>淺間山火山警戒等級</td><td>鬼押出し周邊交通</td><td>出發前查氣象廳警戒等級</td></tr>
+      <tr><td>2026 年 3 月 JR 東日本運賃改定</td><td>北陸新幹線價格可能高於表列</td><td>開賣時以實價為準</td></tr>
+    </tbody>
+  </table></div>
+  <h3>需自行確認</h3>
+  <ul class="plain">
+    <li><span class="badge warn">確認</span>清津峽 2027/07/19 是否為預約制及開放預約日期。</li>
+    <li><span class="badge warn">確認</span>湯澤高原パノラマパーク 2027 年夏季營運起始日（2026 年為 7/18）。</li>
+    <li><span class="badge warn">確認</span>新潟→輕井澤甲地乙還回送費（各租車公司）。</li>
+    <li><span class="badge warn">確認</span>輕井澤→東京 新幹線 2026 改定後票價。</li>
+    <li><span class="badge warn">確認</span>泛舟業者接受的最低年齡、國中生計價方式與集合點。</li>
+    <li><span class="badge warn">確認</span>大滝乃湯貸切風呂營業時間與預約方式；西之河原國中生票價。</li>
+    <li><span class="badge warn">確認</span>MonET、農舞台 2027 藝術祭期間開館時間與護照適用範圍。</li>
+    <li><span class="badge warn">確認</span>D1、D3 晚餐店家及 D8 品川水族館的營業日與時間。</li>
+  </ul>
+</section>
+</main>
+
+<footer class="wrap">
+  <b>資料來源（查證日 2026/10/13）</b>
+  <ol>
+    <li>大地の芸術祭 官方公告：第 10 回展會期與護照 — echigo-tsumari.jp/news/20261008/</li>
+    <li>新潟縣觀光協會：清津峽溪谷隧道、マリンピア日本海、湯澤高原パノラマパーク</li>
+    <li>谷川岳纜車 2026 資訊整理 — kaibutsu-blog.com</li>
+    <li>JR 東日本 Media：西之河原露天風呂、熱乃湯湯もみ秀；Jorudan 溫泉：西之河原入浴料</li>
+    <li>tabiris：東京–新潟新幹線 2026 票價；jr-shinkansen.net：東京–輕井澤票價</li>
+    <li>Travel Voice：JR EAST PASS 2026 年 3 月新制價格</li>
+    <li>nap-camp：みなかみ泛舟年齡與價格；るるぶ：鬼押出し園；いこーよ：大滝乃湯貸切</li>
+    <li>地點座標：Google 地點資料（Google Maps）</li>
+  </ol>
+  <p>v1.1 越後・上州版（分頁＋離線互動地圖）・產出日 2026/10/13</p>
+</footer>
+
+<script>
+(function(){
+"use strict";
+/* ================= theme ================= */
+var root=document.documentElement, themeBtn=document.getElementById('themeBtn');
+function sysDark(){return !!(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches);}
+function curTheme(){var t=root.getAttribute('data-theme');return t?t:(sysDark()?'dark':'light');}
+function paintTheme(){var c=curTheme();themeBtn.textContent=c==='dark'?'淺色':'深色';themeBtn.setAttribute('aria-pressed',String(c==='dark'));}
+try{var sv=localStorage.getItem('ng27-theme');if(sv==='dark'||sv==='light')root.setAttribute('data-theme',sv);}catch(e){}
+themeBtn.addEventListener('click',function(){var n=curTheme()==='dark'?'light':'dark';root.setAttribute('data-theme',n);try{localStorage.setItem('ng27-theme',n);}catch(e){}paintTheme();});
+if(window.matchMedia)matchMedia('(prefers-color-scheme: dark)').addEventListener('change',paintTheme);
+paintTheme();
+
+/* ================= places（座標：Google 地點資料，2026/10/13 查證） ================= */
+// k: tr 交通 / sight 景點 / stay 住宿 / act 活動・溫泉 / alt 備案
+var PL={
+  hnd:{n:"羽田機場 第3航廈",jp:"羽田空港第3ターミナル",ll:[35.5455,139.7687],k:"tr",note:"國際線航廈；京急、利木津巴士"},
+  tokyo:{n:"東京站（八重洲）",jp:"東京駅",ll:[35.6808,139.7681],k:"tr",note:"上越／北陸新幹線"},
+  niigata:{n:"新潟站",jp:"新潟駅",ll:[37.9120,139.0618],k:"stay",note:"D1 住宿、D2 取車"},
+  bandai:{n:"萬代橋",jp:"萬代橋 新潟市",ll:[37.9195,139.0532],k:"sight",note:"免費；信濃川畔傍晚散步"},
+  marinepia:{n:"新潟市水族館",jp:"新潟市水族館マリンピア日本海",ll:[37.9237,139.0280],k:"sight",note:"9:00–17:00；海豚秀時段週末不同"},
+  nobutai:{n:"まつだい農舞台",jp:"まつだい農舞台",ll:[37.1316,138.6150],k:"sight",note:"10:00–17:00；週二、三休；藝術祭據點"},
+  bijin:{n:"美人林",jp:"美人林 十日町市松之山",ll:[37.1010,138.6197],k:"sight",note:"免費；山毛櫸林"},
+  matsunoyama:{n:"松之山溫泉",jp:"松之山温泉",ll:[37.0647,138.5991],k:"stay",note:"D2 住宿"},
+  kiyotsu:{n:"清津峽溪谷隧道",jp:"清津峡渓谷トンネル",ll:[36.9725,138.7499],k:"sight",note:"8:30–17:00；假日預約制；免費停車"},
+  monet:{n:"MonET 美術館",jp:"越後妻有里山現代美術館 MonET",ll:[37.1389,138.7599],k:"sight",note:"10:00–17:00；週二、三休"},
+  yuzawa:{n:"越後湯澤站",jp:"越後湯沢駅",ll:[36.9360,138.8096],k:"stay",note:"D3 住宿；站內ぽんしゅ館"},
+  ropeyz:{n:"湯澤高原纜車 山麓站",jp:"湯沢高原ロープウェイ 山麓駅",ll:[36.9401,138.8041],k:"act",note:"夏季營運（2026：7/18–8/23）"},
+  suwakyo:{n:"諏訪峽",jp:"諏訪峡 みなかみ町",ll:[36.7600,138.9729],k:"sight",note:"免費溪谷步道"},
+  minakami:{n:"水上站・水上溫泉",jp:"水上駅",ll:[36.7786,138.9688],k:"stay",note:"D4、D5 住宿；泛舟集合點依業者"},
+  doai:{n:"谷川岳纜車 土合口站",jp:"谷川岳ロープウェイ 土合口駅",ll:[36.8364,138.9620],k:"act",note:"平日 8:00–17:00；停車場收費"},
+  tenjin:{n:"天神平",jp:"天神平駅 谷川岳ロープウェイ",ll:[36.8182,138.9497],k:"sight",note:"展望台、1 小時周遊步道"},
+  yamba:{n:"八ッ場水壩",jp:"八ッ場ダム",ll:[36.5576,138.7141],k:"sight",note:"免費停車；遊客中心有足湯"},
+  yubatake:{n:"湯畑",jp:"湯畑 草津温泉",ll:[36.6230,138.5967],k:"stay",note:"D6 住宿圈；夜間點燈"},
+  sainokawara:{n:"西之河原露天風呂",jp:"西の河原露天風呂",ll:[36.6243,138.5884],k:"act",note:"7:00–20:00；大人 ¥800；週五晚混浴日"},
+  netsunoyu:{n:"熱乃湯",jp:"熱乃湯 草津",ll:[36.6227,138.5963],k:"sight",note:"湯もみ秀 15:30／16:00／16:30"},
+  otaki:{n:"大滝乃湯（雨備）",jp:"大滝乃湯 草津",ll:[36.6229,138.6015],k:"alt",note:"9:00–21:00；貸切 60 分 ¥2,000"},
+  onioshi:{n:"鬼押出し園",jp:"鬼押出し園",ll:[36.4448,138.5371],k:"sight",note:"8:00–17:00；大人 ¥700"},
+  shiraito:{n:"白絲瀑布",jp:"白糸の滝 軽井沢",ll:[36.4103,138.5926],k:"sight",note:"免費；收費道路前往"},
+  harunire:{n:"榆樹街小鎮",jp:"ハルニレテラス",ll:[36.3593,138.5903],k:"sight",note:"午餐；停車場僅收現金"},
+  karuizawa:{n:"輕井澤站",jp:"軽井沢駅",ll:[36.3426,138.6353],k:"stay",note:"D7 還車、住宿；北陸新幹線"},
+  prince:{n:"王子購物廣場",jp:"軽井沢・プリンスショッピングプラザ",ll:[36.3410,138.6331],k:"sight",note:"10:00–19:00；站南口旁"},
+  kumoba:{n:"雲場池",jp:"雲場池",ll:[36.3523,138.6270],k:"sight",note:"免費；早上人少"},
+  kyukaru:{n:"舊輕井澤銀座",jp:"旧軽井沢銀座通り",ll:[36.3575,138.6343],k:"sight",note:"商店街，週末人多"},
+  shinagawa:{n:"品川站",jp:"品川駅",ll:[35.6285,139.7388],k:"stay",note:"D8 住宿；京急直達羽田"}
+};
+var KLAB={tr:"交通",sight:"景點",stay:"住宿",act:"活動・溫泉",alt:"備案"};
+var SEGLAB={car:"開車／巴士",rail:"鐵路",walk:"步行",rope:"纜車"};
+// mode: driving / transit / walking（導航用）
+var MAPS={
+  overview:{mode:"driving",
+    stops:[["hnd","✈"],["tokyo",""],["niigata","1"],["matsunoyama","2"],["kiyotsu",""],["yuzawa","3"],["minakami","4"],["yubatake","6"],["onioshi",""],["karuizawa","7"],["shinagawa","8"]],
+    seg:[["car",["hnd","tokyo"]],["rail",["tokyo","niigata"]],["car",["niigata","matsunoyama","kiyotsu","yuzawa","minakami","yamba","yubatake","onioshi","karuizawa"]],["rail",["karuizawa","tokyo","shinagawa","hnd"]]],
+    labels:{minakami:"4·5"},
+    note:"數字＝第幾晚的住宿；點標記可開啟 Google／Apple 地圖。"},
+  d1:{mode:"transit",stops:["hnd","tokyo","niigata","bandai"],
+    seg:[["car",["hnd","tokyo"]],["rail",["tokyo","niigata"]],["walk",["niigata","bandai"]]]},
+  d2:{mode:"driving",stops:["niigata","marinepia","nobutai","bijin","matsunoyama"],
+    seg:[["car",["niigata","marinepia","nobutai","bijin","matsunoyama"]]]},
+  d3:{mode:"driving",stops:["matsunoyama","kiyotsu","monet","yuzawa"],
+    seg:[["car",["matsunoyama","kiyotsu","monet","yuzawa"]]]},
+  d4:{mode:"driving",stops:["yuzawa","ropeyz","suwakyo","minakami"],
+    seg:[["walk",["yuzawa","ropeyz"]],["car",["ropeyz","suwakyo","minakami"]]]},
+  d5:{mode:"driving",stops:["minakami","doai","tenjin"],
+    seg:[["car",["minakami","doai"]],["rope",["doai","tenjin"]]],
+    note:"泛舟集合點依業者而定，未標於地圖。"},
+  d6:{mode:"driving",stops:["minakami","yamba","yubatake","sainokawara","netsunoyu","otaki"],
+    seg:[["car",["minakami","yamba","yubatake"]],["walk",["yubatake","sainokawara","netsunoyu"]]]},
+  d7:{mode:"driving",stops:["yubatake","onioshi","shiraito","harunire","karuizawa","prince"],
+    seg:[["car",["yubatake","onioshi","shiraito","harunire","karuizawa"]],["walk",["karuizawa","prince"]]]},
+  d8:{mode:"transit",stops:["kumoba","kyukaru","karuizawa","tokyo","shinagawa"],
+    seg:[["car",["kumoba","kyukaru","karuizawa"]],["rail",["karuizawa","tokyo","shinagawa"]]]},
+  d9:{mode:"transit",stops:["shinagawa","hnd"],seg:[["rail",["shinagawa","hnd"]]]}
+};
+
+/* ================= map component (offline SVG) ================= */
+var NS="http://www.w3.org/2000/svg";
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function links(p,mode){
+  var q=encodeURIComponent(p.jp), la=p.ll[0], lo=p.ll[1];
+  var af={driving:"d",transit:"r",walking:"w"}[mode]||"d";
+  return {
+    gv:"https://www.google.com/maps/search/?api=1&query="+q,
+    gd:"https://www.google.com/maps/dir/?api=1&destination="+q+"&travelmode="+mode,
+    av:"https://maps.apple.com/?q="+q+"&ll="+la+","+lo+"&z=16",
+    ad:"https://maps.apple.com/?daddr="+q+"&ll="+la+","+lo+"&dirflg="+af
+  };
+}
+var GRID=[1,0.5,0.2,0.1,0.05,0.02,0.01,0.005,0.002,0.001,0.0005];
+var KM=[200,100,50,20,10,5,2,1,0.5,0.2,0.1,0.05];
+
+function MapView(el,key){
+  var cfg=MAPS[key], self=this;
+  this.el=el; this.cfg=cfg; this.fitted=false; this.sel=null;
+  // normalize stops
+  var stops=[], n=0;
+  cfg.stops.forEach(function(s){
+    var id=Array.isArray(s)?s[0]:s, lab;
+    if(Array.isArray(s)) lab=s[1]; else { n++; lab=String(n); }
+    if(cfg.labels&&cfg.labels[id]) lab=cfg.labels[id];
+    stops.push({id:id,lab:lab,p:PL[id]});
+  });
+  this.stops=stops;
+  var lats=stops.map(function(s){return s.p.ll[0];});
+  this.lat0=(Math.min.apply(null,lats)+Math.max.apply(null,lats))/2;
+  this.cos=Math.cos(this.lat0*Math.PI/180);
+  // DOM
+  var kinds={}; stops.forEach(function(s){kinds[s.p.k]=1;});
+  var segk={}; cfg.seg.forEach(function(s){segk[s[0]]=1;});
+  var lg='';
+  Object.keys(segk).forEach(function(k){lg+='<span><svg viewBox="0 0 30 10" aria-hidden="true"><line class="seg seg-'+k+'" x1="2" y1="5" x2="28" y2="5"/></svg>'+SEGLAB[k]+'</span>';});
+  ["tr","sight","act","stay","alt"].forEach(function(k){if(kinds[k])lg+='<span><i class="k-'+k+'"></i>'+KLAB[k]+'</span>';});
+  lg+='<span>路線為示意直線・拖曳平移、滾輪／雙指縮放</span>';
+  var chips='';
+  stops.forEach(function(s,i){chips+='<button type="button" class="chip" data-i="'+i+'" aria-pressed="false"><span class="n k-'+s.p.k+'">'+(s.lab?esc(s.lab):'·')+'</span>'+esc(s.p.n)+'</button>';});
+  el.innerHTML='<div class="stage"><svg role="img" aria-label="'+(key==='overview'?'全程路線':'當日路線')+'地圖"></svg>'+
+    '<div class="ctl"><button type="button" data-z="in" aria-label="放大">＋</button><button type="button" data-z="out" aria-label="縮小">－</button><button type="button" data-z="fit" aria-label="顯示全部">⤢</button></div></div>'+
+    '<div class="lg">'+lg+'</div><div class="chips">'+chips+'</div>'+
+    '<div class="info" aria-live="polite"><p class="empty">點選地圖標記或上方地點，開啟 Google／Apple 地圖與導航。</p></div>'+
+    (cfg.note?'<div class="note-s">'+esc(cfg.note)+'</div>':'');
+  this.svg=el.querySelector('svg'); this.info=el.querySelector('.info');
+  // controls
+  el.querySelector('.ctl').addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b)return;
+    var z=b.getAttribute('data-z');
+    if(z==='fit'){self.fit();return;}
+    self.zoomAt(self.W/2,self.H/2,z==='in'?1.6:1/1.6);
+  });
+  el.querySelector('.chips').addEventListener('click',function(e){
+    var b=e.target.closest('.chip'); if(!b)return;
+    self.select(+b.getAttribute('data-i'),true);
+  });
+  // pointer
+  var pts={}, downI=null, moved=false, last=null, pinch=null;
+  var svg=this.svg;
+  function pos(e){var r=svg.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};}
+  svg.addEventListener('pointerdown',function(e){
+    svg.setPointerCapture(e.pointerId);
+    pts[e.pointerId]=pos(e);
+    var ids=Object.keys(pts);
+    if(ids.length===1){moved=false;last=pts[e.pointerId];var g=e.target.closest('.mk');downI=g?+g.getAttribute('data-i'):null;}
+    if(ids.length===2){var a=pts[ids[0]],b=pts[ids[1]];pinch={d:Math.hypot(a.x-b.x,a.y-b.y)};moved=true;}
+    svg.classList.add('dragging');
+  });
+  svg.addEventListener('pointermove',function(e){
+    if(!pts[e.pointerId])return;
+    pts[e.pointerId]=pos(e);
+    var ids=Object.keys(pts);
+    if(ids.length===1&&last){
+      var p=pts[e.pointerId], dx=p.x-last.x, dy=p.y-last.y;
+      if(Math.abs(dx)+Math.abs(dy)>3)moved=true;
+      if(moved){self.cx-=dx/self.k;self.cy-=dy/self.k;last=p;self.render();}
+    } else if(ids.length===2&&pinch){
+      var a=pts[ids[0]],b=pts[ids[1]],d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(pinch.d>0){self.zoomAt((a.x+b.x)/2,(a.y+b.y)/2,d/pinch.d);}
+      pinch.d=d;
+    }
+  });
+  function up(e){
+    if(!pts[e.pointerId])return;
+    delete pts[e.pointerId];
+    var ids=Object.keys(pts);
+    if(ids.length===0){svg.classList.remove('dragging');if(!moved&&downI!==null)self.select(downI,false);downI=null;pinch=null;last=null;}
+    else if(ids.length===1){pinch=null;last=pts[ids[0]];}
+  }
+  svg.addEventListener('pointerup',up); svg.addEventListener('pointercancel',up);
+  svg.addEventListener('wheel',function(e){e.preventDefault();var p=pos(e);self.zoomAt(p.x,p.y,Math.exp(-e.deltaY*0.0018));},{passive:false});
+  svg.addEventListener('keydown',function(e){});
+  if(window.ResizeObserver){new ResizeObserver(function(){self.ensure();}).observe(el);}
+}
+MapView.prototype.X=function(ll){return ll[1]*this.cos;};
+MapView.prototype.Y=function(ll){return -ll[0];};
+MapView.prototype.size=function(){var r=this.svg.getBoundingClientRect();this.W=r.width;this.H=r.height;return this.W>0&&this.H>0;};
+MapView.prototype.ensure=function(){
+  if(!this.size())return;
+  if(!this.fitted)this.fit(); else this.render();
+};
+MapView.prototype.fit=function(){
+  if(!this.size())return;
+  var self=this, xs=[], ys=[];
+  this.stops.forEach(function(s){xs.push(self.X(s.p.ll));ys.push(self.Y(s.p.ll));});
+  var x0=Math.min.apply(null,xs),x1=Math.max.apply(null,xs),y0=Math.min.apply(null,ys),y1=Math.max.apply(null,ys);
+  var padX=Math.min(110,this.W*0.22), padY=48;
+  var dx=Math.max(x1-x0,0.002), dy=Math.max(y1-y0,0.002);
+  this.k=Math.min((this.W-2*padX)/dx,(this.H-2*padY)/dy);
+  this.k=Math.min(this.k,90000);
+  this.kmin=this.k*0.4; this.kmax=400000;
+  this.cx=(x0+x1)/2; this.cy=(y0+y1)/2;
+  this.fitted=true; this.render();
+};
+MapView.prototype.zoomAt=function(sx,sy,f){
+  var nk=Math.max(this.kmin,Math.min(this.kmax,this.k*f));
+  var ux=this.cx+(sx-this.W/2)/this.k, uy=this.cy+(sy-this.H/2)/this.k;
+  this.k=nk; this.cx=ux-(sx-this.W/2)/nk; this.cy=uy-(sy-this.H/2)/nk;
+  this.render();
+};
+MapView.prototype.sx=function(ll){return (this.X(ll)-this.cx)*this.k+this.W/2;};
+MapView.prototype.sy=function(ll){return (this.Y(ll)-this.cy)*this.k+this.H/2;};
+MapView.prototype.render=function(){
+  if(!this.W)return;
+  var self=this, W=this.W, H=this.H, k=this.k, out=[];
+  // grid (degrees)
+  var stepLat=GRID[GRID.length-1];
+  for(var i=0;i<GRID.length;i++){if(GRID[i]*k<90){stepLat=GRID[Math.max(0,i-1)];break;}}
+  var latTop=-(this.cy-H/2/k), latBot=-(this.cy+H/2/k);
+  var lngL=(this.cx-W/2/k)/this.cos, lngR=(this.cx+W/2/k)/this.cos;
+  var dec=stepLat>=1?0:stepLat>=0.1?1:stepLat>=0.01?2:stepLat>=0.001?3:4;
+  for(var la=Math.ceil(latBot/stepLat)*stepLat;la<=latTop;la+=stepLat){
+    var y=this.sy([la,0]); out.push('<line class="g-line" x1="0" x2="'+W+'" y1="'+y.toFixed(1)+'" y2="'+y.toFixed(1)+'"/><text class="g-lab" x="6" y="'+(y-3).toFixed(1)+'">'+la.toFixed(dec)+'°N</text>');
+  }
+  var stepLng=stepLat;
+  for(var lo=Math.ceil(lngL/stepLng)*stepLng;lo<=lngR;lo+=stepLng){
+    var x=this.sx([0,lo]); out.push('<line class="g-line" y1="0" y2="'+H+'" x1="'+x.toFixed(1)+'" x2="'+x.toFixed(1)+'"/><text class="g-lab" x="'+(x+3).toFixed(1)+'" y="'+(H-6)+'">'+lo.toFixed(dec)+'°E</text>');
+  }
+  // segments
+  this.cfg.seg.forEach(function(s){
+    var d=s[1].map(function(id){var p=PL[id].ll;return self.sx(p).toFixed(1)+','+self.sy(p).toFixed(1);}).join(' ');
+    out.push('<polyline class="seg seg-'+s[0]+'" points="'+d+'"/>');
+  });
+  // markers + greedy label placement (selected first, then visit order)
+  var items=this.stops.map(function(s,i){var x=self.sx(s.p.ll),y=self.sy(s.p.ll),r=s.lab?11:5;return{s:s,i:i,x:x,y:y,r:r};})
+    .filter(function(m){return m.x>-200&&m.x<W+200&&m.y>-60&&m.y<H+60;});
+  // dodge overlapping circles (keep true position via leader line)
+  items.forEach(function(m,ix){m.ox=m.x;m.oy=m.y;
+    for(var pass=0;pass<6;pass++){var moved=false;
+      for(var q=0;q<ix;q++){var o=items[q],dx=m.x-o.x,dy=m.y-o.y,d=Math.hypot(dx,dy),need=m.r+o.r+3;
+        if(d<need){if(d<0.5){dx=1;dy=-1;d=Math.SQRT2;}m.x=o.x+dx/d*need;m.y=o.y+dy/d*need;moved=true;}}
+      if(!moved)break;}
+  });
+  var boxes=items.map(function(m){return[m.x-m.r,m.y-m.r,m.x+m.r,m.y+m.r,m.i];});
+  function tw(t){var w=0;for(var c=0;c<t.length;c++)w+=t.charCodeAt(c)>255?12.5:7;return w;}
+  function hit(b,self_i){for(var q=0;q<boxes.length;q++){var o=boxes[q];if(o[4]===self_i&&o.length===5)continue;if(b[0]<o[2]&&b[2]>o[0]&&b[1]<o[3]&&b[3]>o[1])return true;}return b[0]<0||b[2]>W||b[1]<0||b[3]>H;}
+  var orderIdx=items.slice().sort(function(a,b){return (b.i===self.sel)-(a.i===self.sel)||a.i-b.i;});
+  var labPos={};
+  orderIdx.forEach(function(m){
+    var w=tw(m.s.p.n), h=15, g=m.r+5, cand=[
+      [m.x+g,m.y-h/2,'start',m.x+g,m.y+4],
+      [m.x-g-w,m.y-h/2,'end',m.x-g,m.y+4],
+      [m.x-w/2,m.y-m.r-4-h,'middle',m.x,m.y-m.r-7],
+      [m.x-w/2,m.y+m.r+3,'middle',m.x,m.y+m.r+15]];
+    for(var c=0;c<cand.length;c++){var b=[cand[c][0],cand[c][1],cand[c][0]+w,cand[c][1]+h,-1,0];
+      if(!hit(b,m.i)){boxes.push(b);labPos[m.i]=cand[c];return;}}
+    if(m.i===self.sel){labPos[m.i]=cand[0];}
+  });
+  var drawn=items.slice().sort(function(a,b){return (a.i===self.sel)-(b.i===self.sel);});
+  var leads=[], mkStart=out.length;
+  drawn.forEach(function(m){
+    var s=m.s,i=m.i,x=m.x.toFixed(1),y=m.y.toFixed(1),r=m.r,sel=self.sel===i,lp=labPos[i];
+    var lead=Math.hypot(m.x-m.ox,m.y-m.oy)>1?'<line class="seg seg-walk" style="stroke-dasharray:none;stroke-width:1" x1="'+m.ox.toFixed(1)+'" y1="'+m.oy.toFixed(1)+'" x2="'+x+'" y2="'+y+'"/><circle cx="'+m.ox.toFixed(1)+'" cy="'+m.oy.toFixed(1)+'" r="2" class="k-'+s.p.k+'"/>':'';
+    if(lead)leads.push(lead);
+    out.push('<g class="mk'+(sel?' sel':'')+'" data-i="'+i+'">'+
+      '<circle cx="'+x+'" cy="'+y+'" r="'+(r+10)+'" fill="transparent"/>'+
+      (sel?'<circle class="ring" cx="'+x+'" cy="'+y+'" r="'+(r+5)+'"/>':'')+
+      '<circle class="d k-'+s.p.k+'" cx="'+x+'" cy="'+y+'" r="'+r+'"/>'+
+      (s.lab?'<text class="num" x="'+x+'" y="'+y+'"'+(s.lab.length>2?' style="font-size:9px"':'')+'>'+esc(s.lab)+'</text>':'')+
+      (lp?'<text class="lab" x="'+lp[3].toFixed(1)+'" y="'+lp[4].toFixed(1)+'" text-anchor="'+lp[2]+'">'+esc(s.p.n)+'</text>':'')+'</g>');
+  });
+  Array.prototype.splice.apply(out,[mkStart,0].concat(leads));
+  // scale bar
+  var kmPerPx=111.32/k, target=110, km=KM[KM.length-1];
+  for(var j=0;j<KM.length;j++){if(KM[j]/kmPerPx<=target){km=KM[j];break;}}
+  var px=km/kmPerPx, by=H-26;
+  out.push('<path class="sc-bar" d="M12 '+(by-5)+' V'+by+' H'+(12+px).toFixed(1)+' V'+(by-5)+'"/><text class="sc-lab" x="'+(16+px).toFixed(1)+'" y="'+(by+1)+'">'+(km<1?(km*1000)+' m':km+' km')+'</text>');
+  out.push('<text class="n-arrow" x="'+(W-36)+'" y="148">N↑</text>');
+  this.svg.innerHTML=out.join('');
+};
+MapView.prototype.select=function(i,center){
+  var s=this.stops[i]; this.sel=i;
+  if(center){this.k=Math.max(this.k,Math.min(this.kmax,60000));this.cx=this.X(s.p.ll);this.cy=this.Y(s.p.ll);}
+  this.render();
+  this.el.querySelectorAll('.chip').forEach(function(c){c.setAttribute('aria-pressed',String(+c.getAttribute('data-i')===i));});
+  var L=links(s.p,this.cfg.mode);
+  this.info.innerHTML='<h4>'+esc(s.p.n)+'</h4><div class="jp">'+esc(s.p.jp)+'・'+s.p.ll[0].toFixed(4)+', '+s.p.ll[1].toFixed(4)+'</div><div class="note">'+esc(s.p.note)+'</div>'+
+    '<div class="acts"><a class="mbtn go" href="'+L.gd+'" target="_blank" rel="noopener">Google 導航</a><a class="mbtn go" href="'+L.ad+'" target="_blank" rel="noopener">Apple 導航</a>'+
+    '<a class="mbtn" href="'+L.gv+'" target="_blank" rel="noopener">Google 地圖</a><a class="mbtn" href="'+L.av+'" target="_blank" rel="noopener">Apple 地圖</a></div>';
+};
+
+var maps={};
+document.querySelectorAll('.map[data-map]').forEach(function(el){var k=el.getAttribute('data-map');maps[k]=new MapView(el,k);});
+
+/* ================= tabs ================= */
+var tabs=[].slice.call(document.querySelectorAll('.tab')), order=tabs.map(function(t){return t.getAttribute('data-p');});
+var TITLES={overview:"總覽",d1:"D1 7/17",d2:"D2 7/18",d3:"D3 7/19",d4:"D4 7/20",d5:"D5 7/21",d6:"D6 7/22",d7:"D7 7/23",d8:"D8 7/24",d9:"D9 7/25",prep:"行前準備",risk:"風險與假設"};
+// pager
+order.forEach(function(id,i){
+  var sec=document.getElementById(id), pg=document.createElement('div'); pg.className='pager';
+  var h='';
+  if(i>0)h+='<button type="button" class="prev" data-go="'+order[i-1]+'">← '+TITLES[order[i-1]]+'</button>';
+  if(i<order.length-1)h+='<button type="button" class="next" data-go="'+order[i+1]+'">'+TITLES[order[i+1]]+' →</button>';
+  pg.innerHTML=h; sec.appendChild(pg);
+});
+function show(id,push,scroll){
+  if(order.indexOf(id)<0)id='overview';
+  tabs.forEach(function(t){var on=t.getAttribute('data-p')===id;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;if(on&&t.scrollIntoView)t.scrollIntoView({block:'nearest',inline:'nearest'});});
+  order.forEach(function(p){document.getElementById(p).hidden=p!==id;});
+  if(push){try{history.replaceState(null,'','#'+id);}catch(e){}}
+  if(maps[id])maps[id].ensure();
+  if(scroll){var bar=document.querySelector('.tabbar');var top=bar.getBoundingClientRect().top+window.pageYOffset;if(window.pageYOffset>top)window.scrollTo(0,top);}
+}
+tabs.forEach(function(t){t.addEventListener('click',function(){show(t.getAttribute('data-p'),true,true);});});
+document.querySelector('[role="tablist"]').addEventListener('keydown',function(e){
+  var i=tabs.indexOf(document.activeElement); if(i<0)return;
+  var n=null;
+  if(e.key==='ArrowRight')n=(i+1)%tabs.length; else if(e.key==='ArrowLeft')n=(i-1+tabs.length)%tabs.length; else if(e.key==='Home')n=0; else if(e.key==='End')n=tabs.length-1;
+  if(n!==null){e.preventDefault();tabs[n].focus();show(tabs[n].getAttribute('data-p'),true,false);}
+});
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-go]'); if(b){show(b.getAttribute('data-go'),true,true);return;}
+  var a=e.target.closest('a[href^="#"]'); if(a){var id=a.getAttribute('href').slice(1);if(order.indexOf(id)>=0){e.preventDefault();show(id,true,true);}}
+});
+window.addEventListener('hashchange',function(){show(location.hash.slice(1),false,true);});
+show((location.hash||'#overview').slice(1),false,false);
+})();
+</script>
+</body>
+</html>
