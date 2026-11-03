@@ -823,6 +823,21 @@ ul.plain li{margin:3px 0}
 footer{padding:24px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
 footer ol{padding-left:20px}
 button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* 地點分級切換 */
+.map .lvsw{display:flex;flex-wrap:wrap;align-items:center;gap:0;border-bottom:1px solid var(--line);background:var(--panel)}
+.map .lvsw .lbl{font-size:12px;color:var(--muted);padding:6px 10px}
+.map .lvsw button{font:inherit;font-size:12.5px;line-height:1.4;padding:6px 10px;border:0;border-left:1px solid var(--line);background:var(--panel);color:var(--fg);cursor:pointer}
+.map .lvsw button[aria-pressed="true"]{background:var(--fg);color:var(--bg);font-weight:700}
+.map .lvsw .lvhint{font-size:12px;color:var(--muted);padding:6px 10px;margin-left:auto}
+.mki.ex .d{left:-5px;top:-5px;width:10px;height:10px;border-width:1.5px;box-shadow:0 0 0 1px var(--line-strong)}
+.mki.ex .lab{font-size:11.5px;line-height:16px;color:var(--muted);border-color:var(--line)}
+.mki.ex .lab.p-r{left:9px;top:-9px}.mki.ex .lab.p-l{right:9px;top:-9px}.mki.ex .lab.p-t{bottom:9px}.mki.ex .lab.p-b{top:9px}
+.mki.ex.sel .lab{color:var(--fg)}
+.map .info .lvtag{font:600 11px var(--f-mono);border:1px solid var(--line-strong);border-radius:4px;padding:0 5px;color:var(--muted);vertical-align:middle}
+[data-style="manga"] .map .lvsw{border-bottom:2px solid var(--ink)}
+[data-style="manga"] .map .lvsw button{border-left:2px solid var(--ink);font-weight:700}
+[data-style="manga"] .map .lvsw button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+[data-style="sketch"] .map .lvsw{border-bottom:2px dashed var(--line-strong)}
 /* ================= 風格切換：標準／手繪／漫畫 ================= */
 .ctrlrow{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin-top:14px}
 .stylesw{display:inline-flex;gap:0;border:1px solid var(--line-strong);border-radius:8px;overflow:hidden;background:var(--panel)}
@@ -1307,7 +1322,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-off
     <li>nap-camp：みなかみ泛舟年齡與價格；るるぶ：鬼押出し園；いこーよ：大滝乃湯貸切</li>
     <li>地點座標：Google 地點資料（Google Maps）</li>
   </ol>
-  <p>v1.4 越後・上州版（分頁＋互動地圖＋標準／手繪／漫畫風格）・產出日 2026/10/13</p>
+  <p>v1.5 越後・上州版（分頁＋分級互動地圖＋標準／手繪／漫畫風格）・產出日 2026/10/13</p>
 </footer>
 
 <script>/* Leaflet 1.9.4 (BSD-2-Clause) */
@@ -1345,37 +1360,37 @@ styleBtns.forEach(function(b){b.addEventListener('click',function(){
 paintStyle();
 
 /* ================= places（座標：Google 地點資料，2026/10/13 查證） ================= */
-// k: tr 交通 / sight 景點 / stay 住宿 / act 活動・溫泉 / alt 備案
+// lv: 1 地標 2 交通 3 景點 4 購物 5 細節｜cat: station/sight/park/shop｜kind: tr 交通 / sight 景點 / stay 住宿 / act 活動・溫泉 / alt 備案
 var PL={
-  hnd:{n:"羽田機場 第3航廈",jp:"羽田空港第3ターミナル",ll:[35.5455,139.7687],k:"tr",note:"國際線航廈；京急、利木津巴士"},
-  tokyo:{n:"東京站（八重洲）",jp:"東京駅",ll:[35.6808,139.7681],k:"tr",note:"上越／北陸新幹線"},
-  niigata:{n:"新潟站",jp:"新潟駅",ll:[37.9120,139.0618],k:"stay",note:"D1 住宿、D2 取車"},
-  bandai:{n:"萬代橋",jp:"萬代橋 新潟市",ll:[37.9195,139.0532],k:"sight",note:"免費；信濃川畔傍晚散步"},
-  marinepia:{n:"新潟市水族館",jp:"新潟市水族館マリンピア日本海",ll:[37.9237,139.0280],k:"sight",note:"9:00–17:00；海豚秀時段週末不同"},
-  nobutai:{n:"まつだい農舞台",jp:"まつだい農舞台",ll:[37.1316,138.6150],k:"sight",note:"10:00–17:00；週二、三休；藝術祭據點"},
-  bijin:{n:"美人林",jp:"美人林 十日町市松之山",ll:[37.1010,138.6197],k:"sight",note:"免費；山毛櫸林"},
-  matsunoyama:{n:"松之山溫泉",jp:"松之山温泉",ll:[37.0647,138.5991],k:"stay",note:"D2 住宿"},
-  kiyotsu:{n:"清津峽溪谷隧道",jp:"清津峡渓谷トンネル",ll:[36.9725,138.7499],k:"sight",note:"8:30–17:00；假日預約制；免費停車"},
-  monet:{n:"MonET 美術館",jp:"越後妻有里山現代美術館 MonET",ll:[37.1389,138.7599],k:"sight",note:"10:00–17:00；週二、三休"},
-  yuzawa:{n:"越後湯澤站",jp:"越後湯沢駅",ll:[36.9360,138.8096],k:"stay",note:"D3 住宿；站內ぽんしゅ館"},
-  ropeyz:{n:"湯澤高原纜車 山麓站",jp:"湯沢高原ロープウェイ 山麓駅",ll:[36.9401,138.8041],k:"act",note:"夏季營運（2026：7/18–8/23）"},
-  suwakyo:{n:"諏訪峽",jp:"諏訪峡 みなかみ町",ll:[36.7600,138.9729],k:"sight",note:"免費溪谷步道"},
-  minakami:{n:"水上站・水上溫泉",jp:"水上駅",ll:[36.7786,138.9688],k:"stay",note:"D4、D5 住宿；泛舟集合點依業者"},
-  doai:{n:"谷川岳纜車 土合口站",jp:"谷川岳ロープウェイ 土合口駅",ll:[36.8364,138.9620],k:"act",note:"平日 8:00–17:00；停車場收費"},
-  tenjin:{n:"天神平",jp:"天神平駅 谷川岳ロープウェイ",ll:[36.8182,138.9497],k:"sight",note:"展望台、1 小時周遊步道"},
-  yamba:{n:"八ッ場水壩",jp:"八ッ場ダム",ll:[36.5576,138.7141],k:"sight",note:"免費停車；遊客中心有足湯"},
-  yubatake:{n:"湯畑",jp:"湯畑 草津温泉",ll:[36.6230,138.5967],k:"stay",note:"D6 住宿圈；夜間點燈"},
-  sainokawara:{n:"西之河原露天風呂",jp:"西の河原露天風呂",ll:[36.6243,138.5884],k:"act",note:"7:00–20:00；大人 ¥800；週五晚混浴日"},
-  netsunoyu:{n:"熱乃湯",jp:"熱乃湯 草津",ll:[36.6227,138.5963],k:"sight",note:"湯もみ秀 15:30／16:00／16:30"},
-  otaki:{n:"大滝乃湯（雨備）",jp:"大滝乃湯 草津",ll:[36.6229,138.6015],k:"alt",note:"9:00–21:00；貸切 60 分 ¥2,000"},
-  onioshi:{n:"鬼押出し園",jp:"鬼押出し園",ll:[36.4448,138.5371],k:"sight",note:"8:00–17:00；大人 ¥700"},
-  shiraito:{n:"白絲瀑布",jp:"白糸の滝 軽井沢",ll:[36.4103,138.5926],k:"sight",note:"免費；收費道路前往"},
-  harunire:{n:"榆樹街小鎮",jp:"ハルニレテラス",ll:[36.3593,138.5903],k:"sight",note:"午餐；停車場僅收現金"},
-  karuizawa:{n:"輕井澤站",jp:"軽井沢駅",ll:[36.3426,138.6353],k:"stay",note:"D7 還車、住宿；北陸新幹線"},
-  prince:{n:"王子購物廣場",jp:"軽井沢・プリンスショッピングプラザ",ll:[36.3410,138.6331],k:"sight",note:"10:00–19:00；站南口旁"},
-  kumoba:{n:"雲場池",jp:"雲場池",ll:[36.3523,138.6270],k:"sight",note:"免費；早上人少"},
-  kyukaru:{n:"舊輕井澤銀座",jp:"旧軽井沢銀座通り",ll:[36.3575,138.6343],k:"sight",note:"商店街，週末人多"},
-  shinagawa:{n:"品川站",jp:"品川駅",ll:[35.6285,139.7388],k:"stay",note:"D8 住宿；京急直達羽田"}
+  hnd:{name:"羽田機場 第3航廈",jp:"羽田空港第3ターミナル",ll:[35.5455,139.7687],lv:2,cat:"station",kind:"tr",dir:"right",note:"國際線航廈；京急、利木津巴士"},
+  tokyo:{name:"東京站（八重洲）",jp:"東京駅",ll:[35.6808,139.7681],lv:2,cat:"station",kind:"tr",dir:"right",note:"上越／北陸新幹線"},
+  niigata:{name:"新潟站",jp:"新潟駅",ll:[37.9120,139.0618],lv:2,cat:"station",kind:"stay",dir:"right",note:"D1 住宿、D2 取車"},
+  bandai:{name:"萬代橋",jp:"萬代橋 新潟市",ll:[37.9195,139.0532],lv:1,cat:"sight",kind:"sight",dir:"right",note:"免費；信濃川畔傍晚散步"},
+  marinepia:{name:"新潟市水族館",jp:"新潟市水族館マリンピア日本海",ll:[37.9237,139.0280],lv:3,cat:"sight",kind:"sight",dir:"right",note:"9:00–17:00；海豚秀時段週末不同"},
+  nobutai:{name:"まつだい農舞台",jp:"まつだい農舞台",ll:[37.1316,138.6150],lv:3,cat:"sight",kind:"sight",dir:"right",note:"10:00–17:00；週二、三休；藝術祭據點"},
+  bijin:{name:"美人林",jp:"美人林 十日町市松之山",ll:[37.1010,138.6197],lv:3,cat:"park",kind:"sight",dir:"right",note:"免費；山毛櫸林"},
+  matsunoyama:{name:"松之山溫泉",jp:"松之山温泉",ll:[37.0647,138.5991],lv:3,cat:"sight",kind:"stay",dir:"right",note:"D2 住宿"},
+  kiyotsu:{name:"清津峽溪谷隧道",jp:"清津峡渓谷トンネル",ll:[36.9725,138.7499],lv:1,cat:"park",kind:"sight",dir:"right",note:"8:30–17:00；假日預約制；免費停車"},
+  monet:{name:"MonET 美術館",jp:"越後妻有里山現代美術館 MonET",ll:[37.1389,138.7599],lv:3,cat:"sight",kind:"sight",dir:"right",note:"10:00–17:00；週二、三休"},
+  yuzawa:{name:"越後湯澤站",jp:"越後湯沢駅",ll:[36.9360,138.8096],lv:2,cat:"station",kind:"stay",dir:"right",note:"D3 住宿；站內ぽんしゅ館"},
+  ropeyz:{name:"湯澤高原纜車 山麓站",jp:"湯沢高原ロープウェイ 山麓駅",ll:[36.9401,138.8041],lv:3,cat:"station",kind:"act",dir:"right",note:"夏季營運（2026：7/18–8/23）"},
+  suwakyo:{name:"諏訪峽",jp:"諏訪峡 みなかみ町",ll:[36.7600,138.9729],lv:5,cat:"park",kind:"sight",dir:"right",note:"免費溪谷步道"},
+  minakami:{name:"水上站・水上溫泉",jp:"水上駅",ll:[36.7786,138.9688],lv:2,cat:"station",kind:"stay",dir:"right",note:"D4、D5 住宿；泛舟集合點依業者"},
+  doai:{name:"谷川岳纜車 土合口站",jp:"谷川岳ロープウェイ 土合口駅",ll:[36.8364,138.9620],lv:2,cat:"station",kind:"act",dir:"right",note:"平日 8:00–17:00；停車場收費"},
+  tenjin:{name:"天神平",jp:"天神平駅 谷川岳ロープウェイ",ll:[36.8182,138.9497],lv:3,cat:"park",kind:"sight",dir:"right",note:"展望台、1 小時周遊步道"},
+  yamba:{name:"八ッ場水壩",jp:"八ッ場ダム",ll:[36.5576,138.7141],lv:3,cat:"sight",kind:"sight",dir:"right",note:"免費停車；遊客中心有足湯"},
+  yubatake:{name:"湯畑",jp:"湯畑 草津温泉",ll:[36.6230,138.5967],lv:1,cat:"sight",kind:"stay",dir:"right",note:"D6 住宿圈；夜間點燈"},
+  sainokawara:{name:"西之河原露天風呂",jp:"西の河原露天風呂",ll:[36.6243,138.5884],lv:3,cat:"sight",kind:"act",dir:"right",note:"7:00–20:00；大人 ¥800；週五晚混浴日"},
+  netsunoyu:{name:"熱乃湯",jp:"熱乃湯 草津",ll:[36.6227,138.5963],lv:3,cat:"sight",kind:"sight",dir:"left",note:"湯もみ秀 15:30／16:00／16:30"},
+  otaki:{name:"大滝乃湯（雨備）",jp:"大滝乃湯 草津",ll:[36.6229,138.6015],lv:5,cat:"sight",kind:"alt",dir:"right",note:"9:00–21:00；貸切 60 分 ¥2,000"},
+  onioshi:{name:"鬼押出し園",jp:"鬼押出し園",ll:[36.4448,138.5371],lv:1,cat:"park",kind:"sight",dir:"right",note:"8:00–17:00；大人 ¥700"},
+  shiraito:{name:"白絲瀑布",jp:"白糸の滝 軽井沢",ll:[36.4103,138.5926],lv:5,cat:"park",kind:"sight",dir:"right",note:"免費；收費道路前往"},
+  harunire:{name:"榆樹街小鎮",jp:"ハルニレテラス",ll:[36.3593,138.5903],lv:4,cat:"shop",kind:"sight",dir:"right",note:"午餐；停車場僅收現金"},
+  karuizawa:{name:"輕井澤站",jp:"軽井沢駅",ll:[36.3426,138.6353],lv:2,cat:"station",kind:"stay",dir:"right",note:"D7 還車、住宿；北陸新幹線"},
+  prince:{name:"王子購物廣場",jp:"軽井沢・プリンスショッピングプラザ",ll:[36.3410,138.6331],lv:4,cat:"shop",kind:"sight",dir:"right",note:"10:00–19:00；站南口旁"},
+  kumoba:{name:"雲場池",jp:"雲場池",ll:[36.3523,138.6270],lv:5,cat:"park",kind:"sight",dir:"right",note:"免費；早上人少"},
+  kyukaru:{name:"舊輕井澤銀座",jp:"旧軽井沢銀座通り",ll:[36.3575,138.6343],lv:4,cat:"shop",kind:"sight",dir:"right",note:"商店街，週末人多"},
+  shinagawa:{name:"品川站",jp:"品川駅",ll:[35.6285,139.7388],lv:2,cat:"station",kind:"stay",dir:"right",note:"D8 住宿；京急直達羽田"}
 };
 var KLAB={tr:"交通",sight:"景點",stay:"住宿",act:"活動・溫泉",alt:"備案"};
 var SEGLAB={car:"開車／巴士",rail:"鐵路",walk:"步行",rope:"纜車"};
@@ -1427,35 +1442,50 @@ var TILE_ATTR='&copy; <a href="https://www.openstreetmap.org/copyright" target="
 var BLANK="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
 var hasL=typeof L!=="undefined";
 
+var LVLAB={1:"L1 地標",2:"L2 交通",3:"L3 景點",4:"L4 購物",5:"L5 全部"};
 function MapView(el,key){
   var cfg=MAPS[key], self=this;
   this.el=el; this.cfg=cfg; this.key=key; this.sel=null; this.map=null;
-  var stops=[], n=0;
+  this.lvSel=key==='overview'?3:4;
+  var stops=[], n=0, inStop={};
   cfg.stops.forEach(function(s){
     var id=Array.isArray(s)?s[0]:s, lab;
     if(Array.isArray(s)) lab=s[1]; else { n++; lab=String(n); }
     if(cfg.labels&&cfg.labels[id]) lab=cfg.labels[id];
-    stops.push({id:id,lab:lab,p:PL[id]});
+    inStop[id]=1;
+    stops.push({id:id,lab:lab,p:PL[id],stop:true});
   });
   this.stops=stops;
-  var kinds={}; stops.forEach(function(s){kinds[s.p.k]=1;});
+  // 路線以外的地點：依分級顯示
+  var extra=Object.keys(PL).filter(function(id){return !inStop[id];}).map(function(id){return{id:id,lab:null,p:PL[id],stop:false};});
+  this.all=stops.concat(extra);
+  var kinds={}; this.all.forEach(function(s){kinds[s.p.kind]=1;});
   var segk={}; cfg.seg.forEach(function(s){segk[s[0]]=1;});
   var lg='';
   Object.keys(segk).forEach(function(k){lg+='<span><svg viewBox="0 0 30 10" aria-hidden="true"><line class="seg seg-'+k+'" x1="2" y1="5" x2="28" y2="5"/></svg>'+SEGLAB[k]+'</span>';});
   ["tr","sight","act","stay","alt"].forEach(function(k){if(kinds[k])lg+='<span><i class="k-'+k+'"></i>'+KLAB[k]+'</span>';});
-  lg+='<span>路線為示意直線，實際路徑請用導航</span>';
+  lg+='<span>粗框＝本頁路線；細點＝其他地點（依分級）。路線為示意直線</span>';
+  var lvb='<div class="lvsw" role="group" aria-label="地點分級"><span class="lbl">分級</span>';
+  for(var l=1;l<=5;l++)lvb+='<button type="button" data-lv="'+l+'" aria-pressed="'+(l===this.lvSel)+'">'+LVLAB[l]+'</button>';
+  lvb+='<span class="lvhint" aria-live="polite"></span></div>';
   var chips='';
-  stops.forEach(function(s,i){chips+='<button type="button" class="chip" data-i="'+i+'" aria-pressed="false"><span class="n k-'+s.p.k+'">'+(s.lab?esc(s.lab):'·')+'</span>'+esc(s.p.n)+'</button>';});
-  el.innerHTML='<div class="stage"><div class="lmap" role="region" aria-label="'+(key==='overview'?'全程路線':'當日路線')+'地圖"></div>'+
+  stops.forEach(function(s,i){chips+='<button type="button" class="chip" data-i="'+i+'" aria-pressed="false"><span class="n k-'+s.p.kind+'">'+(s.lab?esc(s.lab):'·')+'</span>'+esc(s.p.name)+'</button>';});
+  el.innerHTML=lvb+'<div class="stage"><div class="lmap" role="region" aria-label="'+(key==='overview'?'全程路線':'當日路線')+'地圖"></div>'+
     '<div class="ctl"><button type="button" data-z="in" aria-label="放大">＋</button><button type="button" data-z="out" aria-label="縮小">－</button><button type="button" data-z="fit" aria-label="顯示全部">⤢</button></div></div>'+
     '<div class="lg">'+lg+'</div><div class="chips">'+chips+'</div>'+
     '<div class="info" aria-live="polite"><p class="empty">點選地圖標記或下方地點，開啟 Google／Apple 地圖與導航。</p></div>'+
     (cfg.note?'<div class="note-s">'+esc(cfg.note)+'</div>':'');
-  this.box=el.querySelector('.lmap'); this.info=el.querySelector('.info');
+  this.box=el.querySelector('.lmap'); this.info=el.querySelector('.info'); this.hint=el.querySelector('.lvhint');
   el.querySelector('.ctl').addEventListener('click',function(e){
     var b=e.target.closest('button'); if(!b||!self.map)return;
     var z=b.getAttribute('data-z');
     if(z==='fit')self.fit(); else if(z==='in')self.map.zoomIn(); else self.map.zoomOut();
+  });
+  el.querySelector('.lvsw').addEventListener('click',function(e){
+    var b=e.target.closest('button[data-lv]'); if(!b)return;
+    self.lvSel=+b.getAttribute('data-lv');
+    el.querySelectorAll('.lvsw button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b));});
+    self.layout();
   });
   el.querySelector('.chips').addEventListener('click',function(e){
     var b=e.target.closest('.chip'); if(!b)return;
@@ -1475,7 +1505,6 @@ MapView.prototype.build=function(){
   m.attributionControl.setPrefix('<a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a>');
   m.createPane('land').style.zIndex=150;
   m.createPane('segs').style.zIndex=420;
-  // 離線底圖：內嵌海岸線（圖磚載入後會被覆蓋）
   L.polygon(COAST.map(function(r){return[r];}),{pane:'land',className:'land',interactive:false}).addTo(m);
   this.tiles=L.tileLayer(TILE_URL,{attribution:TILE_ATTR,maxZoom:19,errorTileUrl:BLANK,crossOrigin:true}).addTo(m);
   this.cfg.seg.forEach(function(s){
@@ -1483,16 +1512,17 @@ MapView.prototype.build=function(){
     L.polyline(ll,{pane:'segs',className:'seg-case',interactive:false}).addTo(m);
     L.polyline(ll,{pane:'segs',className:'seg seg-'+s[0],interactive:false}).addTo(m);
   });
-  this.mk=this.stops.map(function(s,i){
+  this.mk=this.all.map(function(s,i){
     var sm=!s.lab, long=s.lab&&s.lab.length>2;
-    var html='<div class="mki k-'+s.p.k+(sm?' sm':'')+'" data-i="'+i+'"><svg class="ld" width="1" height="1"></svg><div class="w">'+
-      '<span class="d k-'+s.p.k+(long?' long':'')+'">'+(s.lab?esc(s.lab):'')+'</span><span class="lab p-r">'+esc(s.p.n)+'</span></div></div>';
-    var mk=L.marker(s.p.ll,{icon:L.divIcon({className:'mk-i',html:html,iconSize:[0,0],iconAnchor:[0,0]}),title:s.p.n,alt:s.p.n,riseOnHover:true,keyboard:true}).addTo(m);
+    var html='<div class="mki k-'+s.p.kind+(sm?' sm':'')+(s.stop?'':' ex')+'" data-i="'+i+'"><svg class="ld" width="1" height="1"></svg><div class="w">'+
+      '<span class="d k-'+s.p.kind+(long?' long':'')+'">'+(s.lab?esc(s.lab):'')+'</span><span class="lab p-r">'+esc(s.p.name)+'</span></div></div>';
+    var mk=L.marker(s.p.ll,{icon:L.divIcon({className:'mk-i',html:html,iconSize:[0,0],iconAnchor:[0,0]}),title:s.p.name,alt:s.p.name,riseOnHover:true,keyboard:true});
+    if(s.stop)mk.addTo(m);
     mk.on('click',function(){self.select(i,false);});
     return mk;
   });
   this.map=m;
-  m.on('zoomend viewreset resize',function(){self.layout();});
+  m.on('zoomend viewreset resize moveend',function(){self.layout();});
   this.fit();
 };
 MapView.prototype.fit=function(){
@@ -1502,12 +1532,33 @@ MapView.prototype.fit=function(){
   this.map.fitBounds(b,{paddingTopLeft:[px,36],paddingBottomRight:[px+20,36],maxZoom:15,animate:false});
   this.layout();
 };
+/* 有效分級：zoom ≤ 9 最多 L2；zoom ≥ 14 自動 L5；其餘依使用者選擇 */
+MapView.prototype.effLv=function(){
+  var z=this.map.getZoom();
+  return z<=9?Math.min(this.lvSel,2):(z>=14?5:this.lvSel);
+};
 /* 標記避讓＋標籤擺放（畫面像素座標，貪婪法） */
 MapView.prototype.layout=function(){
   var m=this.map; if(!m)return;
-  var self=this, sz=m.getSize(), W=sz.x, H=sz.y;
-  var items=this.stops.map(function(s,i){var p=m.latLngToContainerPoint(s.p.ll);return{s:s,i:i,x:p.x,y:p.y,ox:p.x,oy:p.y,r:s.lab?12:7};});
-  var order=items.slice().sort(function(a,b){return (b.i===self.sel)-(a.i===self.sel)||(b.r-a.r)||a.i-b.i;});
+  var self=this, sz=m.getSize(), W=sz.x, H=sz.y, eff=this.effLv();
+  var shownEx=0;
+  // 顯示／隱藏非路線地點
+  this.all.forEach(function(s,i){
+    if(s.stop)return;
+    var on=s.p.lv<=eff||i===self.sel, has=m.hasLayer(self.mk[i]);
+    if(on&&!has)self.mk[i].addTo(m); else if(!on&&has)m.removeLayer(self.mk[i]);
+    if(on)shownEx++;
+  });
+  if(this.hint)this.hint.textContent=eff!==this.lvSel?('目前縮放顯示到 L'+eff):'';
+  var items=[];
+  this.all.forEach(function(s,i){
+    if(!m.hasLayer(self.mk[i]))return;
+    var p=m.latLngToContainerPoint(s.p.ll);
+    if(p.x<-80||p.x>W+80||p.y<-80||p.y>H+80)return;
+    items.push({s:s,i:i,x:p.x,y:p.y,ox:p.x,oy:p.y,r:s.lab?12:(s.stop?7:5)});
+  });
+  var pri=function(it){return (it.i===self.sel?100:0)+(it.s.stop?10:0)+(it.s.lab?5:0)+(6-it.s.p.lv);};
+  var order=items.slice().sort(function(a,b){return pri(b)-pri(a)||a.i-b.i;});
   order.forEach(function(it,ix){
     for(var pass=0;pass<8;pass++){var moved=false;
       for(var q=0;q<ix;q++){var o=order[q],dx=it.x-o.x,dy=it.y-o.y,d=Math.hypot(dx,dy),need=it.r+o.r+3;
@@ -1515,15 +1566,17 @@ MapView.prototype.layout=function(){
       if(!moved)break;}
   });
   var boxes=items.map(function(it){return[it.x-it.r,it.y-it.r,it.x+it.r,it.y+it.r];});
-  function tw(t){var w=0;for(var c=0;c<t.length;c++)w+=t.charCodeAt(c)>255?12.4:7;return w+14;}
+  function tw(t,ex){var w=0,cj=ex?11.4:12.4,la=ex?6.4:7;for(var c=0;c<t.length;c++)w+=t.charCodeAt(c)>255?cj:la;return w+14;}
   function hit(b){for(var q=0;q<boxes.length;q++){var o=boxes[q];if(b[0]<o[2]&&b[2]>o[0]&&b[1]<o[3]&&b[3]>o[1])return true;}return b[0]<2||b[2]>W-2||b[1]<2||b[3]>H-22;}
+  var DIRS={right:'p-r',left:'p-l',top:'p-t',bottom:'p-b'};
   var pos={};
   order.forEach(function(it){
-    var w=tw(it.s.p.n), h=20, g=it.r+4, x=it.x, y=it.y, cand=[
-      ['p-r',[x+g,y-h/2,x+g+w,y+h/2]],['p-l',[x-g-w,y-h/2,x-g,y+h/2]],
-      ['p-t',[x-w/2,y-g-h,x+w/2,y-g]],['p-b',[x-w/2,y+g,x+w/2,y+g+h]]];
-    for(var c=0;c<cand.length;c++){if(!hit(cand[c][1])){boxes.push(cand[c][1]);pos[it.i]=cand[c][0];return;}}
-    pos[it.i]=it.i===self.sel?'p-r':'hide';
+    var ex=!it.s.stop, w=tw(it.s.p.name,ex), h=ex?18:20, g=it.r+4, x=it.x, y=it.y, cand={
+      'p-r':[x+g,y-h/2,x+g+w,y+h/2],'p-l':[x-g-w,y-h/2,x-g,y+h/2],
+      'p-t':[x-w/2,y-g-h,x+w/2,y-g],'p-b':[x-w/2,y+g,x+w/2,y+g+h]};
+    var first=DIRS[it.s.p.dir]||'p-r', tryOrder=[first].concat(['p-r','p-l','p-t','p-b'].filter(function(k){return k!==first;}));
+    for(var c=0;c<tryOrder.length;c++){var b=cand[tryOrder[c]];if(!hit(b)){boxes.push(b);pos[it.i]=tryOrder[c];return;}}
+    pos[it.i]=it.i===self.sel?first:'hide';
   });
   items.forEach(function(it){
     var root=self.mk[it.i].getElement(); if(!root)return;
@@ -1533,23 +1586,22 @@ MapView.prototype.layout=function(){
     ld.innerHTML=off?'<line x1="0" y1="0" x2="'+dx.toFixed(1)+'" y2="'+dy.toFixed(1)+'"/><circle r="2.5"/>':'';
     lab.className='lab '+pos[it.i];
     mki.classList.toggle('sel',it.i===self.sel);
-    self.mk[it.i].setZIndexOffset(it.i===self.sel?2000:(it.s.lab?500:0));
+    self.mk[it.i].setZIndexOffset(it.i===self.sel?3000:(it.s.lab?600:(it.s.stop?400:0)));
   });
 };
 MapView.prototype.theme=function(){};
 MapView.prototype.select=function(i,center){
-  var s=this.stops[i]; this.sel=i;
+  var s=this.all[i]; this.sel=i;
   if(this.map){
     if(center)this.map.setView(s.p.ll,Math.max(this.map.getZoom(),14),{animate:true});
     this.layout();
   }
   this.el.querySelectorAll('.chip').forEach(function(c){c.setAttribute('aria-pressed',String(+c.getAttribute('data-i')===i));});
   var Lk=links(s.p,this.cfg.mode);
-  this.info.innerHTML='<h4>'+esc(s.p.n)+'</h4><div class="jp">'+esc(s.p.jp)+'・'+s.p.ll[0].toFixed(4)+', '+s.p.ll[1].toFixed(4)+'</div><div class="note">'+esc(s.p.note)+'</div>'+
+  this.info.innerHTML='<h4>'+esc(s.p.name)+' <span class="lvtag">L'+s.p.lv+'</span></h4><div class="jp">'+esc(s.p.jp)+'・'+s.p.ll[0].toFixed(4)+', '+s.p.ll[1].toFixed(4)+'</div><div class="note">'+esc(s.p.note)+'</div>'+
     '<div class="acts"><a class="mbtn go" href="'+Lk.gd+'" target="_blank" rel="noopener">Google 導航</a><a class="mbtn go" href="'+Lk.ad+'" target="_blank" rel="noopener">Apple 導航</a>'+
     '<a class="mbtn" href="'+Lk.gv+'" target="_blank" rel="noopener">Google 地圖</a><a class="mbtn" href="'+Lk.av+'" target="_blank" rel="noopener">Apple 地圖</a></div>';
 };
-
 
 var maps={};
 function retheme(){Object.keys(maps).forEach(function(k){maps[k].theme();});}
