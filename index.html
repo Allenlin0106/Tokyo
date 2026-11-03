@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>越後・上州 9 日｜新潟 → 東京</title>
+<script>try{var _q=new URLSearchParams(location.search).get("style"),_s=_q||localStorage.getItem("ng27-style");if(_s==="sketch"||_s==="manga")document.documentElement.setAttribute("data-style",_s);}catch(e){}</script>
 <style>
 /* Leaflet 1.9.4 (BSD-2) */
 /* required styles */
@@ -765,12 +766,12 @@ ul.plain li{margin:3px 0}
 .chip{font:inherit;font-size:12.5px;line-height:1.4;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:3px 10px 3px 4px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
 .chip .n{display:inline-grid;place-items:center;min-width:20px;height:20px;border-radius:50%;font:700 11px var(--f-mono);color:var(--b-fg);padding:0 4px}
 .chip[aria-pressed="true"]{border-color:var(--accent);background:var(--panel)}
-.info{border-top:1px solid var(--line);padding:12px 14px;min-height:58px}
-.info .empty{color:var(--muted);font-size:13px;margin:0}
-.info h4{margin:0;font-size:15px}
-.info .jp{color:var(--muted);font-size:12.5px}
-.info .note{margin:2px 0 8px;font-size:13.5px}
-.info .acts{display:flex;flex-wrap:wrap;gap:6px}
+.map .info{border-top:1px solid var(--line);padding:12px 14px;min-height:58px}
+.map .info .empty{color:var(--muted);font-size:13px;margin:0}
+.map .info h4{margin:0;font-size:15px}
+.map .info .jp{color:var(--muted);font-size:12.5px}
+.map .info .note{margin:2px 0 8px;font-size:13.5px}
+.map .info .acts{display:flex;flex-wrap:wrap;gap:6px}
 .mbtn{font:600 12.5px var(--f-sans);text-decoration:none;border-radius:6px;padding:6px 10px;border:1px solid var(--line-strong);color:var(--fg);background:var(--panel);white-space:nowrap}
 .mbtn:hover{border-color:var(--accent)}
 .mbtn.go{background:var(--fg);color:var(--bg);border-color:var(--fg)}
@@ -822,6 +823,98 @@ ul.plain li{margin:3px 0}
 footer{padding:24px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
 footer ol{padding-left:20px}
 button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* ================= 風格切換：標準／手繪／漫畫 ================= */
+.stylesw{display:inline-flex;gap:0;margin-top:14px;border:1px solid var(--line-strong);border-radius:8px;overflow:hidden;background:var(--panel)}
+.stylesw button{font:inherit;font-size:13px;line-height:1.4;padding:6px 14px;border:0;border-right:1px solid var(--line);background:var(--panel);color:var(--fg);cursor:pointer}
+.stylesw button:last-child{border-right:0}
+.stylesw button[aria-pressed="true"]{background:var(--fg);color:var(--bg);font-weight:700}
+.stylesw .lbl{font-size:12px;color:var(--muted);padding:6px 10px;border-right:1px solid var(--line);display:flex;align-items:center}
+
+/* ---------- 手繪（sketch）：紙張＋鉛筆／黑板＋粉筆 ---------- */
+:root[data-style="sketch"]{
+  --bg:#f5eedd; --panel:#fffaee; --fg:#2a2824; --muted:#5b5446; --line:#a99f8b; --line-strong:#5b5446; --grid:#e8dfca;
+  --accent:#a8371f; --head-bg:#efe5cc; --sea:#dfe7e3; --land:#fbf6e9;
+  --hl:#f6df6b;
+  --f-sans:"Kaiti TC","BiauKai","DFKai-SB","標楷體","STKaiti","KaiTi","Noto Serif TC",serif;
+  --paper:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.3 0 0 0 0 0.2 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  --wob:255px 14px 225px 14px/14px 225px 14px 255px;
+}
+:root[data-style="sketch"][data-theme="dark"]{
+  --bg:#1e2a25; --panel:#25332d; --fg:#efeadc; --muted:#b9b6a6; --line:#61736a; --line-strong:#a9b3a6; --grid:#2c3a34;
+  --accent:#f3b48b; --head-bg:#2d3d36; --sea:#17211d; --land:#2a3832;
+  --hl:rgba(243,180,139,.28);
+  --paper:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme:dark){:root[data-style="sketch"]:not([data-theme="light"]){
+  --bg:#1e2a25; --panel:#25332d; --fg:#efeadc; --muted:#b9b6a6; --line:#61736a; --line-strong:#a9b3a6; --grid:#2c3a34;
+  --accent:#f3b48b; --head-bg:#2d3d36; --sea:#17211d; --land:#2a3832;
+  --hl:rgba(243,180,139,.28);
+  --paper:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}}
+[data-style="sketch"] body{background-image:var(--paper);font-size:16px}
+[data-style="sketch"] .tbl,[data-style="sketch"] .card,[data-style="sketch"] .callout,[data-style="sketch"] .route,
+[data-style="sketch"] .map,[data-style="sketch"] .tab,[data-style="sketch"] .pager button,[data-style="sketch"] #themeBtn,
+[data-style="sketch"] .chip,[data-style="sketch"] .mbtn,[data-style="sketch"] .stylesw,[data-style="sketch"] .map .ctl button{
+  border-radius:var(--wob);border-width:2px;border-color:var(--line-strong)}
+[data-style="sketch"] .card,[data-style="sketch"] .callout{border-left-width:2px;border-left-color:var(--line-strong);box-shadow:inset 5px 0 0 var(--c,var(--c-book))}
+[data-style="sketch"] .tbl,[data-style="sketch"] .map,[data-style="sketch"] .route{box-shadow:2px 3px 0 var(--line)}
+[data-style="sketch"] h1{font-weight:700;letter-spacing:.06em}
+[data-style="sketch"] h2{text-decoration:underline wavy var(--accent) 1.5px;text-underline-offset:7px}
+[data-style="sketch"] th{border-bottom:2px dashed var(--line-strong);font-weight:700}
+[data-style="sketch"] td{border-bottom:1px dashed var(--line)}
+[data-style="sketch"] .route b,[data-style="sketch"] .lede b{background:linear-gradient(transparent 58%,var(--hl) 58%);color:var(--fg);padding:0 2px}
+[data-style="sketch"] .badge{border-radius:10px 3px 9px 3px/3px 9px 3px 10px}
+[data-style="sketch"] header.top{border-bottom:2px dashed var(--line-strong)}
+[data-style="sketch"] .map .leaflet-tile-pane{filter:grayscale(1) sepia(.45) contrast(1.05) brightness(1.03)}
+[data-style="sketch"][data-theme="dark"] .map .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) grayscale(.7) sepia(.3) brightness(.9) contrast(.9)}
+@media (prefers-color-scheme:dark){[data-style="sketch"]:not([data-theme="light"]) .map .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) grayscale(.7) sepia(.3) brightness(.9) contrast(.9)}}
+[data-style="sketch"] .mki .lab{border-radius:9px 3px 8px 3px/3px 8px 3px 9px;border-width:1.5px;font-size:13px}
+
+/* ---------- 漫畫（manga）：黑線分格＋網點＋硬陰影 ---------- */
+:root[data-style="manga"]{
+  --bg:#ffffff; --panel:#ffffff; --fg:#111111; --muted:#3b3b3b; --line:#111111; --line-strong:#111111; --grid:#e4e4e4;
+  --accent:#c8001e; --on-accent:#ffffff; --head-bg:#ececec; --sea:#e8e8e8; --land:#ffffff;
+  --dot:#d6d6d6; --ink:#111111;
+  --f-sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;
+}
+:root[data-style="manga"][data-theme="dark"]{
+  --bg:#0c0c0c; --panel:#171717; --fg:#f5f5f5; --muted:#c4c4c4; --line:#f5f5f5; --line-strong:#f5f5f5; --grid:#262626;
+  --accent:#ff7085; --on-accent:#0c0c0c; --head-bg:#262626; --sea:#141414; --land:#1f1f1f;
+  --dot:#2a2a2a; --ink:#f5f5f5;
+}
+@media (prefers-color-scheme:dark){:root[data-style="manga"]:not([data-theme="light"]){
+  --bg:#0c0c0c; --panel:#171717; --fg:#f5f5f5; --muted:#c4c4c4; --line:#f5f5f5; --line-strong:#f5f5f5; --grid:#262626;
+  --accent:#ff7085; --on-accent:#0c0c0c; --head-bg:#262626; --sea:#141414; --land:#1f1f1f;
+  --dot:#2a2a2a; --ink:#f5f5f5;
+}}
+[data-style="manga"] body{background-image:radial-gradient(var(--dot) 1.1px,transparent 1.6px);background-size:9px 9px;font-weight:500}
+[data-style="manga"] header.top{background:var(--panel);border-bottom:4px solid var(--ink)}
+[data-style="manga"] h1{font-weight:900;letter-spacing:.03em}
+[data-style="manga"] .tabbar{background:var(--panel);border-bottom:3px solid var(--ink)}
+[data-style="manga"] #themeBtn{box-shadow:-10px 0 8px var(--panel)}
+[data-style="manga"] .tbl,[data-style="manga"] .card,[data-style="manga"] .callout,[data-style="manga"] .route,[data-style="manga"] .map{
+  border:3px solid var(--ink);border-radius:3px;box-shadow:5px 5px 0 var(--ink)}
+[data-style="manga"] .card,[data-style="manga"] .callout{border-left-width:8px;border-left-color:var(--c,var(--c-book))}
+[data-style="manga"] .tab,[data-style="manga"] .pager button,[data-style="manga"] #themeBtn,[data-style="manga"] .chip,
+[data-style="manga"] .mbtn,[data-style="manga"] .map .ctl button,[data-style="manga"] .stylesw{border:2px solid var(--ink);border-radius:3px;font-weight:700}
+[data-style="manga"] .tab[aria-selected="true"]{background:var(--accent);color:var(--on-accent);border-color:var(--ink)}
+[data-style="manga"] .tab[aria-selected="true"] small{color:var(--on-accent)}
+[data-style="manga"] .stylesw button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+[data-style="manga"] h2{background:var(--panel);border:3px solid var(--ink);border-radius:24px;padding:6px 18px;width:fit-content;max-width:100%;box-shadow:4px 4px 0 var(--ink);font-weight:900}
+[data-style="manga"] h2 .num{background:var(--accent);color:var(--on-accent);padding:0 8px;border-radius:3px;border:2px solid var(--ink)}
+[data-style="manga"] h3{font-weight:900;border-left:6px solid var(--accent);padding-left:8px}
+[data-style="manga"] th{background:var(--head-bg);border-bottom:3px solid var(--ink);font-weight:900}
+[data-style="manga"] td{border-bottom:1.5px solid var(--line)}
+[data-style="manga"] .badge{border:1.5px solid var(--ink);border-radius:2px}
+[data-style="manga"] .route b{color:var(--accent);font-weight:900}
+[data-style="manga"] .map .lg,[data-style="manga"] .chips,[data-style="manga"] .map .info{border-top:2px solid var(--ink)}
+[data-style="manga"] .map .leaflet-tile-pane{filter:grayscale(1) contrast(1.35) brightness(1.06)}
+[data-style="manga"][data-theme="dark"] .map .leaflet-tile-pane{filter:invert(1) grayscale(1) contrast(1.25) brightness(.8)}
+@media (prefers-color-scheme:dark){[data-style="manga"]:not([data-theme="light"]) .map .leaflet-tile-pane{filter:invert(1) grayscale(1) contrast(1.25) brightness(.8)}}
+[data-style="manga"] .mki .lab{border:2px solid var(--ink);border-radius:2px;font-weight:700}
+[data-style="manga"] .mki .d{border-color:var(--panel);box-shadow:0 0 0 2px var(--ink)}
+[data-style="manga"] .seg-case{stroke:var(--panel);stroke-width:9;opacity:1}
+@media print{[data-style] body{background-image:none}}
 @media (max-width:760px){
   h1{font-size:24px}
   .grid{grid-template-columns:minmax(0,1fr)}
@@ -842,6 +935,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-off
     <div class="eyebrow">2027.07.17 — 07.25 ・ 羽田進出 ・ v1 越後・上州</div>
     <h1>新潟 → 越後妻有 → 湯澤 → 水上 → 草津 → 輕井澤 → 品川</h1>
     <p class="lede">親子 4 人（2 大人＋國中生＋小學生）9 天 8 夜。新幹線北上新潟，中段自駕走山線，輕井澤還車搭北陸新幹線回東京。大地藝術祭第 10 屆 7/17 開幕，與本次行程完全重疊。</p>
+    <div class="stylesw" role="group" aria-label="版面風格"><span class="lbl">風格</span><button type="button" data-style="std" aria-pressed="true">標準</button><button type="button" data-style="sketch" aria-pressed="false">手繪</button><button type="button" data-style="manga" aria-pressed="false">漫畫</button></div>
   </div>
 </header>
 
@@ -1214,7 +1308,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-off
     <li>nap-camp：みなかみ泛舟年齡與價格；るるぶ：鬼押出し園；いこーよ：大滝乃湯貸切</li>
     <li>地點座標：Google 地點資料（Google Maps）</li>
   </ol>
-  <p>v1.2 越後・上州版（分頁＋互動地圖：OSM 圖磚／離線海岸線）・產出日 2026/10/13</p>
+  <p>v1.3 越後・上州版（分頁＋互動地圖＋標準／手繪／漫畫風格）・產出日 2026/10/13</p>
 </footer>
 
 <script>/* Leaflet 1.9.4 (BSD-2-Clause) */
@@ -1237,6 +1331,19 @@ try{var sv=localStorage.getItem('ng27-theme');if(sv==='dark'||sv==='light')root.
 themeBtn.addEventListener('click',function(){var n=curTheme()==='dark'?'light':'dark';root.setAttribute('data-theme',n);try{localStorage.setItem('ng27-theme',n);}catch(e){}paintTheme();});
 if(window.matchMedia)matchMedia('(prefers-color-scheme: dark)').addEventListener('change',paintTheme);
 paintTheme();
+
+/* ================= style switch ================= */
+var styleBtns=[].slice.call(document.querySelectorAll('.stylesw button'));
+function curStyle(){return root.getAttribute('data-style')||'std';}
+function paintStyle(){var c=curStyle();styleBtns.forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-style')===c));});}
+styleBtns.forEach(function(b){b.addEventListener('click',function(){
+  var v=b.getAttribute('data-style');
+  if(v==='std')root.removeAttribute('data-style'); else root.setAttribute('data-style',v);
+  try{localStorage.setItem('ng27-style',v);}catch(e){}
+  paintStyle();
+  setTimeout(function(){Object.keys(maps).forEach(function(k){if(maps[k].map){maps[k].map.invalidateSize({pan:false});maps[k].layout();}});},60);
+});});
+paintStyle();
 
 /* ================= places（座標：Google 地點資料，2026/10/13 查證） ================= */
 // k: tr 交通 / sight 景點 / stay 住宿 / act 活動・溫泉 / alt 備案
