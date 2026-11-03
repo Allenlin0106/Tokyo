@@ -1530,12 +1530,13 @@ MapView.prototype.fit=function(){
   var b=L.latLngBounds(this.stops.map(function(s){return s.p.ll;}));
   var w=this.box.clientWidth, px=Math.min(90,Math.round(w*0.18));
   this.map.fitBounds(b,{paddingTopLeft:[px,36],paddingBottomRight:[px+20,36],maxZoom:15,animate:false});
+  this.fitZ=this.map.getZoom();
   this.layout();
 };
-/* 有效分級：zoom ≤ 9 最多 L2；zoom ≥ 14 自動 L5；其餘依使用者選擇 */
+/* 有效分級：比初始縮放再縮小約 1 級時最多 L2；zoom ≥ 14 自動 L5；其餘依使用者選擇 */
 MapView.prototype.effLv=function(){
   var z=this.map.getZoom();
-  return z<=9?Math.min(this.lvSel,2):(z>=14?5:this.lvSel);
+  return (this.fitZ!=null&&z<this.fitZ-0.75)?Math.min(this.lvSel,2):(z>=14?5:this.lvSel);
 };
 /* 標記避讓＋標籤擺放（畫面像素座標，貪婪法） */
 MapView.prototype.layout=function(){
