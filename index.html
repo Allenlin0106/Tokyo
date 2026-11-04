@@ -822,33 +822,34 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-off
 .chips .chips-h{flex-basis:100%;font-size:12px;color:var(--muted);margin-top:4px}
 .chip.fac .n{border-radius:4px;font-family:var(--f-sans)}
 /* 地點資訊：地圖底部滑出面板 */
-.map .sheet{position:absolute;left:0;right:0;bottom:0;z-index:1100;max-height:78%;overflow:auto;background:var(--panel);color:var(--fg);
-  border-radius:18px 18px 0 0;border-top:1px solid var(--line);box-shadow:0 -8px 20px rgba(0,0,0,.18);padding:16px 18px 18px;
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:2500;max-height:62vh;overflow:auto;background:var(--panel);color:var(--fg);
+  border-radius:18px 18px 0 0;border:1px solid var(--line);border-bottom:0;box-shadow:0 -8px 24px rgba(0,0,0,.22);padding:16px 18px calc(18px + env(safe-area-inset-bottom));
   transform:translateY(105%);visibility:hidden;transition:transform .22s ease,visibility 0s linear .22s}
-.map .sheet.open{transform:none;visibility:visible;transition:transform .22s ease}
-.map .sheet h4{margin:0 44px 10px 0;font-size:19px;line-height:1.35;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.map .sheet .ic{font-size:24px;line-height:1}
-.map .sheet .x{position:absolute;right:8px;top:6px;width:40px;height:40px;border:0;background:none;color:var(--fg);font-size:22px;line-height:1;cursor:pointer;border-radius:8px}
-.map .sheet .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
-.map .sheet .tag{font-size:12.5px;font-weight:700;line-height:1.4;padding:4px 12px;border-radius:999px;background:var(--head-bg);color:var(--fg)}
-.map .sheet .tag.main{background:var(--fg);color:var(--bg)}
-.map .sheet .desc{margin:0 0 4px;font-size:15px;line-height:1.75}
-.map .sheet .jp{margin:0 0 12px;font-size:12.5px;color:var(--muted)}
-.map .sheet .meta{margin:0 0 6px;font-size:13.5px;line-height:1.6;background:var(--head-bg);border-radius:8px;padding:6px 10px}
-.map .sheet .meta b{margin-right:8px;font-size:12px;letter-spacing:.04em}
-.map .sheet .acts{display:flex;flex-wrap:wrap;gap:6px}
-.map .sheet .mbtn{padding:8px 12px;font-size:13px}
-.map .stage.sheet-open{height:460px}
-@media (max-width:760px){.map .stage.sheet-open{height:480px}.map .sheet .acts{display:grid;grid-template-columns:1fr 1fr}.map .sheet .mbtn{text-align:center}}
+.sheet.open{transform:none;visibility:visible;transition:transform .22s ease}
+@media (min-width:761px){.sheet{left:50%;right:auto;width:min(760px,calc(100% - 32px));transform:translate(-50%,105%)}.sheet.open{transform:translate(-50%,0)}}
+.sheet h4{margin:0 44px 10px 0;font-size:19px;line-height:1.35;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sheet .ic{font-size:24px;line-height:1}
+.sheet .x{position:absolute;right:8px;top:6px;width:40px;height:40px;border:0;background:none;color:var(--fg);font-size:22px;line-height:1;cursor:pointer;border-radius:8px}
+.sheet .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.sheet .tag{font-size:12.5px;font-weight:700;line-height:1.4;padding:4px 12px;border-radius:999px;background:var(--head-bg);color:var(--fg)}
+.sheet .tag.main{background:var(--fg);color:var(--bg)}
+.sheet .desc{margin:0 0 4px;font-size:15px;line-height:1.75}
+.sheet .jp{margin:0 0 12px;font-size:12.5px;color:var(--muted)}
+.sheet .meta{margin:0 0 6px;font-size:13.5px;line-height:1.6;background:var(--head-bg);border-radius:8px;padding:6px 10px}
+.sheet .meta b{margin-right:8px;font-size:12px;letter-spacing:.04em}
+.sheet .acts{display:flex;flex-wrap:wrap;gap:6px}
+.sheet .mbtn{padding:8px 12px;font-size:13px}
+@media (max-width:760px){.sheet .acts{display:grid;grid-template-columns:1fr 1fr}.sheet .mbtn{text-align:center}}
 .map .map-hint{margin:0;padding:6px 12px 10px;font-size:12.5px;color:var(--muted)}
-[data-style="sketch"] .map .sheet{border-radius:22px 14px 0 0/14px 22px 0 0;border:2px solid var(--line-strong);border-bottom:0;box-shadow:0 -3px 0 var(--line)}
-[data-style="manga"] .map .sheet{border-radius:6px 6px 0 0;border:3px solid var(--ink);border-bottom:0;box-shadow:0 -5px 0 var(--ink)}
-[data-style="manga"] .map .sheet h4{font-weight:900}
-[data-style="manga"] .map .sheet .tag{border:2px solid var(--ink);border-radius:3px}
-[data-style="manga"] .map .sheet .tag.main{background:var(--accent);color:var(--on-accent)}
-[data-style="manga"] .map .sheet .meta{border:2px solid var(--ink);border-radius:3px}
-@media (max-width:760px){.map .sheet{padding:14px 14px 16px}.map .sheet h4{font-size:17px}.map .sheet .desc{font-size:14.5px}}
-@media print{.map .sheet{display:none}}
+[data-style="sketch"] .sheet{border-radius:22px 14px 0 0/14px 22px 0 0;border:2px solid var(--line-strong);border-bottom:0;box-shadow:0 -3px 0 var(--line)}
+[data-style="manga"] .sheet{border-radius:6px 6px 0 0;border:3px solid var(--ink);border-bottom:0;box-shadow:0 -5px 0 var(--ink)}
+[data-style="manga"] .sheet h4{font-weight:900}
+[data-style="manga"] .sheet .tag{border:2px solid var(--ink);border-radius:3px}
+[data-style="manga"] .sheet .tag.main{background:var(--accent);color:var(--on-accent)}
+[data-style="manga"] .sheet .meta{border:2px solid var(--ink);border-radius:3px}
+@media (max-width:760px){.sheet{padding:14px 14px 16px}.sheet h4{font-size:17px}.sheet .desc{font-size:14.5px}}
+@media print{.sheet{display:none}}
+[data-style="sketch"] .sheet{background-image:var(--paper)}
 /* 地點分級切換 */
 .map .lvsw{display:flex;flex-wrap:wrap;align-items:center;gap:0;border-bottom:1px solid var(--line);background:var(--panel)}
 .map .lvsw .lbl{font-size:12px;color:var(--muted);padding:6px 10px}
@@ -1386,7 +1387,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-off
     <li>地點座標與導航連結：Google Maps（2026/11/04 逐點核對，含 place_id）</li>
     <li>周邊設施（停車場、便利商店、道の駅）：Google Maps 搜尋 2026/11/04；營業時間與收費以出發前查詢為準</li>
   </ol>
-  <p>v1.11 越後・上州版（分頁＋總覽／單日分區地圖＋當地特色插畫＋標準／手繪／漫畫風格）・產出日 2026/10/13</p>
+  <p>v1.12 越後・上州版（分頁＋總覽／單日分區地圖＋當地特色插畫＋標準／手繪／漫畫風格）・產出日 2026/10/13</p>
 </footer>
 
 <script>/* Leaflet 1.9.4 (BSD-2-Clause) */
@@ -1530,6 +1531,18 @@ var BLANK="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAE
 var hasL=typeof L!=="undefined";
 
 var LVLAB={1:"L1 地標",2:"L2 交通",3:"L3 景點",4:"L4 購物",5:"L5 全部"};
+/* 地點資訊面板：整頁共用一個，固定在畫面底部，不放在地圖裡 */
+var SHEET=null;
+function placeSheet(){
+  if(SHEET)return SHEET;
+  SHEET=document.createElement('div');
+  SHEET.id='placeSheet'; SHEET.className='sheet';
+  SHEET.setAttribute('role','dialog'); SHEET.setAttribute('aria-modal','false');
+  SHEET.setAttribute('aria-label','地點資訊'); SHEET.setAttribute('aria-hidden','true');
+  document.body.appendChild(SHEET);
+  SHEET.addEventListener('click',function(e){if(e.target.closest('.x')&&SHEET.owner)SHEET.owner.close();});
+  return SHEET;
+}
 function MapView(el,key){
   var cfg=MAPS[key], self=this;
   this.el=el; this.cfg=cfg; this.key=key; this.sel=null; this.map=null;
@@ -1565,13 +1578,11 @@ function MapView(el,key){
   if(facs.length){chips+='<span class="chips-h">周邊設施（Google Maps 搜尋）</span>';facs.forEach(function(x){chips+='<button type="button" class="chip fac" data-i="'+x[1]+'" aria-pressed="false"><span class="n k-fac">'+esc(x[0].p.glyph)+'</span>'+esc(x[0].p.name)+'</button>';});}
   el.innerHTML=lvb+'<div class="stage"><div class="lmap" role="region" aria-label="'+(key==='overview'?'全程路線':'當日路線')+'地圖"></div>'+
     '<div class="ctl"><button type="button" data-z="in" aria-label="放大">＋</button><button type="button" data-z="out" aria-label="縮小">－</button><button type="button" data-z="fit" aria-label="顯示全部">⤢</button></div>'+
-    '<div class="sheet" role="dialog" aria-modal="false" aria-label="地點資訊" aria-hidden="true"></div></div>'+
+    '</div>'+
     '<div class="lg">'+lg+'</div><div class="chips">'+chips+'</div>'+
-    '<p class="map-hint">點地圖標記或上方地點，從下方展開資訊與導航。</p>'+
+    '<p class="map-hint">點地圖標記或上方地點，畫面底部會展開地點資訊與導航。</p>'+
     (cfg.note?'<div class="note-s">'+esc(cfg.note)+'</div>':'');
-  this.box=el.querySelector('.lmap'); this.sheet=el.querySelector('.sheet');
-  this.sheet.addEventListener('click',function(e){if(e.target.closest('.x'))self.close();});
-  this.sheet.addEventListener('keydown',function(e){if(e.key==='Escape')self.close();}); this.hint=el.querySelector('.lvhint');
+  this.box=el.querySelector('.lmap'); this.sheet=placeSheet(); this.hint=el.querySelector('.lvhint');
   el.querySelector('.ctl').addEventListener('click',function(e){
     var b=e.target.closest('button'); if(!b||!self.map)return;
     var z=b.getAttribute('data-z');
@@ -1713,15 +1724,18 @@ MapView.prototype.tagsFor=function(s){
   return t;
 };
 MapView.prototype.close=function(){
-  if(!this.sheet||!this.sheet.classList.contains('open'))return;
-  this.sheet.classList.remove('open'); this.sheet.setAttribute('aria-hidden','true');
-  this.el.querySelector('.stage').classList.remove('sheet-open');
-  if(this.map)this.map.invalidateSize({pan:false});
+  if(this.sel===null)return;
+  if(this.sheet.owner===this){
+    this.sheet.classList.remove('open'); this.sheet.setAttribute('aria-hidden','true');
+    this.sheet.owner=null; document.body.style.paddingBottom='';
+  }
   this.sel=null; if(this.map)this.layout();
   this.el.querySelectorAll('.chip').forEach(function(c){c.setAttribute('aria-pressed','false');});
 };
 MapView.prototype.select=function(i,center){
-  var self=this, s=this.all[i]; this.sel=i;
+  var self=this, s=this.all[i];
+  if(this.sheet.owner&&this.sheet.owner!==this)this.sheet.owner.close();
+  this.sel=i; this.sheet.owner=this;
   this.el.querySelectorAll('.chip').forEach(function(c){c.setAttribute('aria-pressed',String(+c.getAttribute('data-i')===i));});
   var Lk=links(s.p,this.cfg.mode);
   this.sheet.innerHTML='<button type="button" class="x" aria-label="關閉">✕</button>'+
@@ -1733,14 +1747,21 @@ MapView.prototype.select=function(i,center){
     '<div class="acts"><a class="mbtn go" href="'+Lk.gd+'" target="_blank" rel="noopener">Google 導航</a><a class="mbtn go" href="'+Lk.ad+'" target="_blank" rel="noopener">Apple 導航</a>'+
     '<a class="mbtn" href="'+Lk.gv+'" target="_blank" rel="noopener">Google 地圖</a><a class="mbtn" href="'+Lk.av+'" target="_blank" rel="noopener">Apple 地圖</a></div>';
   this.sheet.classList.add('open'); this.sheet.setAttribute('aria-hidden','false');
-  this.el.querySelector('.stage').classList.add('sheet-open');
+  var sh=this.sheet.offsetHeight;
+  document.body.style.paddingBottom=sh+'px';
   if(this.map){
-    this.map.invalidateSize({pan:false});
     var z=center?Math.max(this.map.getZoom(),14):this.map.getZoom();
     this.map.setView(s.p.ll,z,{animate:false});
-    var h=this.sheet.offsetHeight, H=this.map.getSize().y;
-    // 讓選取點落在資訊面板上方可見區的中央
-    this.map.panBy([0,Math.round(Math.min(h,H*0.78)/2)],{animate:false});
+    // 地圖若被底部面板或黏頂分頁列擋住，捲到可見範圍，並讓選取點落在可見部分的中央
+    var bar=document.querySelector('.tabbar'), top=bar?bar.getBoundingClientRect().bottom:0;
+    var vb=window.innerHeight-sh, r=this.box.getBoundingClientRect();
+    if(r.bottom>vb||r.top<top){
+      var dy=(r.height<=vb-top)?(r.bottom-vb+8):(r.top-top-8);
+      if(r.top-dy<top)dy=r.top-top-8;
+      window.scrollBy(0,dy); r=this.box.getBoundingClientRect();
+    }
+    var vt=Math.max(r.top,top), vbt=Math.min(r.bottom,vb);
+    if(vbt>vt){var want=(vt+vbt)/2-r.top; this.map.panBy([0,Math.round(r.height/2-want)],{animate:false});}
     this.layout();
   }
   var x=this.sheet.querySelector('.x'); if(x&&center)x.focus({preventScroll:true});
@@ -1769,6 +1790,7 @@ function show(id,push,scroll){
   tabs.forEach(function(t){var on=t.getAttribute('data-p')===id;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;if(on&&t.scrollIntoView)t.scrollIntoView({block:'nearest',inline:'nearest'});});
   order.forEach(function(p){document.getElementById(p).hidden=p!==id;});
   if(push){try{history.replaceState(null,'','#'+id);}catch(e){}}
+  Object.keys(maps).forEach(function(k){if(k!==id)maps[k].close();});
   if(maps[id])maps[id].ensure();
   if(scroll){var bar=document.querySelector('.tabbar');var top=bar.getBoundingClientRect().top+window.pageYOffset;if(window.pageYOffset>top)window.scrollTo(0,top);}
 }
