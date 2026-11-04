@@ -1426,7 +1426,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-off
     <li>地點座標與導航連結：Google Maps（2026/11/04 逐點核對，含 place_id）</li>
     <li>周邊設施（停車場、便利商店、道の駅）：Google Maps 搜尋 2026/11/04；營業時間與收費以出發前查詢為準</li>
   </ol>
-  <p>v1.14 越後・上州版（分頁＋總覽／單日分區地圖＋當地特色插畫＋標準／手繪／漫畫風格）・產出日 2026/10/13</p>
+  <p>v1.15 越後・上州版（分頁＋總覽／單日分區地圖＋當地特色插畫＋標準／手繪／漫畫風格）・產出日 2026/10/13</p>
 </footer>
 
 <script>/* Leaflet 1.9.4 (BSD-2-Clause) */
@@ -1851,7 +1851,7 @@ MapView.prototype.select=function(i,center){
   var x=this.sheet.querySelector('.x'); if(x&&center)x.focus({preventScroll:true});
 };
 
-var maps={};
+var maps={}; window.tripMaps=maps;
 document.addEventListener('keydown',function(e){if(e.key==='Escape')Object.keys(maps).forEach(function(k){maps[k].close();});});
 function retheme(){Object.keys(maps).forEach(function(k){maps[k].theme();});}
 if(window.MutationObserver)new MutationObserver(retheme).observe(root,{attributes:true,attributeFilter:['data-theme']});
@@ -1897,6 +1897,8 @@ function buildBlocks(root){
     h.setAttribute('aria-expanded','true'); body.hidden=false;
     if(!maps[k])maps[k]=new MapView(body.querySelector('.map'),k);
     maps[k].ensure();
+    // 每次展開都回到預設視角（框住該區所有站點與設施）
+    if(maps[k].map){maps[k].close();maps[k].map.invalidateSize({pan:false});maps[k].fit();}
     var top=document.querySelector('.tabbar').getBoundingClientRect().bottom, r=h.getBoundingClientRect();
     if(r.top<top||r.top>window.innerHeight*0.5)window.scrollBy(0,r.top-top-8);
   });
