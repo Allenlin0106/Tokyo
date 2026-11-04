@@ -766,13 +766,6 @@ ul.plain li{margin:3px 0}
 .chip{font:inherit;font-size:12.5px;line-height:1.4;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:3px 10px 3px 4px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
 .chip .n{display:inline-grid;place-items:center;min-width:20px;height:20px;border-radius:50%;font:700 11px var(--f-mono);color:var(--b-fg);padding:0 4px}
 .chip[aria-pressed="true"]{border-color:var(--accent);background:var(--panel)}
-.map .info{border-top:1px solid var(--line);padding:12px 14px;min-height:58px}
-.map .info .empty{color:var(--muted);font-size:13px;margin:0}
-.map .info h4{margin:0;font-size:15px}
-.map .info .jp{color:var(--muted);font-size:12.5px}
-.map .info .src{color:var(--muted);font-size:12px}
-.map .info .note{margin:2px 0 8px;font-size:13.5px}
-.map .info .acts{display:flex;flex-wrap:wrap;gap:6px}
 .mbtn{font:600 12.5px var(--f-sans);text-decoration:none;border-radius:6px;padding:6px 10px;border:1px solid var(--line-strong);color:var(--fg);background:var(--panel);white-space:nowrap}
 .mbtn:hover{border-color:var(--accent)}
 .mbtn.go{background:var(--fg);color:var(--bg);border-color:var(--fg)}
@@ -828,6 +821,33 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-off
 .mki.ex.fac .lab.p-r{left:13px}.mki.ex.fac .lab.p-l{right:13px}.mki.ex.fac .lab.p-t{bottom:13px}.mki.ex.fac .lab.p-b{top:13px}
 .chips .chips-h{flex-basis:100%;font-size:12px;color:var(--muted);margin-top:4px}
 .chip.fac .n{border-radius:4px;font-family:var(--f-sans)}
+/* 地點資訊：地圖底部滑出面板 */
+.map .sheet{position:absolute;left:0;right:0;bottom:0;z-index:1100;max-height:78%;overflow:auto;background:var(--panel);color:var(--fg);
+  border-radius:18px 18px 0 0;border-top:1px solid var(--line);box-shadow:0 -8px 20px rgba(0,0,0,.18);padding:16px 18px 18px;
+  transform:translateY(105%);visibility:hidden;transition:transform .22s ease,visibility 0s linear .22s}
+.map .sheet.open{transform:none;visibility:visible;transition:transform .22s ease}
+.map .sheet h4{margin:0 44px 10px 0;font-size:19px;line-height:1.35;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.map .sheet .ic{font-size:24px;line-height:1}
+.map .sheet .x{position:absolute;right:8px;top:6px;width:40px;height:40px;border:0;background:none;color:var(--fg);font-size:22px;line-height:1;cursor:pointer;border-radius:8px}
+.map .sheet .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.map .sheet .tag{font-size:12.5px;font-weight:700;line-height:1.4;padding:4px 12px;border-radius:999px;background:var(--head-bg);color:var(--fg)}
+.map .sheet .tag.main{background:var(--fg);color:var(--bg)}
+.map .sheet .desc{margin:0 0 4px;font-size:15px;line-height:1.75}
+.map .sheet .jp{margin:0 0 14px;font-size:12.5px;color:var(--muted)}
+.map .sheet .btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.map .sheet .btns a{display:block;text-align:center;padding:12px 8px;border-radius:12px;font-weight:700;font-size:15px;line-height:1.4;text-decoration:none;color:#fff}
+.map .sheet .btns .g{background:#2d6a44} .map .sheet .btns .a{background:#22476a}
+.map .sheet .btns a:focus-visible,.map .sheet .x:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.map .map-hint{margin:0;padding:6px 12px 10px;font-size:12.5px;color:var(--muted)}
+[data-style="sketch"] .map .sheet{border-radius:22px 14px 0 0/14px 22px 0 0;border:2px solid var(--line-strong);border-bottom:0;box-shadow:0 -3px 0 var(--line)}
+[data-style="sketch"] .map .sheet .btns a{border-radius:var(--wob);border:2px solid var(--line-strong)}
+[data-style="manga"] .map .sheet{border-radius:6px 6px 0 0;border:3px solid var(--ink);border-bottom:0;box-shadow:0 -5px 0 var(--ink)}
+[data-style="manga"] .map .sheet h4{font-weight:900}
+[data-style="manga"] .map .sheet .tag{border:2px solid var(--ink);border-radius:3px}
+[data-style="manga"] .map .sheet .tag.main{background:var(--accent);color:var(--on-accent)}
+[data-style="manga"] .map .sheet .btns a{border:2px solid var(--ink);border-radius:4px;box-shadow:3px 3px 0 var(--ink)}
+@media (max-width:760px){.map .sheet{padding:14px 14px 16px}.map .sheet h4{font-size:17px}.map .sheet .desc{font-size:14.5px}}
+@media print{.map .sheet{display:none}}
 /* 地點分級切換 */
 .map .lvsw{display:flex;flex-wrap:wrap;align-items:center;gap:0;border-bottom:1px solid var(--line);background:var(--panel)}
 .map .lvsw .lbl{font-size:12px;color:var(--muted);padding:6px 10px}
@@ -839,7 +859,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-off
 .mki.ex .lab{font-size:11.5px;line-height:16px;color:var(--muted);border-color:var(--line)}
 .mki.ex .lab.p-r{left:9px;top:-9px}.mki.ex .lab.p-l{right:9px;top:-9px}.mki.ex .lab.p-t{bottom:9px}.mki.ex .lab.p-b{top:9px}
 .mki.ex.sel .lab{color:var(--fg)}
-.map .info .lvtag{font:600 11px var(--f-mono);border:1px solid var(--line-strong);border-radius:4px;padding:0 5px;color:var(--muted);vertical-align:middle}
 [data-style="manga"] .map .lvsw{border-bottom:2px solid var(--ink)}
 [data-style="manga"] .map .lvsw button{border-left:2px solid var(--ink);font-weight:700}
 [data-style="manga"] .map .lvsw button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
@@ -928,7 +947,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-off
 [data-style="manga"] td{border-bottom:1.5px solid var(--line)}
 [data-style="manga"] .badge{border:1.5px solid var(--ink);border-radius:2px}
 [data-style="manga"] .route b{color:var(--accent);font-weight:900}
-[data-style="manga"] .map .lg,[data-style="manga"] .chips,[data-style="manga"] .map .info{border-top:2px solid var(--ink)}
+[data-style="manga"] .map .lg,[data-style="manga"] .chips{border-top:2px solid var(--ink)}
 [data-style="manga"] .map .leaflet-tile-pane{filter:grayscale(1) contrast(1.35) brightness(1.06)}
 [data-style="manga"][data-theme="dark"] .map .leaflet-tile-pane{filter:invert(1) grayscale(1) contrast(1.25) brightness(.8)}
 @media (prefers-color-scheme:dark){[data-style="manga"]:not([data-theme="light"]) .map .leaflet-tile-pane{filter:invert(1) grayscale(1) contrast(1.25) brightness(.8)}}
@@ -1366,7 +1385,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-off
     <li>地點座標與導航連結：Google Maps（2026/11/04 逐點核對，含 place_id）</li>
     <li>周邊設施（停車場、便利商店、道の駅）：Google Maps 搜尋 2026/11/04；營業時間與收費以出發前查詢為準</li>
   </ol>
-  <p>v1.9 越後・上州版（分頁＋總覽／單日分區地圖＋當地特色插畫＋標準／手繪／漫畫風格）・產出日 2026/10/13</p>
+  <p>v1.10 越後・上州版（分頁＋總覽／單日分區地圖＋當地特色插畫＋標準／手繪／漫畫風格）・產出日 2026/10/13</p>
 </footer>
 
 <script>/* Leaflet 1.9.4 (BSD-2-Clause) */
@@ -1544,11 +1563,14 @@ function MapView(el,key){
   var facs=this.all.map(function(s,i){return[s,i];}).filter(function(x){return x[0].p.kind==='fac';});
   if(facs.length){chips+='<span class="chips-h">周邊設施（Google Maps 搜尋）</span>';facs.forEach(function(x){chips+='<button type="button" class="chip fac" data-i="'+x[1]+'" aria-pressed="false"><span class="n k-fac">'+esc(x[0].p.glyph)+'</span>'+esc(x[0].p.name)+'</button>';});}
   el.innerHTML=lvb+'<div class="stage"><div class="lmap" role="region" aria-label="'+(key==='overview'?'全程路線':'當日路線')+'地圖"></div>'+
-    '<div class="ctl"><button type="button" data-z="in" aria-label="放大">＋</button><button type="button" data-z="out" aria-label="縮小">－</button><button type="button" data-z="fit" aria-label="顯示全部">⤢</button></div></div>'+
+    '<div class="ctl"><button type="button" data-z="in" aria-label="放大">＋</button><button type="button" data-z="out" aria-label="縮小">－</button><button type="button" data-z="fit" aria-label="顯示全部">⤢</button></div>'+
+    '<div class="sheet" role="dialog" aria-modal="false" aria-label="地點資訊" aria-hidden="true"></div></div>'+
     '<div class="lg">'+lg+'</div><div class="chips">'+chips+'</div>'+
-    '<div class="info" aria-live="polite"><p class="empty">點選地圖標記或下方地點，開啟 Google／Apple 地圖與導航。</p></div>'+
+    '<p class="map-hint">點地圖標記或上方地點，從下方展開資訊與導航。</p>'+
     (cfg.note?'<div class="note-s">'+esc(cfg.note)+'</div>':'');
-  this.box=el.querySelector('.lmap'); this.info=el.querySelector('.info'); this.hint=el.querySelector('.lvhint');
+  this.box=el.querySelector('.lmap'); this.sheet=el.querySelector('.sheet');
+  this.sheet.addEventListener('click',function(e){if(e.target.closest('.x'))self.close();});
+  this.sheet.addEventListener('keydown',function(e){if(e.key==='Escape')self.close();}); this.hint=el.querySelector('.lvhint');
   el.querySelector('.ctl').addEventListener('click',function(e){
     var b=e.target.closest('button'); if(!b||!self.map)return;
     var z=b.getAttribute('data-z');
@@ -1596,6 +1618,7 @@ MapView.prototype.build=function(){
   });
   this.map=m;
   m.on('zoomend viewreset resize moveend',function(){self.layout();});
+  m.on('click',function(){self.close();});
   this.fit();
 };
 MapView.prototype.fit=function(){
@@ -1664,20 +1687,60 @@ MapView.prototype.layout=function(){
   });
 };
 MapView.prototype.theme=function(){};
+var FACICON={"P":"🅿️","便":"🏪","道":"🛣️"}, FACTAG={"P":"停車場","便":"便利商店","道":"道の駅・休息站"};
+function placeIcon(id,p){
+  if(p.kind==='fac')return FACICON[p.glyph]||'📍';
+  if(id==='hnd')return '✈️';
+  if(/溫泉|湯|風呂/.test(p.name))return '♨️';
+  if(p.kind==='stay')return '🏨';
+  if(p.kind==='tr'||p.cat==='station')return /纜車|ロープウェイ|天神平/.test(p.name+p.jp)?'🚡':'🚉';
+  if(p.kind==='act')return '🎟️';
+  if(p.kind==='alt')return '☔';
+  if(p.cat==='park')return '🌲';
+  if(p.cat==='shop')return '🛍️';
+  return '📍';
+}
+MapView.prototype.tagsFor=function(s){
+  var t=[];
+  if(s.p.kind==='fac')t.push(FACTAG[s.p.glyph]||'周邊設施');
+  else if(s.stop){
+    if(this.key==='overview')t.push(s.lab==='✈'?'出入境':(s.lab?'第 '+s.lab+' 晚住宿':'沿途地點'));
+    else t.push('今日第 '+s.lab+' 站');
+    t.push(KLAB[s.p.kind]);
+  } else t.push(KLAB[s.p.kind]);
+  t.push('L'+s.p.lv);
+  return t;
+};
+MapView.prototype.close=function(){
+  if(!this.sheet||!this.sheet.classList.contains('open'))return;
+  this.sheet.classList.remove('open'); this.sheet.setAttribute('aria-hidden','true');
+  this.sel=null; if(this.map)this.layout();
+  this.el.querySelectorAll('.chip').forEach(function(c){c.setAttribute('aria-pressed','false');});
+};
 MapView.prototype.select=function(i,center){
-  var s=this.all[i]; this.sel=i;
-  if(this.map){
-    if(center)this.map.setView(s.p.ll,Math.max(this.map.getZoom(),14),{animate:true});
-    this.layout();
-  }
+  var self=this, s=this.all[i]; this.sel=i;
   this.el.querySelectorAll('.chip').forEach(function(c){c.setAttribute('aria-pressed',String(+c.getAttribute('data-i')===i));});
   var Lk=links(s.p,this.cfg.mode);
-  this.info.innerHTML='<h4>'+esc(s.p.name)+' <span class="lvtag">L'+s.p.lv+'</span></h4><div class="jp">'+esc(s.p.jp)+'・'+s.p.ll[0].toFixed(4)+', '+s.p.ll[1].toFixed(4)+'</div><div class="note">'+esc(s.p.note)+(s.p.kind==='fac'?'<span class="src">・資料：Google Maps</span>':'')+'</div>'+
-    '<div class="acts"><a class="mbtn go" href="'+Lk.gd+'" target="_blank" rel="noopener">Google 導航</a><a class="mbtn go" href="'+Lk.ad+'" target="_blank" rel="noopener">Apple 導航</a>'+
-    '<a class="mbtn" href="'+Lk.gv+'" target="_blank" rel="noopener">Google 地圖</a><a class="mbtn" href="'+Lk.av+'" target="_blank" rel="noopener">Apple 地圖</a></div>';
+  this.sheet.innerHTML='<button type="button" class="x" aria-label="關閉">✕</button>'+
+    '<h4><span>'+esc(s.p.name)+'</span><span class="ic" aria-hidden="true">'+placeIcon(s.id,s.p)+'</span></h4>'+
+    '<div class="tags">'+this.tagsFor(s).map(function(t,k){return '<span class="tag'+(k===0?' main':'')+'">'+esc(t)+'</span>';}).join('')+'</div>'+
+    '<p class="desc">'+esc(s.p.note)+'</p>'+
+    '<p class="jp">'+esc(s.p.jp)+(s.p.kind==='fac'?'・資料：Google Maps':'')+'</p>'+
+    '<div class="btns"><a class="g" href="'+Lk.gd+'" target="_blank" rel="noopener">Google Maps 導航</a><a class="a" href="'+Lk.ad+'" target="_blank" rel="noopener">Apple Maps</a></div>';
+  this.sheet.classList.add('open'); this.sheet.setAttribute('aria-hidden','false');
+  if(this.map){
+    var z=center?Math.max(this.map.getZoom(),14):this.map.getZoom();
+    this.map.setView(s.p.ll,z,{animate:false});
+    var h=this.sheet.offsetHeight, H=this.map.getSize().y;
+    // 讓選取點落在資訊面板上方可見區的中央
+    this.map.panBy([0,Math.round(Math.min(h,H*0.78)/2)],{animate:false});
+    this.layout();
+  }
+  var x=this.sheet.querySelector('.x'); if(x&&center)x.focus({preventScroll:true});
 };
 
 var maps={};
+document.addEventListener('keydown',function(e){if(e.key==='Escape')Object.keys(maps).forEach(function(k){maps[k].close();});});
 function retheme(){Object.keys(maps).forEach(function(k){maps[k].theme();});}
 if(window.MutationObserver)new MutationObserver(retheme).observe(root,{attributes:true,attributeFilter:['data-theme']});
 if(window.matchMedia)matchMedia('(prefers-color-scheme: dark)').addEventListener('change',retheme);
