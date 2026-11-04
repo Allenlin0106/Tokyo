@@ -1326,10 +1326,10 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-off
     <li>tabiris：東京–新潟新幹線 2026 票價；jr-shinkansen.net：東京–輕井澤票價</li>
     <li>Travel Voice：JR EAST PASS 2026 年 3 月新制價格</li>
     <li>nap-camp：みなかみ泛舟年齡與價格；るるぶ：鬼押出し園；いこーよ：大滝乃湯貸切</li>
-    <li>地點座標：Google 地點資料（Google Maps）</li>
+    <li>地點座標與導航連結：Google Maps（2026/11/04 逐點核對，含 place_id）</li>
     <li>周邊設施（停車場、便利商店、道の駅）：Google Maps 搜尋 2026/11/04；營業時間與收費以出發前查詢為準</li>
   </ol>
-  <p>v1.7 越後・上州版（分頁＋總覽／單日分區地圖＋標準／手繪／漫畫風格）・產出日 2026/10/13</p>
+  <p>v1.8 越後・上州版（分頁＋總覽／單日分區地圖＋標準／手繪／漫畫風格）・產出日 2026/10/13</p>
 </footer>
 
 <script>/* Leaflet 1.9.4 (BSD-2-Clause) */
@@ -1366,38 +1366,38 @@ styleBtns.forEach(function(b){b.addEventListener('click',function(){
 });});
 paintStyle();
 
-/* ================= places（座標：Google 地點資料，2026/10/13 查證） ================= */
+/* ================= places（座標與 gid：Google Maps，2026/11/04 核對） ================= */
 // lv: 1 地標 2 交通 3 景點 4 購物 5 細節｜cat: station/sight/park/shop｜kind: tr 交通 / sight 景點 / stay 住宿 / act 活動・溫泉 / alt 備案
 var PL={
-  hnd:{name:"羽田機場 第3航廈",jp:"羽田空港第3ターミナル",ll:[35.5455,139.7687],lv:2,cat:"station",kind:"tr",dir:"right",note:"國際線航廈；京急、利木津巴士"},
-  tokyo:{name:"東京站（八重洲）",jp:"東京駅",ll:[35.6808,139.7681],lv:2,cat:"station",kind:"tr",dir:"right",note:"上越／北陸新幹線"},
-  niigata:{name:"新潟站",jp:"新潟駅",ll:[37.9120,139.0618],lv:2,cat:"station",kind:"stay",dir:"right",note:"D1 住宿、D2 取車"},
-  bandai:{name:"萬代橋",jp:"萬代橋 新潟市",ll:[37.9195,139.0532],lv:1,cat:"sight",kind:"sight",dir:"right",note:"免費；信濃川畔傍晚散步"},
-  marinepia:{name:"新潟市水族館",jp:"新潟市水族館マリンピア日本海",ll:[37.9237,139.0280],lv:3,cat:"sight",kind:"sight",dir:"right",note:"9:00–17:00；海豚秀時段週末不同"},
-  nobutai:{name:"まつだい農舞台",jp:"まつだい農舞台",ll:[37.1316,138.6150],lv:3,cat:"sight",kind:"sight",dir:"right",note:"10:00–17:00；週二、三休；藝術祭據點"},
-  bijin:{name:"美人林",jp:"美人林 十日町市松之山",ll:[37.1010,138.6197],lv:3,cat:"park",kind:"sight",dir:"right",note:"免費；山毛櫸林"},
-  matsunoyama:{name:"松之山溫泉",jp:"松之山温泉",ll:[37.0647,138.5991],lv:3,cat:"sight",kind:"stay",dir:"right",note:"D2 住宿"},
-  kiyotsu:{name:"清津峽溪谷隧道",jp:"清津峡渓谷トンネル",ll:[36.9725,138.7499],lv:1,cat:"park",kind:"sight",dir:"right",note:"8:30–17:00；假日預約制；免費停車"},
-  monet:{name:"MonET 美術館",jp:"越後妻有里山現代美術館 MonET",ll:[37.1389,138.7599],lv:3,cat:"sight",kind:"sight",dir:"right",note:"10:00–17:00；週二、三休"},
-  yuzawa:{name:"越後湯澤站",jp:"越後湯沢駅",ll:[36.9360,138.8096],lv:2,cat:"station",kind:"stay",dir:"right",note:"D3 住宿；站內ぽんしゅ館"},
-  ropeyz:{name:"湯澤高原纜車 山麓站",jp:"湯沢高原ロープウェイ 山麓駅",ll:[36.9401,138.8041],lv:3,cat:"station",kind:"act",dir:"right",note:"夏季營運（2026：7/18–8/23）"},
-  suwakyo:{name:"諏訪峽",jp:"諏訪峡 みなかみ町",ll:[36.7600,138.9729],lv:5,cat:"park",kind:"sight",dir:"right",note:"免費溪谷步道"},
-  minakami:{name:"水上站・水上溫泉",jp:"水上駅",ll:[36.7786,138.9688],lv:2,cat:"station",kind:"stay",dir:"right",note:"D4、D5 住宿；泛舟集合點依業者"},
-  doai:{name:"谷川岳纜車 土合口站",jp:"谷川岳ロープウェイ 土合口駅",ll:[36.8364,138.9620],lv:2,cat:"station",kind:"act",dir:"right",note:"平日 8:00–17:00；停車場收費"},
-  tenjin:{name:"天神平",jp:"天神平駅 谷川岳ロープウェイ",ll:[36.8182,138.9497],lv:3,cat:"park",kind:"sight",dir:"right",note:"展望台、1 小時周遊步道"},
-  yamba:{name:"八ッ場水壩",jp:"八ッ場ダム",ll:[36.5576,138.7141],lv:3,cat:"sight",kind:"sight",dir:"right",note:"免費停車；遊客中心有足湯"},
-  yubatake:{name:"湯畑",jp:"湯畑 草津温泉",ll:[36.6230,138.5967],lv:1,cat:"sight",kind:"stay",dir:"right",note:"D6 住宿圈；夜間點燈"},
-  sainokawara:{name:"西之河原露天風呂",jp:"西の河原露天風呂",ll:[36.6243,138.5884],lv:3,cat:"sight",kind:"act",dir:"right",note:"7:00–20:00；大人 ¥800；週五晚混浴日"},
-  netsunoyu:{name:"熱乃湯",jp:"熱乃湯 草津",ll:[36.6227,138.5963],lv:3,cat:"sight",kind:"sight",dir:"left",note:"湯もみ秀 15:30／16:00／16:30"},
-  otaki:{name:"大滝乃湯（雨備）",jp:"大滝乃湯 草津",ll:[36.6229,138.6015],lv:5,cat:"sight",kind:"alt",dir:"right",note:"9:00–21:00；貸切 60 分 ¥2,000"},
-  onioshi:{name:"鬼押出し園",jp:"鬼押出し園",ll:[36.4448,138.5371],lv:1,cat:"park",kind:"sight",dir:"right",note:"8:00–17:00；大人 ¥700"},
-  shiraito:{name:"白絲瀑布",jp:"白糸の滝 軽井沢",ll:[36.4103,138.5926],lv:5,cat:"park",kind:"sight",dir:"right",note:"免費；收費道路前往"},
-  harunire:{name:"榆樹街小鎮",jp:"ハルニレテラス",ll:[36.3593,138.5903],lv:4,cat:"shop",kind:"sight",dir:"right",note:"午餐；停車場僅收現金"},
-  karuizawa:{name:"輕井澤站",jp:"軽井沢駅",ll:[36.3426,138.6353],lv:2,cat:"station",kind:"stay",dir:"right",note:"D7 還車、住宿；北陸新幹線"},
-  prince:{name:"王子購物廣場",jp:"軽井沢・プリンスショッピングプラザ",ll:[36.3410,138.6331],lv:4,cat:"shop",kind:"sight",dir:"right",note:"10:00–19:00；站南口旁"},
-  kumoba:{name:"雲場池",jp:"雲場池",ll:[36.3523,138.6270],lv:5,cat:"park",kind:"sight",dir:"right",note:"免費；早上人少"},
-  kyukaru:{name:"舊輕井澤銀座",jp:"旧軽井沢銀座通り",ll:[36.3575,138.6343],lv:4,cat:"shop",kind:"sight",dir:"right",note:"商店街，週末人多"},
-  shinagawa:{name:"品川站",jp:"品川駅",ll:[35.6285,139.7388],lv:2,cat:"station",kind:"stay",dir:"right",note:"D8 住宿；京急直達羽田"},
+  hnd:{name:"羽田機場 第3航廈",jp:"羽田空港第3ターミナル",ll:[35.5455,139.7687],lv:2,cat:"station",kind:"tr",dir:"right",note:"國際線航廈；京急、利木津巴士",gid:"ChIJEzipOlRhGGAR3-3UwuMqAnI"},
+  tokyo:{name:"東京站（八重洲）",jp:"東京駅",ll:[35.6808,139.7681],lv:2,cat:"station",kind:"tr",dir:"right",note:"上越／北陸新幹線",gid:"ChIJC3Cf2PuLGGAROO00ukl8JwA"},
+  niigata:{name:"新潟站",jp:"新潟駅",ll:[37.9120,139.0618],lv:2,cat:"station",kind:"stay",dir:"right",note:"D1 住宿、D2 取車",gid:"ChIJAWuK6JrJ9F8R6qO5mIuSHTs"},
+  bandai:{name:"萬代橋",jp:"萬代橋 新潟市",ll:[37.9195,139.0532],lv:1,cat:"sight",kind:"sight",dir:"right",note:"免費；信濃川畔傍晚散步",gid:"ChIJZWLYvYfJ9F8R1k0_wvt1P8U"},
+  marinepia:{name:"新潟市水族館",jp:"新潟市水族館マリンピア日本海",ll:[37.9237,139.0280],lv:3,cat:"sight",kind:"sight",dir:"right",note:"9:00–17:00；海豚秀時段週末不同",gid:"ChIJgcnOweDJ9F8R3wOwnTD7Sb0"},
+  nobutai:{name:"まつだい農舞台",jp:"まつだい農舞台",ll:[37.1316,138.6150],lv:3,cat:"sight",kind:"sight",dir:"right",note:"10:00–17:00；週二、三休；藝術祭據點",gid:"ChIJFVD7sCzm9V8RbKydgLjGvHQ"},
+  bijin:{name:"美人林",jp:"美人林 十日町市松之山",ll:[37.1010,138.6197],lv:3,cat:"park",kind:"sight",dir:"right",note:"免費；山毛櫸林",gid:"ChIJsTz-Rcvn9V8R8L_dKIGMLOU"},
+  matsunoyama:{name:"松之山溫泉",jp:"松之山温泉",ll:[37.0647,138.5991],lv:3,cat:"sight",kind:"stay",dir:"right",note:"D2 住宿",gid:"ChIJxUKsXdPn9V8R8bprx1NVLSw"},
+  kiyotsu:{name:"清津峽溪谷隧道",jp:"清津峡渓谷トンネル",ll:[36.9725,138.7499],lv:1,cat:"park",kind:"sight",dir:"right",note:"8:30–17:00；假日預約制；免費停車",gid:"ChIJZ-hOawD_9V8RFP7KMKffQRs"},
+  monet:{name:"MonET 美術館",jp:"越後妻有里山現代美術館 MonET",ll:[37.1389,138.7599],lv:3,cat:"sight",kind:"sight",dir:"right",note:"10:00–17:00；週二、三休",gid:"ChIJwQdc0CHs9V8RimgXOqE2dQY"},
+  yuzawa:{name:"越後湯澤站",jp:"越後湯沢駅",ll:[36.9360,138.8096],lv:2,cat:"station",kind:"stay",dir:"right",note:"D3 住宿；站內ぽんしゅ館",gid:"ChIJtVcmATACHmARyJ6Gsk0HdqQ"},
+  ropeyz:{name:"湯澤高原纜車 山麓站",jp:"湯沢高原ロープウェイ 山麓駅",ll:[36.9401,138.8041],lv:3,cat:"station",kind:"act",dir:"right",note:"夏季營運（2026：7/18–8/23）",gid:"ChIJF656gyECHmARRDRT-iipJxQ"},
+  suwakyo:{name:"諏訪峽",jp:"諏訪峡 みなかみ町",ll:[36.7600,138.9729],lv:5,cat:"park",kind:"sight",dir:"right",note:"免費溪谷步道",gid:"ChIJefMprL0UHmAR2K3-OvGLna8"},
+  minakami:{name:"水上站・水上溫泉",jp:"水上駅",ll:[36.7786,138.9688],lv:2,cat:"station",kind:"stay",dir:"right",note:"D4、D5 住宿；泛舟集合點依業者",gid:"ChIJwySJbX0UHmARsdqeJ9Jo4Mk"},
+  doai:{name:"谷川岳纜車 土合口站",jp:"谷川岳ロープウェイ 土合口駅",ll:[36.8364,138.9620],lv:2,cat:"station",kind:"act",dir:"right",note:"平日 8:00–17:00；停車場收費",gid:"ChIJ4bnKFc0WHmARmEYNOZTR6IY"},
+  tenjin:{name:"天神平",jp:"天神平駅 谷川岳ロープウェイ",ll:[36.8182,138.9497],lv:3,cat:"park",kind:"sight",dir:"right",note:"展望台、1 小時周遊步道",gid:"ChIJqcWO6kURHmARtT_JHl_b86E"},
+  yamba:{name:"八ッ場水壩",jp:"八ッ場ダム",ll:[36.5576,138.7141],lv:3,cat:"sight",kind:"sight",dir:"right",note:"免費停車；遊客中心有足湯",gid:"ChIJlzCh5CTcHWARQDUeF0I0jNY"},
+  yubatake:{name:"湯畑",jp:"湯畑 草津温泉",ll:[36.6230,138.5967],lv:1,cat:"sight",kind:"stay",dir:"right",note:"D6 住宿圈；夜間點燈",gid:"ChIJtVM3GVXmHWARIF_lzsQfQuk"},
+  sainokawara:{name:"西之河原露天風呂",jp:"西の河原露天風呂",ll:[36.6243,138.5884],lv:3,cat:"sight",kind:"act",dir:"right",note:"7:00–20:00；大人 ¥800；週五晚混浴日",gid:"ChIJ3xELpQ69AWAR1lv3GJzY44k"},
+  netsunoyu:{name:"熱乃湯",jp:"熱乃湯 草津",ll:[36.6227,138.5963],lv:3,cat:"sight",kind:"sight",dir:"left",note:"湯もみ秀 15:30／16:00／16:30",gid:"ChIJN6b6HVXmHWAREdFXa8EbhtI"},
+  otaki:{name:"大滝乃湯（雨備）",jp:"大滝乃湯 草津",ll:[36.6229,138.6015],lv:5,cat:"sight",kind:"alt",dir:"right",note:"9:00–21:00；貸切 60 分 ¥2,000",gid:"ChIJ0xp0zwHnHWARs1NmvnQ4u1c"},
+  onioshi:{name:"鬼押出し園",jp:"鬼押出し園",ll:[36.4448,138.5371],lv:1,cat:"park",kind:"sight",dir:"right",note:"8:00–17:00；大人 ¥700",gid:"ChIJQ3awBRjFHWARO9ZhUDZoWeE"},
+  shiraito:{name:"白絲瀑布",jp:"白糸の滝 軽井沢",ll:[36.4103,138.5926],lv:5,cat:"park",kind:"sight",dir:"right",note:"免費；收費道路前往",gid:"ChIJFYs9aaXYHWARsnooiOit2r0"},
+  harunire:{name:"榆樹街小鎮",jp:"ハルニレテラス",ll:[36.3593,138.5903],lv:4,cat:"shop",kind:"sight",dir:"right",note:"午餐；停車場僅收現金",gid:"ChIJ5cLxXiXSHWARz4pWcUXMYWk"},
+  karuizawa:{name:"輕井澤站",jp:"軽井沢駅",ll:[36.3426,138.6353],lv:2,cat:"station",kind:"stay",dir:"right",note:"D7 還車、住宿；北陸新幹線",gid:"ChIJydEjjXzTHWARpROziUCAlHs"},
+  prince:{name:"王子購物廣場",jp:"軽井沢・プリンスショッピングプラザ",ll:[36.3410,138.6331],lv:4,cat:"shop",kind:"sight",dir:"right",note:"10:00–19:00；站南口旁",gid:"ChIJs2bRqHvTHWARcl6bPa7ly-g"},
+  kumoba:{name:"雲場池",jp:"雲場池",ll:[36.3523,138.6270],lv:5,cat:"park",kind:"sight",dir:"right",note:"免費；早上人少",gid:"ChIJ7bKhDZvTHWARQfIWff0_-Yo"},
+  kyukaru:{name:"舊輕井澤銀座",jp:"旧軽井沢銀座通り",ll:[36.3575,138.6343],lv:4,cat:"shop",kind:"sight",dir:"right",note:"商店街，週末人多",gid:"ChIJhQBnbUvSHWAR2L0NAqgrqOI"},
+  shinagawa:{name:"品川站",jp:"品川駅",ll:[35.6285,139.7388],lv:2,cat:"station",kind:"stay",dir:"right",note:"D8 住宿；京急直達羽田",gid:"ChIJdYcUblqKGGARcNsG90fDRZo"},
   /* 周邊設施（Google Maps 搜尋，2026/11/04）：只在 days 指定的單日地圖顯示；gid＝Google place_id */
   f_niigata_cv:{name:"7-Eleven 新潟駅",jp:"セブンイレブン 新潟駅",ll:[37.9138,139.0618],lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"24 小時；站前約 200 m",days:["d1", "d2"],gid:"ChIJpYgu-Y_J9F8RhzGeJFczb1g"},
   f_marinepia_p:{name:"水族館第 1 停車場",jp:"マリンピア日本海 第１駐車場",ll:[37.9230,139.0264],lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"最近入口、易滿；旁有專用停車場",days:["d2"],gid:"ChIJ7zxmk_3J9F8ReFU46tc8cUg"},
@@ -1635,7 +1635,7 @@ MapView.prototype.select=function(i,center){
   }
   this.el.querySelectorAll('.chip').forEach(function(c){c.setAttribute('aria-pressed',String(+c.getAttribute('data-i')===i));});
   var Lk=links(s.p,this.cfg.mode);
-  this.info.innerHTML='<h4>'+esc(s.p.name)+' <span class="lvtag">L'+s.p.lv+'</span></h4><div class="jp">'+esc(s.p.jp)+'・'+s.p.ll[0].toFixed(4)+', '+s.p.ll[1].toFixed(4)+'</div><div class="note">'+esc(s.p.note)+(s.p.gid?'<span class="src">・資料：Google Maps</span>':'')+'</div>'+
+  this.info.innerHTML='<h4>'+esc(s.p.name)+' <span class="lvtag">L'+s.p.lv+'</span></h4><div class="jp">'+esc(s.p.jp)+'・'+s.p.ll[0].toFixed(4)+', '+s.p.ll[1].toFixed(4)+'</div><div class="note">'+esc(s.p.note)+(s.p.kind==='fac'?'<span class="src">・資料：Google Maps</span>':'')+'</div>'+
     '<div class="acts"><a class="mbtn go" href="'+Lk.gd+'" target="_blank" rel="noopener">Google 導航</a><a class="mbtn go" href="'+Lk.ad+'" target="_blank" rel="noopener">Apple 導航</a>'+
     '<a class="mbtn" href="'+Lk.gv+'" target="_blank" rel="noopener">Google 地圖</a><a class="mbtn" href="'+Lk.av+'" target="_blank" rel="noopener">Apple 地圖</a></div>';
 };
