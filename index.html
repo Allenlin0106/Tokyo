@@ -770,6 +770,7 @@ ul.plain li{margin:3px 0}
 .map .info .empty{color:var(--muted);font-size:13px;margin:0}
 .map .info h4{margin:0;font-size:15px}
 .map .info .jp{color:var(--muted);font-size:12.5px}
+.map .info .src{color:var(--muted);font-size:12px}
 .map .info .note{margin:2px 0 8px;font-size:13.5px}
 .map .info .acts{display:flex;flex-wrap:wrap;gap:6px}
 .mbtn{font:600 12.5px var(--f-sans);text-decoration:none;border-radius:6px;padding:6px 10px;border:1px solid var(--line-strong);color:var(--fg);background:var(--panel);white-space:nowrap}
@@ -1326,9 +1327,9 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-off
     <li>Travel Voice：JR EAST PASS 2026 年 3 月新制價格</li>
     <li>nap-camp：みなかみ泛舟年齡與價格；るるぶ：鬼押出し園；いこーよ：大滝乃湯貸切</li>
     <li>地點座標：Google 地點資料（Google Maps）</li>
-    <li>周邊設施（停車場、便利商店、道の駅）：OpenStreetMap，Overpass 查詢 2026/11/03；營業時間與收費請自行確認</li>
+    <li>周邊設施（停車場、便利商店、道の駅）：Google Maps 搜尋 2026/11/04；營業時間與收費以出發前查詢為準</li>
   </ol>
-  <p>v1.6 越後・上州版（分頁＋總覽／單日分區地圖＋標準／手繪／漫畫風格）・產出日 2026/10/13</p>
+  <p>v1.7 越後・上州版（分頁＋總覽／單日分區地圖＋標準／手繪／漫畫風格）・產出日 2026/10/13</p>
 </footer>
 
 <script>/* Leaflet 1.9.4 (BSD-2-Clause) */
@@ -1397,27 +1398,28 @@ var PL={
   kumoba:{name:"雲場池",jp:"雲場池",ll:[36.3523,138.6270],lv:5,cat:"park",kind:"sight",dir:"right",note:"免費；早上人少"},
   kyukaru:{name:"舊輕井澤銀座",jp:"旧軽井沢銀座通り",ll:[36.3575,138.6343],lv:4,cat:"shop",kind:"sight",dir:"right",note:"商店街，週末人多"},
   shinagawa:{name:"品川站",jp:"品川駅",ll:[35.6285,139.7388],lv:2,cat:"station",kind:"stay",dir:"right",note:"D8 住宿；京急直達羽田"},
-  /* 周邊設施（OpenStreetMap，2026/11/03 查詢）：只在 days 指定的單日地圖顯示 */
-  f_niigata_cv:{name:"ローソン（新潟站旁）",jp:"ローソン 新潟駅前",ll:[37.9135,139.0619],lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"站前約 160 m；早餐、ATM",days:["d1", "d2"]},
-  f_marinepia_p:{name:"水族館停車場",jp:"マリンピア日本海 駐車場",ll:[37.9230,139.0264],lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"免費；水族館正門旁",days:["d2"]},
-  f_hanabi:{name:"道の駅 ながおか花火館",jp:"道の駅ながおか花火館",ll:[37.4556,138.8053],lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"長岡；途中午餐、休息",days:["d2"]},
-  f_nobutai_p:{name:"農舞台停車場",jp:"まつだい農舞台 駐車場",ll:[37.1318,138.6159],lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"農舞台旁",days:["d2"]},
-  f_bijin_p:{name:"美人林停車場",jp:"美人林 駐車場",ll:[37.1006,138.6187],lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"美人林入口旁",days:["d2"]},
-  f_matsu_cv:{name:"ヤマザキショップ（松之山）",jp:"ヤマザキショップ 松之山",ll:[37.0655,138.6032],lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"溫泉街內，約 380 m",days:["d2", "d3"]},
-  f_kiyotsu_p:{name:"清津峽停車場",jp:"清津峡渓谷トンネル 駐車場",ll:[36.9736,138.7500],lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"隧道入口旁；免費",days:["d3"]},
-  f_monet_p:{name:"MonET 停車場 P1",jp:"越後妻有里山現代美術館 MonET 駐車場",ll:[37.1389,138.7594],lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"約 120 台",days:["d3"]},
-  f_crossten:{name:"道の駅 クロステン十日町",jp:"道の駅クロステン十日町",ll:[37.1385,138.7614],lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"MonET 旁；午餐、伴手禮",days:["d3"]},
-  f_yuzawa_cv:{name:"7-Eleven（越後湯澤站前）",jp:"セブンイレブン 越後湯沢駅前",ll:[36.9360,138.8083],lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"站前約 110 m",days:["d3", "d4"]},
-  f_mizukiko:{name:"道の駅 水紀行館",jp:"道の駅水上町水紀行館",ll:[36.7644,138.9682],lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"諏訪峽旁；午餐、休息",days:["d4", "d5"]},
-  f_doai_p:{name:"土合口停車場",jp:"谷川岳ロープウェイ 土合口駅 駐車場",ll:[36.8361,138.9625],lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"纜車站旁；收費",days:["d5"]},
-  f_yamba_p:{name:"八ッ場水壩停車場",jp:"八ッ場ダム 駐車場",ll:[36.5579,138.7104],lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"免費",days:["d6"]},
-  f_yamba_mte:{name:"道の駅 八ッ場ふるさと館",jp:"道の駅八ッ場ふるさと館",ll:[36.5480,138.6847],lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"水壩下游；午餐、伴手禮",days:["d6"]},
-  f_yubatake_cv:{name:"7-Eleven（湯畑旁）",jp:"セブンイレブン 草津湯畑",ll:[36.6232,138.5966],lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"湯畑旁約 25 m",days:["d6", "d7"]},
-  f_kusatsu_mte:{name:"道の駅 草津運動茶屋公園",jp:"道の駅草津運動茶屋公園",ll:[36.6148,138.5902],lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"離開草津前休息",days:["d7"]},
-  f_shiraito_p:{name:"白絲瀑布停車場",jp:"白糸の滝 駐車場",ll:[36.4102,138.5946],lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"瀑布步道入口",days:["d7"]},
-  f_harunire_p:{name:"榆樹街停車場",jp:"ハルニレテラス 駐車場",ll:[36.3585,138.5905],lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"僅收現金",days:["d7"]},
-  f_karuizawa_cv:{name:"7-Eleven（輕井澤站前）",jp:"セブンイレブン 軽井沢駅前",ll:[36.3417,138.6346],lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"站前約 120 m",days:["d7", "d8"]},
-  f_shinagawa_cv:{name:"NewDays（品川站內）",jp:"NewDays 品川駅",ll:[35.6289,139.7385],lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"站內",days:["d8", "d9"]}
+  /* 周邊設施（Google Maps 搜尋，2026/11/04）：只在 days 指定的單日地圖顯示；gid＝Google place_id */
+  f_niigata_cv:{name:"7-Eleven 新潟駅",jp:"セブンイレブン 新潟駅",ll:[37.9138,139.0618],lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"24 小時；站前約 200 m",days:["d1", "d2"],gid:"ChIJpYgu-Y_J9F8RhzGeJFczb1g"},
+  f_marinepia_p:{name:"水族館第 1 停車場",jp:"マリンピア日本海 第１駐車場",ll:[37.9230,139.0264],lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"最近入口、易滿；旁有專用停車場",days:["d2"],gid:"ChIJ7zxmk_3J9F8ReFU46tc8cUg"},
+  f_hanabi:{name:"道の駅 ながおか花火館",jp:"道の駅ながおか花火館",ll:[37.4556,138.8047],lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"10:00–17:30；午餐、花火劇場",days:["d2"],gid:"ChIJdb7WPeup9V8RMACZQo_WiRE"},
+  f_nobutai_p:{name:"まつだい道の駅停車場",jp:"道の駅まつだいふるさと会館 駐車場",ll:[37.1326,138.6141],lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"農舞台旁；圓環內為接送區",days:["d2"],gid:"ChIJUdsS_2Tn9V8RgvD9tJyion4"},
+  f_bijin_p:{name:"美人林停車場",jp:"美人林 駐車場",ll:[37.1006,138.6188],lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"美人林入口旁",days:["d2"],gid:"ChIJU08DJgDn9V8RIlqnRKD1i-k"},
+  f_matsu_cv:{name:"渕岡商店（松之山）",jp:"渕岡商店 松之山",ll:[37.0654,138.6032],lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"7:00–19:00、週三休；溫泉街唯一",days:["d2", "d3"],gid:"ChIJQeHiJ4jj9V8R9yURWll7zRI"},
+  f_kiyotsu_p:{name:"清津峽第 1 停車場",jp:"清津峡第1駐車場",ll:[36.9744,138.7491],lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"免費約 30 台；步行 5 分",days:["d3"],gid:"ChIJ8S-IDQD_9V8RPxk-prtBR2Q"},
+  f_crossten:{name:"道の駅 クロステン十日町",jp:"道の駅クロステン十日町",ll:[37.1386,138.7611],lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"9:00–18:00、週三休；MonET 旁停車",days:["d3"],gid:"ChIJf3ns4SDs9V8RHI8Kf7TdOs0"},
+  f_yuzawa_cv:{name:"7-Eleven 越後湯澤站西口",jp:"セブンイレブン 越後湯沢駅西口",ll:[36.9361,138.8083],lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"24 小時；站前",days:["d3", "d4"],gid:"ChIJNe0cQCUCHmARBeCKOQKqpB8"},
+  f_minakami_cv:{name:"FamilyMart みなかみ湯原",jp:"ファミリーマート みなかみ湯原",ll:[36.7703,138.9685],lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"24 小時；離水上站約 0.9 km",days:["d4", "d5", "d6"],gid:"ChIJGXRNG4UUHmARRO_Mu27MewY"},
+  f_mizukiko:{name:"道の駅 水紀行館",jp:"道の駅水上町水紀行館",ll:[36.7648,138.9683],lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"9:00–17:00；諏訪峽旁",days:["d4", "d5"],gid:"ChIJVz_HK5oUHmARJR5yli5YUi0"},
+  f_doai_p:{name:"谷川岳纜車室內停車場",jp:"谷川岳ロープウェイ 屋内駐車場",ll:[36.8365,138.9629],lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"收費、入場付現；限高 2.1 m",days:["d5"],gid:"ChIJS5imDQARHmARrIHCak05iqE"},
+  f_yamba_p:{name:"八ッ場水壩 P1",jp:"八ッ場ダム P1駐車場",ll:[36.5586,138.7104],lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"9:00–17:00、週三休",days:["d6"],gid:"ChIJpUjntELZHWARlytOZn6eWz4"},
+  f_yamba_mte:{name:"道の駅 八ッ場ふるさと館",jp:"道の駅八ッ場ふるさと館",ll:[36.5475,138.6842],lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"8:30–18:00；足湯",days:["d6"],gid:"ChIJK5zvi9PYHWAR452wVZG10k4"},
+  f_yubatake_cv:{name:"7-Eleven 草津湯畑",jp:"セブンイレブン 草津湯畑",ll:[36.6232,138.5966],lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"24 小時；湯畑旁",days:["d6", "d7"],gid:"ChIJKQq7BFXmHWARw6Jr9V6TUFI"},
+  f_kusatsu_mte:{name:"道の駅 草津運動茶屋公園",jp:"道の駅草津運動茶屋公園",ll:[36.6148,138.5903],lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"9:00–17:00；離開草津前休息",days:["d7"],gid:"ChIJLRiX3a3nHWARKiVNfN2OQso"},
+  f_onioshi_p:{name:"鬼押出し園第 1 停車場",jp:"鬼押出し園第１駐車場",ll:[36.4445,138.5376],lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"園區步行 5 分；廁所、販賣機",days:["d7"],gid:"ChIJW6_P9tjFHWARlS-I0Pr-hoQ"},
+  f_shiraito_p:{name:"白絲瀑布第 1 停車場",jp:"白糸の滝 第1駐車場",ll:[36.4111,138.5944],lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"8:00–17:30；經收費道路",days:["d7"],gid:"ChIJuTSFjb_RHWAR714FE9LU09Q"},
+  f_harunire_p:{name:"星野區 P2（榆樹街）",jp:"星野エリア 第2駐車場",ll:[36.3597,138.5901],lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"7:00–23:00；先付款、收現金",days:["d7"],gid:"ChIJVSU32CPTHWARMJvZqj0w5oY"},
+  f_karuizawa_cv:{name:"FamilyMart 輕井澤（北口）",jp:"ファミリーマート 八百徳軽井沢店",ll:[36.3442,138.6329],lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"6:00–23:00；站北口約 300 m",days:["d7", "d8"],gid:"ChIJecBt5HvTHWAR6SobcSwhmbA"},
+  f_shinagawa_cv:{name:"7-Eleven 品川站",jp:"セブンイレブン 品川駅",ll:[35.6303,139.7377],lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"24 小時；高輪口",days:["d8", "d9"],gid:"ChIJ-baexVCKGGARLzsaTUlIIbM"}
 };
 var KLAB={tr:"交通",sight:"景點",stay:"住宿",act:"活動・溫泉",alt:"備案",fac:"周邊設施"};
 var SEGLAB={car:"開車／巴士",rail:"鐵路",walk:"步行",rope:"纜車"};
@@ -1454,9 +1456,10 @@ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;
 function links(p,mode){
   var q=encodeURIComponent(p.jp), la=p.ll[0], lo=p.ll[1];
   var af={driving:"d",transit:"r",walking:"w"}[mode]||"d";
+  var gq=p.gid?"&query_place_id="+p.gid:"", gdq=p.gid?"&destination_place_id="+p.gid:"";
   return {
-    gv:"https://www.google.com/maps/search/?api=1&query="+q,
-    gd:"https://www.google.com/maps/dir/?api=1&destination="+q+"&travelmode="+mode,
+    gv:"https://www.google.com/maps/search/?api=1&query="+q+gq,
+    gd:"https://www.google.com/maps/dir/?api=1&destination="+q+gdq+"&travelmode="+mode,
     av:"https://maps.apple.com/?q="+q+"&ll="+la+","+lo+"&z=16",
     ad:"https://maps.apple.com/?daddr="+q+"&ll="+la+","+lo+"&dirflg="+af
   };
@@ -1502,7 +1505,7 @@ function MapView(el,key){
   var chips='';
   stops.forEach(function(s,i){chips+='<button type="button" class="chip" data-i="'+i+'" aria-pressed="false"><span class="n k-'+s.p.kind+'">'+(s.lab?esc(s.lab):'·')+'</span>'+esc(s.p.name)+'</button>';});
   var facs=this.all.map(function(s,i){return[s,i];}).filter(function(x){return x[0].p.kind==='fac';});
-  if(facs.length){chips+='<span class="chips-h">周邊設施</span>';facs.forEach(function(x){chips+='<button type="button" class="chip fac" data-i="'+x[1]+'" aria-pressed="false"><span class="n k-fac">'+esc(x[0].p.glyph)+'</span>'+esc(x[0].p.name)+'</button>';});}
+  if(facs.length){chips+='<span class="chips-h">周邊設施（Google Maps 搜尋）</span>';facs.forEach(function(x){chips+='<button type="button" class="chip fac" data-i="'+x[1]+'" aria-pressed="false"><span class="n k-fac">'+esc(x[0].p.glyph)+'</span>'+esc(x[0].p.name)+'</button>';});}
   el.innerHTML=lvb+'<div class="stage"><div class="lmap" role="region" aria-label="'+(key==='overview'?'全程路線':'當日路線')+'地圖"></div>'+
     '<div class="ctl"><button type="button" data-z="in" aria-label="放大">＋</button><button type="button" data-z="out" aria-label="縮小">－</button><button type="button" data-z="fit" aria-label="顯示全部">⤢</button></div></div>'+
     '<div class="lg">'+lg+'</div><div class="chips">'+chips+'</div>'+
@@ -1632,7 +1635,7 @@ MapView.prototype.select=function(i,center){
   }
   this.el.querySelectorAll('.chip').forEach(function(c){c.setAttribute('aria-pressed',String(+c.getAttribute('data-i')===i));});
   var Lk=links(s.p,this.cfg.mode);
-  this.info.innerHTML='<h4>'+esc(s.p.name)+' <span class="lvtag">L'+s.p.lv+'</span></h4><div class="jp">'+esc(s.p.jp)+'・'+s.p.ll[0].toFixed(4)+', '+s.p.ll[1].toFixed(4)+'</div><div class="note">'+esc(s.p.note)+'</div>'+
+  this.info.innerHTML='<h4>'+esc(s.p.name)+' <span class="lvtag">L'+s.p.lv+'</span></h4><div class="jp">'+esc(s.p.jp)+'・'+s.p.ll[0].toFixed(4)+', '+s.p.ll[1].toFixed(4)+'</div><div class="note">'+esc(s.p.note)+(s.p.gid?'<span class="src">・資料：Google Maps</span>':'')+'</div>'+
     '<div class="acts"><a class="mbtn go" href="'+Lk.gd+'" target="_blank" rel="noopener">Google 導航</a><a class="mbtn go" href="'+Lk.ad+'" target="_blank" rel="noopener">Apple 導航</a>'+
     '<a class="mbtn" href="'+Lk.gv+'" target="_blank" rel="noopener">Google 地圖</a><a class="mbtn" href="'+Lk.av+'" target="_blank" rel="noopener">Apple 地圖</a></div>';
 };
