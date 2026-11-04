@@ -850,6 +850,18 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-off
 @media (max-width:760px){.sheet{padding:14px 14px 16px}.sheet h4{font-size:17px}.sheet .desc{font-size:14.5px}}
 @media print{.sheet{display:none}}
 [data-style="sketch"] .sheet{background-image:var(--paper)}
+.sheet .near{margin:14px 0 0;border-top:1px solid var(--line);padding-top:10px}
+.sheet .near-h{font-size:12.5px;font-weight:700;color:var(--muted);margin-bottom:6px;letter-spacing:.04em}
+.sheet .near-i{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:6px;cursor:pointer}
+.sheet .near-i:hover{border-color:var(--accent)}
+.sheet .near-i .n{flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:5px;color:var(--b-fg);font:700 12px var(--f-sans)}
+.sheet .near-i .t{display:flex;flex-direction:column;min-width:0}
+.sheet .near-i b{font-size:14px}
+.sheet .near-i small{font-size:12.5px;color:var(--muted)}
+.sheet .back{font:inherit;font-size:13px;color:var(--fg);background:var(--bg);border:1px solid var(--line-strong);border-radius:8px;padding:6px 12px;margin:12px 0 0;cursor:pointer}
+.chips.facs{border-top:1px dashed var(--line)}
+[data-style="manga"] .sheet .near-i,[data-style="manga"] .sheet .back{border:2px solid var(--ink);border-radius:3px}
+[data-style="sketch"] .sheet .near-i,[data-style="sketch"] .sheet .back{border-radius:var(--wob);border:1.5px solid var(--line-strong)}
 /* 地點分級切換 */
 .map .lvsw{display:flex;flex-wrap:wrap;align-items:center;gap:0;border-bottom:1px solid var(--line);background:var(--panel)}
 .map .lvsw .lbl{font-size:12px;color:var(--muted);padding:6px 10px}
@@ -1387,7 +1399,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-off
     <li>地點座標與導航連結：Google Maps（2026/11/04 逐點核對，含 place_id）</li>
     <li>周邊設施（停車場、便利商店、道の駅）：Google Maps 搜尋 2026/11/04；營業時間與收費以出發前查詢為準</li>
   </ol>
-  <p>v1.12 越後・上州版（分頁＋總覽／單日分區地圖＋當地特色插畫＋標準／手繪／漫畫風格）・產出日 2026/10/13</p>
+  <p>v1.13 越後・上州版（分頁＋總覽／單日分區地圖＋當地特色插畫＋標準／手繪／漫畫風格）・產出日 2026/10/13</p>
 </footer>
 
 <script>/* Leaflet 1.9.4 (BSD-2-Clause) */
@@ -1457,27 +1469,27 @@ var PL={
   kyukaru:{name:"舊輕井澤銀座",jp:"旧軽井沢銀座通り",ll:[36.3575,138.6343],desc:"明治時期發展起來的避暑地商店街，有麵包、果醬、手工藝與甜點。D8 從雲場池步行約 15 分，上午比較好逛；伴手禮不必在這裡一次買齊。",lv:4,cat:"shop",kind:"sight",dir:"right",note:"商店街，週末人多",gid:"ChIJhQBnbUvSHWAR2L0NAqgrqOI"},
   shinagawa:{name:"品川站",jp:"品川駅",ll:[35.6285,139.7388],desc:"D8 住高輪口，京急直達羽田約 15 分，最後一晚不用轉乘。下午可在站周邊逛水族館或購物（水族館營業時間需確認）。",lv:2,cat:"station",kind:"stay",dir:"right",note:"D8 住宿；京急直達羽田",gid:"ChIJdYcUblqKGGARcNsG90fDRZo"},
   /* 周邊設施（Google Maps 搜尋，2026/11/04）：只在 days 指定的單日地圖顯示；gid＝Google place_id */
-  f_niigata_cv:{name:"7-Eleven 新潟駅",jp:"セブンイレブン 新潟駅",ll:[37.9138,139.0618],desc:"新潟站旁的 24 小時便利商店，D2 取車前可買早餐和車上飲料。",lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"24 小時；站前約 200 m",days:["d1", "d2"],gid:"ChIJpYgu-Y_J9F8RhzGeJFczb1g"},
-  f_marinepia_p:{name:"水族館第 1 停車場",jp:"マリンピア日本海 第１駐車場",ll:[37.9230,139.0264],desc:"離水族館入口最近的停車場，假日容易滿；滿了就停旁邊的專用或一般停車場，走幾分鐘就到。",lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"最近入口、易滿；旁有專用停車場",days:["d2"],gid:"ChIJ7zxmk_3J9F8ReFU46tc8cUg"},
-  f_hanabi:{name:"道の駅 ながおか花火館",jp:"道の駅ながおか花火館",ll:[37.4556,138.8047],desc:"長岡的道の駅，有長岡花火劇場、美食區與伴手禮，D2 往松代途中吃午餐、休息剛好。10:00 才開門。",lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"10:00–17:30；午餐、花火劇場",days:["d2"],gid:"ChIJdb7WPeup9V8RMACZQo_WiRE"},
-  f_nobutai_p:{name:"まつだい道の駅停車場",jp:"道の駅まつだいふるさと会館 駐車場",ll:[37.1326,138.6141],desc:"道の駅まつだい的停車場，緊鄰農舞台。圓環內以接送為主，停在圓環外側比較方便。",lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"農舞台旁；圓環內為接送區",days:["d2"],gid:"ChIJUdsS_2Tn9V8RgvD9tJyion4"},
-  f_bijin_p:{name:"美人林停車場",jp:"美人林 駐車場",ll:[37.1006,138.6188],desc:"美人林入口旁的停車場，下車走幾步就進林子。",lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"美人林入口旁",days:["d2"],gid:"ChIJU08DJgDn9V8RIlqnRKD1i-k"},
-  f_matsu_cv:{name:"渕岡商店（松之山）",jp:"渕岡商店 松之山",ll:[37.0654,138.6032],desc:"松之山溫泉街少數的小商店，以日用品與飲料為主。週三公休，D2 晚上與 D3 早上都能用。",lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"7:00–19:00、週三休；溫泉街唯一",days:["d2", "d3"],gid:"ChIJQeHiJ4jj9V8R9yURWll7zRI"},
-  f_kiyotsu_p:{name:"清津峽第 1 停車場",jp:"清津峡第1駐車場",ll:[36.9744,138.7491],desc:"離隧道入口最近的免費停車場，約 30 台、步行 5 分。假日 9 點前就可能停滿，有引導員；18:00–翌 7:00 封閉。",lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"免費約 30 台；步行 5 分",days:["d3"],gid:"ChIJ8S-IDQD_9V8RPxk-prtBR2Q"},
-  f_crossten:{name:"道の駅 クロステン十日町",jp:"道の駅クロステン十日町",ll:[37.1386,138.7611],desc:"MonET 隔壁的道の駅，有十日町特產、米製冰淇淋與伴手禮，停車位多。週三公休。",lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"9:00–18:00、週三休；MonET 旁停車",days:["d3"],gid:"ChIJf3ns4SDs9V8RHI8Kf7TdOs0"},
-  f_yuzawa_cv:{name:"7-Eleven 越後湯澤站西口",jp:"セブンイレブン 越後湯沢駅西口",ll:[36.9361,138.8083],desc:"越後湯澤站西口的 24 小時 7-Eleven，是站前主要的便利商店，晚上人多。",lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"24 小時；站前",days:["d3", "d4"],gid:"ChIJNe0cQCUCHmARBeCKOQKqpB8"},
-  f_minakami_cv:{name:"FamilyMart みなかみ湯原",jp:"ファミリーマート みなかみ湯原",ll:[36.7703,138.9685],desc:"水上溫泉方向的 24 小時 FamilyMart，伴手禮與酒類選擇多，有內用區。連住兩晚的補給點，離水上站約 0.9 km。",lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"24 小時；離水上站約 0.9 km",days:["d4", "d5", "d6"],gid:"ChIJGXRNG4UUHmARRO_Mu27MewY"},
-  f_mizukiko:{name:"道の駅 水紀行館",jp:"道の駅水上町水紀行館",ll:[36.7648,138.9683],desc:"諏訪峽旁的道の駅，有餐廳、伴手禮與小型淡水魚水族館，D4 散步後可順便休息。",lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"9:00–17:00；諏訪峽旁",days:["d4", "d5"],gid:"ChIJVz_HK5oUHmARJR5yli5YUi0"},
-  f_doai_p:{name:"谷川岳纜車室內停車場",jp:"谷川岳ロープウェイ 屋内駐車場",ll:[36.8365,138.9629],desc:"纜車站內的室內停車場，入場時向工作人員付現；停 2 樓以上，再搭電梯到售票樓層。",lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"收費、入場付現；限高 2.1 m",days:["d5"],gid:"ChIJS5imDQARHmARrIHCak05iqE"},
-  f_yamba_p:{name:"八ッ場水壩 P1",jp:"八ッ場ダム P1駐車場",ll:[36.5586,138.7104],desc:"八ッ場水壩上方的大停車場，週三公休。離壩體稍遠，有電梯可下到水壩下方。",lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"9:00–17:00、週三休",days:["d6"],gid:"ChIJpUjntELZHWARlytOZn6eWz4"},
-  f_yamba_mte:{name:"道の駅 八ッ場ふるさと館",jp:"道の駅八ッ場ふるさと館",ll:[36.5475,138.6842],desc:"水壩下游的道の駅，有足湯、手湯與在地農產；D6 可在這裡吃午餐再進草津。",lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"8:30–18:00；足湯",days:["d6"],gid:"ChIJK5zvi9PYHWAR452wVZG10k4"},
-  f_yubatake_cv:{name:"7-Eleven 草津湯畑",jp:"セブンイレブン 草津湯畑",ll:[36.6232,138.5966],desc:"湯畑旁的 24 小時 7-Eleven，招牌配合溫泉街改成木色，買水與零食最方便。",lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"24 小時；湯畑旁",days:["d6", "d7"],gid:"ChIJKQq7BFXmHWARw6Jr9V6TUFI"},
-  f_kusatsu_mte:{name:"道の駅 草津運動茶屋公園",jp:"道の駅草津運動茶屋公園",ll:[36.6148,138.5903],desc:"草津入口的道の駅，可拿溫泉街地圖、問停車資訊；D7 離開草津前休息一下。",lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"9:00–17:00；離開草津前休息",days:["d7"],gid:"ChIJLRiX3a3nHWARKiVNfN2OQso"},
-  f_onioshi_p:{name:"鬼押出し園第 1 停車場",jp:"鬼押出し園第１駐車場",ll:[36.4445,138.5376],desc:"鬼押出し園的免費大停車場，有廁所與販賣機，天氣好可看到淺間山。",lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"園區步行 5 分；廁所、販賣機",days:["d7"],gid:"ChIJW6_P9tjFHWARlS-I0Pr-hoQ"},
-  f_shiraito_p:{name:"白絲瀑布第 1 停車場",jp:"白糸の滝 第1駐車場",ll:[36.4111,138.5944],desc:"離白絲瀑布最近的停車場，旁邊有商店與廁所，走約 150 m 緩坡就到瀑布。",lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"8:00–17:30；經收費道路",days:["d7"],gid:"ChIJuTSFjb_RHWAR714FE9LU09Q"},
-  f_harunire_p:{name:"星野區 P2（榆樹街）",jp:"星野エリア 第2駐車場",ll:[36.3597,138.5901],desc:"榆樹街旁的星野區停車場，先付款、收現金；看起來滿車時排一下通常很快有位。",lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"7:00–23:00；先付款、收現金",days:["d7"],gid:"ChIJVSU32CPTHWARMJvZqj0w5oY"},
-  f_karuizawa_cv:{name:"FamilyMart 輕井澤（北口）",jp:"ファミリーマート 八百徳軽井沢店",ll:[36.3442,138.6329],desc:"輕井澤站北口的 FamilyMart，6:00 開門，D8 早上去雲場池前可買早餐。",lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"6:00–23:00；站北口約 300 m",days:["d7", "d8"],gid:"ChIJecBt5HvTHWAR6SobcSwhmbA"},
-  f_shinagawa_cv:{name:"7-Eleven 品川站",jp:"セブンイレブン 品川駅",ll:[35.6303,139.7377],desc:"品川站高輪口的 24 小時 7-Eleven，有 ATM，D9 出發前補買零食飲料。",lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"24 小時；高輪口",days:["d8", "d9"],gid:"ChIJ-baexVCKGGARLzsaTUlIIbM"}
+  f_niigata_cv:{name:"7-Eleven 新潟駅",jp:"セブンイレブン 新潟駅",ll:[37.9138,139.0618],desc:"新潟站旁的 24 小時便利商店，D2 取車前可買早餐和車上飲料。",lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"24 小時；站前約 200 m",days:["d1", "d2"],near:["niigata"],gid:"ChIJpYgu-Y_J9F8RhzGeJFczb1g"},
+  f_marinepia_p:{name:"水族館第 1 停車場",jp:"マリンピア日本海 第１駐車場",ll:[37.9230,139.0264],desc:"離水族館入口最近的停車場，假日容易滿；滿了就停旁邊的專用或一般停車場，走幾分鐘就到。",lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"最近入口、易滿；旁有專用停車場",days:["d2"],near:["marinepia"],gid:"ChIJ7zxmk_3J9F8ReFU46tc8cUg"},
+  f_hanabi:{name:"道の駅 ながおか花火館",jp:"道の駅ながおか花火館",ll:[37.4556,138.8047],desc:"長岡的道の駅，有長岡花火劇場、美食區與伴手禮，D2 往松代途中吃午餐、休息剛好。10:00 才開門。",lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"10:00–17:30；午餐、花火劇場",days:["d2"],near:["marinepia", "nobutai"],gid:"ChIJdb7WPeup9V8RMACZQo_WiRE"},
+  f_nobutai_p:{name:"まつだい道の駅停車場",jp:"道の駅まつだいふるさと会館 駐車場",ll:[37.1326,138.6141],desc:"道の駅まつだい的停車場，緊鄰農舞台。圓環內以接送為主，停在圓環外側比較方便。",lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"農舞台旁；圓環內為接送區",days:["d2"],near:["nobutai"],gid:"ChIJUdsS_2Tn9V8RgvD9tJyion4"},
+  f_bijin_p:{name:"美人林停車場",jp:"美人林 駐車場",ll:[37.1006,138.6188],desc:"美人林入口旁的停車場，下車走幾步就進林子。",lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"美人林入口旁",days:["d2"],near:["bijin"],gid:"ChIJU08DJgDn9V8RIlqnRKD1i-k"},
+  f_matsu_cv:{name:"渕岡商店（松之山）",jp:"渕岡商店 松之山",ll:[37.0654,138.6032],desc:"松之山溫泉街少數的小商店，以日用品與飲料為主。週三公休，D2 晚上與 D3 早上都能用。",lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"7:00–19:00、週三休；溫泉街唯一",days:["d2", "d3"],near:["matsunoyama"],gid:"ChIJQeHiJ4jj9V8R9yURWll7zRI"},
+  f_kiyotsu_p:{name:"清津峽第 1 停車場",jp:"清津峡第1駐車場",ll:[36.9744,138.7491],desc:"離隧道入口最近的免費停車場，約 30 台、步行 5 分。假日 9 點前就可能停滿，有引導員；18:00–翌 7:00 封閉。",lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"免費約 30 台；步行 5 分",days:["d3"],near:["kiyotsu"],gid:"ChIJ8S-IDQD_9V8RPxk-prtBR2Q"},
+  f_crossten:{name:"道の駅 クロステン十日町",jp:"道の駅クロステン十日町",ll:[37.1386,138.7611],desc:"MonET 隔壁的道の駅，有十日町特產、米製冰淇淋與伴手禮，停車位多。週三公休。",lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"9:00–18:00、週三休；MonET 旁停車",days:["d3"],near:["monet"],gid:"ChIJf3ns4SDs9V8RHI8Kf7TdOs0"},
+  f_yuzawa_cv:{name:"7-Eleven 越後湯澤站西口",jp:"セブンイレブン 越後湯沢駅西口",ll:[36.9361,138.8083],desc:"越後湯澤站西口的 24 小時 7-Eleven，是站前主要的便利商店，晚上人多。",lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"24 小時；站前",days:["d3", "d4"],near:["yuzawa", "ropeyz"],gid:"ChIJNe0cQCUCHmARBeCKOQKqpB8"},
+  f_minakami_cv:{name:"FamilyMart みなかみ湯原",jp:"ファミリーマート みなかみ湯原",ll:[36.7703,138.9685],desc:"水上溫泉方向的 24 小時 FamilyMart，伴手禮與酒類選擇多，有內用區。連住兩晚的補給點，離水上站約 0.9 km。",lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"24 小時；離水上站約 0.9 km",days:["d4", "d5", "d6"],near:["minakami"],gid:"ChIJGXRNG4UUHmARRO_Mu27MewY"},
+  f_mizukiko:{name:"道の駅 水紀行館",jp:"道の駅水上町水紀行館",ll:[36.7648,138.9683],desc:"諏訪峽旁的道の駅，有餐廳、伴手禮與小型淡水魚水族館，D4 散步後可順便休息。",lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"9:00–17:00；諏訪峽旁",days:["d4", "d5"],near:["suwakyo"],gid:"ChIJVz_HK5oUHmARJR5yli5YUi0"},
+  f_doai_p:{name:"谷川岳纜車室內停車場",jp:"谷川岳ロープウェイ 屋内駐車場",ll:[36.8365,138.9629],desc:"纜車站內的室內停車場，入場時向工作人員付現；停 2 樓以上，再搭電梯到售票樓層。",lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"收費、入場付現；限高 2.1 m",days:["d5"],near:["doai"],gid:"ChIJS5imDQARHmARrIHCak05iqE"},
+  f_yamba_p:{name:"八ッ場水壩 P1",jp:"八ッ場ダム P1駐車場",ll:[36.5586,138.7104],desc:"八ッ場水壩上方的大停車場，週三公休。離壩體稍遠，有電梯可下到水壩下方。",lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"9:00–17:00、週三休",days:["d6"],near:["yamba"],gid:"ChIJpUjntELZHWARlytOZn6eWz4"},
+  f_yamba_mte:{name:"道の駅 八ッ場ふるさと館",jp:"道の駅八ッ場ふるさと館",ll:[36.5475,138.6842],desc:"水壩下游的道の駅，有足湯、手湯與在地農產；D6 可在這裡吃午餐再進草津。",lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"8:30–18:00；足湯",days:["d6"],near:["yamba"],gid:"ChIJK5zvi9PYHWAR452wVZG10k4"},
+  f_yubatake_cv:{name:"7-Eleven 草津湯畑",jp:"セブンイレブン 草津湯畑",ll:[36.6232,138.5966],desc:"湯畑旁的 24 小時 7-Eleven，招牌配合溫泉街改成木色，買水與零食最方便。",lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"24 小時；湯畑旁",days:["d6", "d7"],near:["yubatake", "netsunoyu"],gid:"ChIJKQq7BFXmHWARw6Jr9V6TUFI"},
+  f_kusatsu_mte:{name:"道の駅 草津運動茶屋公園",jp:"道の駅草津運動茶屋公園",ll:[36.6148,138.5903],desc:"草津入口的道の駅，可拿溫泉街地圖、問停車資訊；D7 離開草津前休息一下。",lv:4,cat:"shop",kind:"fac",glyph:"道",dir:"right",note:"9:00–17:00；離開草津前休息",days:["d7"],near:["yubatake"],gid:"ChIJLRiX3a3nHWARKiVNfN2OQso"},
+  f_onioshi_p:{name:"鬼押出し園第 1 停車場",jp:"鬼押出し園第１駐車場",ll:[36.4445,138.5376],desc:"鬼押出し園的免費大停車場，有廁所與販賣機，天氣好可看到淺間山。",lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"園區步行 5 分；廁所、販賣機",days:["d7"],near:["onioshi"],gid:"ChIJW6_P9tjFHWARlS-I0Pr-hoQ"},
+  f_shiraito_p:{name:"白絲瀑布第 1 停車場",jp:"白糸の滝 第1駐車場",ll:[36.4111,138.5944],desc:"離白絲瀑布最近的停車場，旁邊有商店與廁所，走約 150 m 緩坡就到瀑布。",lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"8:00–17:30；經收費道路",days:["d7"],near:["shiraito"],gid:"ChIJuTSFjb_RHWAR714FE9LU09Q"},
+  f_harunire_p:{name:"星野區 P2（榆樹街）",jp:"星野エリア 第2駐車場",ll:[36.3597,138.5901],desc:"榆樹街旁的星野區停車場，先付款、收現金；看起來滿車時排一下通常很快有位。",lv:2,cat:"station",kind:"fac",glyph:"P",dir:"right",note:"7:00–23:00；先付款、收現金",days:["d7"],near:["harunire"],gid:"ChIJVSU32CPTHWARMJvZqj0w5oY"},
+  f_karuizawa_cv:{name:"FamilyMart 輕井澤（北口）",jp:"ファミリーマート 八百徳軽井沢店",ll:[36.3442,138.6329],desc:"輕井澤站北口的 FamilyMart，6:00 開門，D8 早上去雲場池前可買早餐。",lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"6:00–23:00；站北口約 300 m",days:["d7", "d8"],near:["karuizawa"],gid:"ChIJecBt5HvTHWAR6SobcSwhmbA"},
+  f_shinagawa_cv:{name:"7-Eleven 品川站",jp:"セブンイレブン 品川駅",ll:[35.6303,139.7377],desc:"品川站高輪口的 24 小時 7-Eleven，有 ATM，D9 出發前補買零食飲料。",lv:4,cat:"shop",kind:"fac",glyph:"便",dir:"right",note:"24 小時；高輪口",days:["d8", "d9"],near:["shinagawa"],gid:"ChIJ-baexVCKGGARLzsaTUlIIbM"}
 };
 var KLAB={tr:"交通",sight:"景點",stay:"住宿",act:"活動・溫泉",alt:"備案",fac:"周邊設施"};
 var SEGLAB={car:"開車／巴士",rail:"鐵路",walk:"步行",rope:"纜車"};
@@ -1540,7 +1552,11 @@ function placeSheet(){
   SHEET.setAttribute('role','dialog'); SHEET.setAttribute('aria-modal','false');
   SHEET.setAttribute('aria-label','地點資訊'); SHEET.setAttribute('aria-hidden','true');
   document.body.appendChild(SHEET);
-  SHEET.addEventListener('click',function(e){if(e.target.closest('.x')&&SHEET.owner)SHEET.owner.close();});
+  SHEET.addEventListener('click',function(e){
+    if(!SHEET.owner)return;
+    if(e.target.closest('.x')){SHEET.owner.close();return;}
+    var f=e.target.closest('[data-goto]'); if(f)SHEET.owner.select(+f.getAttribute('data-goto'),false);
+  });
   return SHEET;
 }
 function MapView(el,key){
@@ -1568,21 +1584,19 @@ function MapView(el,key){
   var lg='';
   Object.keys(segk).forEach(function(k){lg+='<span><svg viewBox="0 0 30 10" aria-hidden="true"><line class="seg seg-'+k+'" x1="2" y1="5" x2="28" y2="5"/></svg>'+SEGLAB[k]+'</span>';});
   ["tr","sight","act","stay","alt","fac"].forEach(function(k){if(kinds[k])lg+='<span><i class="k-'+k+'"></i>'+KLAB[k]+'</span>';});
-  lg+=key==='overview'?'<span>大圓＝路線與住宿；小點＝沿途地點（依分級）。路線為示意直線</span>':'<span>P＝停車場、便＝便利商店、道＝道の駅。路線為示意直線</span>';
+  lg+=key==='overview'?'<span>大圓＝路線與住宿；小點＝沿途地點（依分級）。路線為示意直線</span>':'<span>點選景點後才顯示該處周邊設施（P 停車場、便 便利商店、道 道の駅）。路線為示意直線</span>';
   var lvb='<div class="lvsw" role="group" aria-label="地點分級"><span class="lbl">分級</span>';
   for(var l=1;l<=5;l++)lvb+='<button type="button" data-lv="'+l+'" aria-pressed="'+(l===this.lvSel)+'">'+LVLAB[l]+'</button>';
   lvb+='<span class="lvhint" aria-live="polite"></span></div>';
   var chips='';
   stops.forEach(function(s,i){chips+='<button type="button" class="chip" data-i="'+i+'" aria-pressed="false"><span class="n k-'+s.p.kind+'">'+(s.lab?esc(s.lab):'·')+'</span>'+esc(s.p.name)+'</button>';});
-  var facs=this.all.map(function(s,i){return[s,i];}).filter(function(x){return x[0].p.kind==='fac';});
-  if(facs.length){chips+='<span class="chips-h">周邊設施（Google Maps 搜尋）</span>';facs.forEach(function(x){chips+='<button type="button" class="chip fac" data-i="'+x[1]+'" aria-pressed="false"><span class="n k-fac">'+esc(x[0].p.glyph)+'</span>'+esc(x[0].p.name)+'</button>';});}
   el.innerHTML=lvb+'<div class="stage"><div class="lmap" role="region" aria-label="'+(key==='overview'?'全程路線':'當日路線')+'地圖"></div>'+
     '<div class="ctl"><button type="button" data-z="in" aria-label="放大">＋</button><button type="button" data-z="out" aria-label="縮小">－</button><button type="button" data-z="fit" aria-label="顯示全部">⤢</button></div>'+
     '</div>'+
-    '<div class="lg">'+lg+'</div><div class="chips">'+chips+'</div>'+
-    '<p class="map-hint">點地圖標記或上方地點，畫面底部會展開地點資訊與導航。</p>'+
+    '<div class="lg">'+lg+'</div><div class="chips">'+chips+'</div><div class="chips facs" hidden></div>'+
+    '<p class="map-hint">點地圖標記或上方地點，畫面底部會展開地點資訊、導航與該處的周邊設施。</p>'+
     (cfg.note?'<div class="note-s">'+esc(cfg.note)+'</div>':'');
-  this.box=el.querySelector('.lmap'); this.sheet=placeSheet(); this.hint=el.querySelector('.lvhint');
+  this.box=el.querySelector('.lmap'); this.sheet=placeSheet(); this.focus=null; this.facBox=el.querySelector('.facs'); this.hint=el.querySelector('.lvhint');
   el.querySelector('.ctl').addEventListener('click',function(e){
     var b=e.target.closest('button'); if(!b||!self.map)return;
     var z=b.getAttribute('data-z');
@@ -1594,10 +1608,10 @@ function MapView(el,key){
     el.querySelectorAll('.lvsw button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b));});
     self.layout();
   });
-  el.querySelector('.chips').addEventListener('click',function(e){
+  el.querySelectorAll('.chips').forEach(function(box){box.addEventListener('click',function(e){
     var b=e.target.closest('.chip'); if(!b)return;
     self.select(+b.getAttribute('data-i'),true);
-  });
+  });});
   if(window.ResizeObserver){new ResizeObserver(function(){self.ensure();}).observe(el);}
 }
 MapView.prototype.ensure=function(){
@@ -1654,7 +1668,7 @@ MapView.prototype.layout=function(){
   // 顯示／隱藏非路線地點
   this.all.forEach(function(s,i){
     if(s.stop)return;
-    var on=s.p.lv<=eff||i===self.sel, has=m.hasLayer(self.mk[i]);
+    var on=s.p.kind==='fac'?(i===self.sel||(self.focus!=null&&(s.p.near||[]).indexOf(self.focus)>=0)):(s.p.lv<=eff||i===self.sel), has=m.hasLayer(self.mk[i]);
     if(on&&!has)self.mk[i].addTo(m); else if(!on&&has)m.removeLayer(self.mk[i]);
     if(on)shownEx++;
   });
@@ -1723,19 +1737,46 @@ MapView.prototype.tagsFor=function(s){
   t.push('L'+s.p.lv);
   return t;
 };
+MapView.prototype.nearFacs=function(id){
+  var out=[]; if(id==null)return out;
+  this.all.forEach(function(s,i){if(s.p.kind==='fac'&&(s.p.near||[]).indexOf(id)>=0)out.push(i);});
+  return out;
+};
+MapView.prototype.idx=function(id){for(var i=0;i<this.all.length;i++)if(this.all[i].id===id)return i;return -1;};
+MapView.prototype.renderFacs=function(){
+  if(!this.facBox)return;
+  var self=this, list=this.nearFacs(this.focus);
+  if(!list.length){this.facBox.hidden=true;this.facBox.innerHTML='';return;}
+  this.facBox.hidden=false;
+  this.facBox.innerHTML='<span class="chips-h">'+esc(PL[this.focus].name)+' 周邊設施（Google Maps 搜尋）</span>'+
+    list.map(function(i){var p=self.all[i].p;return '<button type="button" class="chip fac" data-i="'+i+'" aria-pressed="'+(i===self.sel)+'"><span class="n k-fac">'+esc(p.glyph)+'</span>'+esc(p.name)+'</button>';}).join('');
+};
 MapView.prototype.close=function(){
   if(this.sel===null)return;
   if(this.sheet.owner===this){
     this.sheet.classList.remove('open'); this.sheet.setAttribute('aria-hidden','true');
     this.sheet.owner=null; document.body.style.paddingBottom='';
   }
-  this.sel=null; if(this.map)this.layout();
+  this.sel=null; this.focus=null; this.renderFacs(); if(this.map)this.layout();
   this.el.querySelectorAll('.chip').forEach(function(c){c.setAttribute('aria-pressed','false');});
+};
+MapView.prototype.sheetNear=function(s){
+  var self=this;
+  if(s.p.kind==='fac'){
+    var bi=this.idx(this.focus);
+    return bi>=0?'<button type="button" class="back" data-goto="'+bi+'">← 回到 '+esc(this.all[bi].p.name)+'</button>':'';
+  }
+  var list=this.nearFacs(s.id);
+  if(!list.length)return '';
+  return '<div class="near"><div class="near-h">周邊設施</div>'+list.map(function(i){var p=self.all[i].p;
+    return '<button type="button" class="near-i" data-goto="'+i+'"><span class="n k-fac">'+esc(p.glyph)+'</span><span class="t"><b>'+esc(p.name)+'</b><small>'+esc(p.note)+'</small></span></button>';}).join('')+'</div>';
 };
 MapView.prototype.select=function(i,center){
   var self=this, s=this.all[i];
   if(this.sheet.owner&&this.sheet.owner!==this)this.sheet.owner.close();
   this.sel=i; this.sheet.owner=this;
+  if(s.p.kind!=='fac')this.focus=s.id; else if(this.focus==null||(s.p.near||[]).indexOf(this.focus)<0)this.focus=(s.p.near||[null])[0];
+  this.renderFacs();
   this.el.querySelectorAll('.chip').forEach(function(c){c.setAttribute('aria-pressed',String(+c.getAttribute('data-i')===i));});
   var Lk=links(s.p,this.cfg.mode);
   this.sheet.innerHTML='<button type="button" class="x" aria-label="關閉">✕</button>'+
@@ -1745,14 +1786,13 @@ MapView.prototype.select=function(i,center){
     (s.p.desc?'<p class="meta"><b>實用資訊</b>'+esc(s.p.note)+'</p>':'')+
     '<p class="jp">'+esc(s.p.jp)+'・'+s.p.ll[0].toFixed(4)+', '+s.p.ll[1].toFixed(4)+(s.p.kind==='fac'?'・資料：Google Maps':'')+'</p>'+
     '<div class="acts"><a class="mbtn go" href="'+Lk.gd+'" target="_blank" rel="noopener">Google 導航</a><a class="mbtn go" href="'+Lk.ad+'" target="_blank" rel="noopener">Apple 導航</a>'+
-    '<a class="mbtn" href="'+Lk.gv+'" target="_blank" rel="noopener">Google 地圖</a><a class="mbtn" href="'+Lk.av+'" target="_blank" rel="noopener">Apple 地圖</a></div>';
+    '<a class="mbtn" href="'+Lk.gv+'" target="_blank" rel="noopener">Google 地圖</a><a class="mbtn" href="'+Lk.av+'" target="_blank" rel="noopener">Apple 地圖</a></div>'+
+    this.sheetNear(s);
   this.sheet.classList.add('open'); this.sheet.setAttribute('aria-hidden','false');
   var sh=this.sheet.offsetHeight;
   document.body.style.paddingBottom=sh+'px';
   if(this.map){
-    var z=center?Math.max(this.map.getZoom(),14):this.map.getZoom();
-    this.map.setView(s.p.ll,z,{animate:false});
-    // 地圖若被底部面板或黏頂分頁列擋住，捲到可見範圍，並讓選取點落在可見部分的中央
+    // 地圖若被底部面板或黏頂分頁列擋住，先捲到可見範圍
     var bar=document.querySelector('.tabbar'), top=bar?bar.getBoundingClientRect().bottom:0;
     var vb=window.innerHeight-sh, r=this.box.getBoundingClientRect();
     if(r.bottom>vb||r.top<top){
@@ -1760,8 +1800,18 @@ MapView.prototype.select=function(i,center){
       if(r.top-dy<top)dy=r.top-top-8;
       window.scrollBy(0,dy); r=this.box.getBoundingClientRect();
     }
-    var vt=Math.max(r.top,top), vbt=Math.min(r.bottom,vb);
-    if(vbt>vt){var want=(vt+vbt)/2-r.top; this.map.panBy([0,Math.round(r.height/2-want)],{animate:false});}
+    var padT=Math.max(0,top-r.top)+28, padB=Math.max(0,r.bottom-vb)+28;
+    // 景點：連同 5 km 內的周邊設施一起框進可見範圍；其他：置中於可見部分
+    var pts=[s.p.ll];
+    if(s.p.kind!=='fac')this.nearFacs(s.id).forEach(function(k){var q=self.all[k].p.ll;if(self.map.distance(s.p.ll,q)<5000)pts.push(q);});
+    if(pts.length>1&&(center||true)){
+      this.map.fitBounds(L.latLngBounds(pts),{paddingTopLeft:[40,padT],paddingBottomRight:[40,padB],maxZoom:16,animate:false});
+    } else {
+      var z=center?Math.max(this.map.getZoom(),14):this.map.getZoom();
+      this.map.setView(s.p.ll,z,{animate:false});
+      var vt=Math.max(r.top,top), vbt=Math.min(r.bottom,vb);
+      if(vbt>vt){var want=(vt+vbt)/2-r.top; this.map.panBy([0,Math.round(r.height/2-want)],{animate:false});}
+    }
     this.layout();
   }
   var x=this.sheet.querySelector('.x'); if(x&&center)x.focus({preventScroll:true});
