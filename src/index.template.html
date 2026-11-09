@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>@@TITLE@@</title>
+<script>try{var _q=new URLSearchParams(location.search).get("style"),_s=_q||localStorage.getItem("ng27-style");if(_s==="sketch"||_s==="manga")document.documentElement.setAttribute("data-style",_s);}catch(e){}</script>
+<style>
+/*@@LEAFLET_CSS@@*/
+:root{
+  --bg:#f6f5f1; --panel:#ffffff; --fg:#1b1d1f; --muted:#52575c; --line:#d6d3cb; --line-strong:#a9a59b; --grid:#ebe8e1;
+  --accent:#9a3a21;
+  --head-bg:#ecebe5; --sea:#dbe6ec; --land:#f4f2ec;
+  --b-book:#9a3a21; --b-info:#1d5a7a; --b-ok:#2c6636; --b-warn:#7d5300; --b-mute:#5a6066; --b-fac:#5b4a8a; --b-fg:#ffffff;
+  --c-warn:#b07a12; --c-info:#1d5a7a; --c-ok:#2c6636; --c-book:#9a3a21;
+  --f-sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;
+  --f-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141719; --panel:#1b1f22; --fg:#e8eae8; --muted:#a3aaae; --line:#30373b; --line-strong:#4a5358; --grid:#262c30;
+  --accent:#f0a080;
+  --head-bg:#232a2e; --sea:#0f181d; --land:#252c30;
+  --b-book:#f0a080; --b-info:#8cc8e8; --b-ok:#93d09b; --b-warn:#e8c070; --b-mute:#a3aaae; --b-fac:#c9bdf2; --b-fg:#141719;
+  --c-warn:#e8c070; --c-info:#8cc8e8; --c-ok:#93d09b; --c-book:#f0a080;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#141719; --panel:#1b1f22; --fg:#e8eae8; --muted:#a3aaae; --line:#30373b; --line-strong:#4a5358; --grid:#262c30;
+  --accent:#f0a080;
+  --head-bg:#232a2e; --sea:#0f181d; --land:#252c30;
+  --b-book:#f0a080; --b-info:#8cc8e8; --b-ok:#93d09b; --b-warn:#e8c070; --b-mute:#a3aaae; --b-fac:#c9bdf2; --b-fg:#141719;
+  --c-warn:#e8c070; --c-info:#8cc8e8; --c-ok:#93d09b; --c-book:#f0a080;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-sans);font-size:15px;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--accent)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line-strong);padding:28px 0 20px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+h1{font-size:30px;line-height:1.3;margin:6px 0 8px;letter-spacing:.02em}
+.lede{color:var(--muted);margin:0;max-width:62ch}
+
+/* ---------- tabs ---------- */
+.tabbar{position:sticky;top:0;z-index:2000;background:var(--bg);border-bottom:1px solid var(--line)}
+.tabbar .wrap{display:flex;gap:6px;align-items:center;overflow-x:auto;padding-block:10px;scrollbar-width:thin}
+.tab{flex:none;font:inherit;font-size:13px;line-height:1.3;color:var(--fg);border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:5px 10px;cursor:pointer;white-space:nowrap;text-align:left}
+.tab b{font-family:var(--f-mono);font-weight:600;margin-right:4px}
+.tab small{display:block;font-size:11px;color:var(--muted)}
+.tab:hover{border-color:var(--accent)}
+.tab[aria-selected="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.tab[aria-selected="true"] small{color:var(--bg)}
+#themeBtn{flex:none;font:inherit;font-size:13px;line-height:1.4;background:var(--panel);color:var(--fg);border:1px solid var(--line-strong);border-radius:6px;padding:7px 12px;cursor:pointer}
+
+.panel{padding:30px 0 12px}
+.panel[hidden]{display:none}
+h2{font-size:22px;margin:0 0 4px;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+h2 .num{font-family:var(--f-mono);color:var(--accent);font-size:15px;letter-spacing:.06em}
+h2 .date{font-family:var(--f-mono);font-size:13px;color:var(--muted);font-weight:400}
+h3{font-size:15px;margin:24px 0 8px;letter-spacing:.04em}
+.theme-line{color:var(--muted);margin:0 0 14px}
+.tbl{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:9px 12px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{background:var(--head-bg);color:var(--fg);font-weight:600;font-size:12.5px;letter-spacing:.06em;white-space:nowrap}
+td.t{font-family:var(--f-mono);white-space:nowrap;font-variant-numeric:tabular-nums}
+td.mv{white-space:nowrap}
+.day td:nth-child(3){white-space:nowrap}
+td small{display:block;color:var(--muted);font-size:12.5px}
+.num-r{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.badge{display:inline-block;font-size:11.5px;font-weight:600;line-height:1.5;padding:0 6px;border-radius:4px;color:var(--b-fg);margin:0 4px 2px 0;white-space:nowrap}
+.badge.book{background:var(--b-book)} .badge.info{background:var(--b-info)} .badge.ok{background:var(--b-ok)} .badge.warn{background:var(--b-warn)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:8px;padding:12px 14px}
+.card h4{margin:0 0 4px;font-size:13px;letter-spacing:.06em}
+.card p,.card ul{margin:0;font-size:14px}
+.card ul{padding-left:18px}
+.card.stay{--c:var(--c-info)} .card.planb{--c:var(--c-ok)} .card.note{--c:var(--c-warn)}
+.callout{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--c-book);border-radius:8px;padding:12px 16px;margin:14px 0}
+.callout p{margin:0}
+ul.plain{margin:6px 0;padding-left:20px}
+ul.plain li{margin:3px 0}
+.route{font-size:15px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin:14px 0}
+.route b{color:var(--accent)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted);margin-top:10px}
+.daylink{font-family:var(--f-mono);font-weight:600}
+.pager{display:flex;justify-content:space-between;gap:10px;margin:26px 0 6px}
+.pager button{font:inherit;font-size:13.5px;background:var(--panel);color:var(--fg);border:1px solid var(--line-strong);border-radius:8px;padding:8px 14px;cursor:pointer;max-width:48%;text-align:left}
+.pager button.next{margin-left:auto;text-align:right}
+.pager button:hover{border-color:var(--accent)}
+
+/* ---------- map ---------- */
+.map{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:6px 0 16px}
+.map .stage{position:relative;height:380px;z-index:0;isolation:isolate}
+.map .ctl{position:absolute;right:10px;top:10px;display:grid;gap:4px}
+.map .ctl button{width:34px;height:34px;font:600 17px var(--f-sans);line-height:1;background:var(--panel);color:var(--fg);border:1px solid var(--line-strong);border-radius:6px;cursor:pointer}
+.map .ctl button:hover{border-color:var(--accent)}
+.map .lg{display:flex;flex-wrap:wrap;gap:4px 14px;padding:8px 12px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);align-items:center}
+.map .lg svg{width:30px;height:10px;display:inline-block;vertical-align:middle;margin-right:4px;cursor:default}
+.map .lg i{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;border-top:1px solid var(--line)}
+.chip{font:inherit;font-size:12.5px;line-height:1.4;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:3px 10px 3px 4px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip .n{display:inline-grid;place-items:center;min-width:20px;height:20px;border-radius:50%;font:700 11px var(--f-mono);color:var(--b-fg);padding:0 4px}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--panel)}
+.mbtn{font:600 12.5px var(--f-sans);text-decoration:none;border-radius:6px;padding:6px 10px;border:1px solid var(--line-strong);color:var(--fg);background:var(--panel);white-space:nowrap}
+.mbtn:hover{border-color:var(--accent)}
+.mbtn.go{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.map .note-s{padding:0 14px 10px;font-size:12px;color:var(--muted)}
+
+/* svg classes (legend) */
+.seg{fill:none;stroke-linejoin:round;stroke-linecap:round}
+.seg-car{stroke:var(--c-book);stroke-width:4}
+.seg-rail{stroke:var(--c-info);stroke-width:4;stroke-dasharray:10 7;stroke-linecap:butt}
+.seg-walk{stroke:var(--fg);stroke-width:3;stroke-dasharray:1 7}
+.seg-rope{stroke:var(--c-ok);stroke-width:3.5;stroke-dasharray:12 4 2 4;stroke-linecap:butt}
+.seg-case{fill:none;stroke:var(--panel);stroke-width:8;stroke-linejoin:round;stroke-linecap:round;opacity:.9}
+.map .lg svg .seg{stroke-width:3}
+.k-tr{background:var(--b-info)} .k-sight{background:var(--b-book)}
+.k-stay{background:var(--b-ok)} .k-act{background:var(--b-warn)} .k-alt{background:var(--b-mute)} .k-fac{background:var(--b-fac)}
+
+/* leaflet map */
+.map .lmap{position:absolute;inset:0;background:var(--sea);font-family:var(--f-sans)}
+.map .stage .ctl{z-index:1000}
+.leaflet-container a.leaflet-popup-close-button{color:var(--muted)}
+.map .leaflet-tile-pane{filter:saturate(.85)}
+:root[data-theme="dark"] .map .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.92) contrast(.88) saturate(.7)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .map .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.92) contrast(.88) saturate(.7)}}
+.map .land{fill:var(--land);stroke:var(--line-strong);stroke-width:1}
+.map .leaflet-control-attribution{background:var(--panel);color:var(--muted);font-size:10.5px;padding:1px 6px;border-top-left-radius:6px}
+.map .leaflet-control-attribution a{color:var(--fg)}
+.mk-i{background:none;border:0}
+.mki{position:relative;width:0;height:0}
+.mki .ld{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
+.mki .ld line{stroke:var(--fg);stroke-width:1.5}
+.mki .ld circle{fill:var(--fg)}
+.mki .w{position:absolute;left:0;top:0}
+.mki .d{position:absolute;left:-12px;top:-12px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;
+  color:var(--b-fg);font:700 11px var(--f-mono);border:2px solid var(--panel);box-shadow:0 0 0 1px var(--line-strong);cursor:pointer;box-sizing:border-box}
+.mki.sm .d{left:-7px;top:-7px;width:14px;height:14px;font-size:0}
+.mki .d.long{font-size:9px}
+.mki.sel .d{box-shadow:0 0 0 3px var(--accent)}
+.mki .lab{position:absolute;white-space:nowrap;font:500 12px/18px var(--f-sans);color:var(--fg);background:var(--panel);
+  border:1px solid var(--line-strong);border-radius:4px;padding:0 6px;pointer-events:none}
+.mki .lab.p-r{left:16px;top:-10px}
+.mki .lab.p-l{right:16px;top:-10px}
+.mki .lab.p-t{left:0;bottom:16px;transform:translateX(-50%)}
+.mki .lab.p-b{left:0;top:16px;transform:translateX(-50%)}
+.mki.sm .lab.p-r{left:11px}.mki.sm .lab.p-l{right:11px}.mki.sm .lab.p-t{bottom:11px}.mki.sm .lab.p-b{top:11px}
+.mki .lab.hide{display:none}
+.mki.sel .lab{border-color:var(--accent);font-weight:700}
+
+
+footer{padding:24px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+footer ol{padding-left:20px}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mki.ex.fac .d{left:-9px;top:-9px;width:18px;height:18px;border-radius:4px;font:700 10px var(--f-sans);color:var(--b-fg);border-width:1.5px}
+.mki.ex.fac .lab.p-r{left:13px}.mki.ex.fac .lab.p-l{right:13px}.mki.ex.fac .lab.p-t{bottom:13px}.mki.ex.fac .lab.p-b{top:13px}
+.chips .chips-h{flex-basis:100%;font-size:12px;color:var(--muted);margin-top:4px}
+.chip.fac .n{border-radius:4px;font-family:var(--f-sans)}
+/* 地點資訊：地圖底部滑出面板 */
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:2500;max-height:62vh;overflow:auto;background:var(--panel);color:var(--fg);
+  border-radius:18px 18px 0 0;border:1px solid var(--line);border-bottom:0;box-shadow:0 -8px 24px rgba(0,0,0,.22);padding:16px 18px calc(18px + env(safe-area-inset-bottom));
+  transform:translateY(105%);visibility:hidden;transition:transform .22s ease,visibility 0s linear .22s}
+.sheet.open{transform:none;visibility:visible;transition:transform .22s ease}
+@media (min-width:761px){.sheet{left:50%;right:auto;width:min(760px,calc(100% - 32px));transform:translate(-50%,105%)}.sheet.open{transform:translate(-50%,0)}}
+.sheet h4{margin:0 44px 10px 0;font-size:19px;line-height:1.35;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sheet .ic{font-size:24px;line-height:1}
+.sheet .x{position:absolute;right:8px;top:6px;width:40px;height:40px;border:0;background:none;color:var(--fg);font-size:22px;line-height:1;cursor:pointer;border-radius:8px}
+.sheet .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.sheet .tag{font-size:12.5px;font-weight:700;line-height:1.4;padding:4px 12px;border-radius:999px;background:var(--head-bg);color:var(--fg)}
+.sheet .tag.main{background:var(--fg);color:var(--bg)}
+.sheet .desc{margin:0 0 4px;font-size:15px;line-height:1.75}
+.sheet .jp{margin:0 0 12px;font-size:12.5px;color:var(--muted)}
+.sheet .meta{margin:0 0 6px;font-size:13.5px;line-height:1.6;background:var(--head-bg);border-radius:8px;padding:6px 10px}
+.sheet .meta b{margin-right:8px;font-size:12px;letter-spacing:.04em}
+.sheet .acts{display:flex;flex-wrap:wrap;gap:6px}
+.sheet .mbtn{padding:8px 12px;font-size:13px}
+@media (max-width:760px){.sheet .acts{display:grid;grid-template-columns:1fr 1fr}.sheet .mbtn{text-align:center}}
+.map .map-hint{margin:0;padding:6px 12px 10px;font-size:12.5px;color:var(--muted)}
+[data-style="sketch"] .sheet{border-radius:22px 14px 0 0/14px 22px 0 0;border:2px solid var(--line-strong);border-bottom:0;box-shadow:0 -3px 0 var(--line)}
+[data-style="manga"] .sheet{border-radius:6px 6px 0 0;border:3px solid var(--ink);border-bottom:0;box-shadow:0 -5px 0 var(--ink)}
+[data-style="manga"] .sheet h4{font-weight:900}
+[data-style="manga"] .sheet .tag{border:2px solid var(--ink);border-radius:3px}
+[data-style="manga"] .sheet .tag.main{background:var(--accent);color:var(--on-accent)}
+[data-style="manga"] .sheet .meta{border:2px solid var(--ink);border-radius:3px}
+@media (max-width:760px){.sheet{padding:14px 14px 16px}.sheet h4{font-size:17px}.sheet .desc{font-size:14.5px}}
+@media print{.sheet{display:none}}
+[data-style="sketch"] .sheet{background-image:var(--paper)}
+.sheet .near{margin:14px 0 0;border-top:1px solid var(--line);padding-top:10px}
+.sheet .near-h{font-size:12.5px;font-weight:700;color:var(--muted);margin-bottom:6px;letter-spacing:.04em}
+.sheet .near-i{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:6px;cursor:pointer}
+.sheet .near-i:hover{border-color:var(--accent)}
+.sheet .near-i .n{flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:5px;color:var(--b-fg);font:700 12px var(--f-sans)}
+.sheet .near-i .t{display:flex;flex-direction:column;min-width:0}
+.sheet .near-i b{font-size:14px}
+.sheet .near-i small{font-size:12.5px;color:var(--muted)}
+.sheet .back{font:inherit;font-size:13px;color:var(--fg);background:var(--bg);border:1px solid var(--line-strong);border-radius:8px;padding:6px 12px;margin:12px 0 0;cursor:pointer}
+.chips.facs{border-top:1px dashed var(--line)}
+[data-style="manga"] .sheet .near-i,[data-style="manga"] .sheet .back{border:2px solid var(--ink);border-radius:3px}
+[data-style="sketch"] .sheet .near-i,[data-style="sketch"] .sheet .back{border-radius:var(--wob);border:1.5px solid var(--line-strong)}
+/* 每日景點區塊 */
+.blocks{margin:6px 0 16px}
+.blk-hd{font-weight:700;font-size:15px;margin:0 0 8px;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.blk-hd small{font-weight:400;font-size:12.5px;color:var(--muted)}
+.blk{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.blk-h{display:flex;align-items:center;gap:12px;width:100%;text-align:left;font:inherit;color:var(--fg);background:var(--panel);border:0;padding:12px 14px;cursor:pointer}
+.blk-h:hover{background:var(--head-bg)}
+.blk-h[aria-expanded="true"]{border-bottom:1px solid var(--line)}
+.blk-n{display:flex;gap:4px;flex:none}
+.blk-n .n{display:inline-grid;place-items:center;min-width:26px;height:26px;padding:0 5px;border-radius:50%;color:var(--b-fg);font:700 12px var(--f-mono)}
+.blk-t{display:flex;flex-direction:column;min-width:0;flex:1}
+.blk-t b{font-size:15px;line-height:1.4}
+.blk-t small{font-size:12.5px;color:var(--muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.blk-m{flex:none;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);white-space:nowrap}
+.blk-m .chev{font-style:normal;font-size:14px;transition:transform .2s}
+.blk-h[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.blk-b .map{margin:0;border:0;border-radius:0}
+.blk-b .map .stage{height:300px}
+.blk-mv{font-size:12.5px;color:var(--muted);padding:4px 0 4px 26px;border-left:2px dashed var(--line-strong);margin:2px 0 2px 26px}
+.blk-t .fcm{display:none;font-style:normal;font-size:12px;color:var(--muted);margin-top:2px}
+@media (max-width:760px){.blk-h{gap:10px;padding:10px 12px;align-items:flex-start}.blk-n{flex-wrap:wrap;max-width:56px}.blk-n .n{min-width:24px;height:24px;font-size:11px}.blk-m .fc{display:none}.blk-t .fcm{display:block}.blk-b .map .stage{height:280px}}
+[data-style="sketch"] .blk{border-radius:var(--wob);border:2px solid var(--line-strong);box-shadow:2px 3px 0 var(--line)}
+[data-style="manga"] .blk{border:3px solid var(--ink);border-radius:3px;box-shadow:5px 5px 0 var(--ink)}
+[data-style="manga"] .blk-h{font-weight:700}
+[data-style="manga"] .blk-h[aria-expanded="true"]{border-bottom:2px solid var(--ink)}
+[data-style="manga"] .blk-mv{border-left:3px solid var(--ink);font-weight:700;color:var(--fg)}
+@media print{.blk-b{display:none}}
+/* 地點分級切換 */
+.map .lvsw{display:flex;flex-wrap:wrap;align-items:center;gap:0;border-bottom:1px solid var(--line);background:var(--panel)}
+.map .lvsw .lbl{font-size:12px;color:var(--muted);padding:6px 10px}
+.map .lvsw button{font:inherit;font-size:12.5px;line-height:1.4;padding:6px 10px;border:0;border-left:1px solid var(--line);background:var(--panel);color:var(--fg);cursor:pointer}
+.map .lvsw button[aria-pressed="true"]{background:var(--fg);color:var(--bg);font-weight:700}
+.map .lvsw .lvhint{font-size:12px;color:var(--muted);padding:6px 10px;margin-left:auto}
+.mki.ex .d{left:-5px;top:-5px;width:10px;height:10px;border-width:1.5px;box-shadow:0 0 0 1px var(--line-strong)}
+.mki.ex.fac .d{display:grid}
+.mki.ex .lab{font-size:11.5px;line-height:16px;color:var(--muted);border-color:var(--line)}
+.mki.ex .lab.p-r{left:9px;top:-9px}.mki.ex .lab.p-l{right:9px;top:-9px}.mki.ex .lab.p-t{bottom:9px}.mki.ex .lab.p-b{top:9px}
+.mki.ex.sel .lab{color:var(--fg)}
+[data-style="manga"] .map .lvsw{border-bottom:2px solid var(--ink)}
+[data-style="manga"] .map .lvsw button{border-left:2px solid var(--ink);font-weight:700}
+[data-style="manga"] .map .lvsw button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+[data-style="sketch"] .map .lvsw{border-bottom:2px dashed var(--line-strong)}
+/* ================= 風格切換：標準／手繪／漫畫 ================= */
+.ctrlrow{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin-top:14px}
+.stylesw{display:inline-flex;gap:0;border:1px solid var(--line-strong);border-radius:8px;overflow:hidden;background:var(--panel)}
+.stylesw button{font:inherit;font-size:13px;line-height:1.4;padding:6px 14px;border:0;border-right:1px solid var(--line);background:var(--panel);color:var(--fg);cursor:pointer}
+.stylesw button:last-child{border-right:0}
+.stylesw button[aria-pressed="true"]{background:var(--fg);color:var(--bg);font-weight:700}
+.stylesw .lbl{font-size:12px;color:var(--muted);padding:6px 10px;border-right:1px solid var(--line);display:flex;align-items:center}
+
+/* ---------- 手繪（sketch）：紙張＋鉛筆／黑板＋粉筆 ---------- */
+:root[data-style="sketch"]{
+  --bg:#f5eedd; --panel:#fffaee; --fg:#2a2824; --muted:#5b5446; --line:#a99f8b; --line-strong:#5b5446; --grid:#e8dfca;
+  --accent:#a8371f; --head-bg:#efe5cc; --sea:#dfe7e3; --land:#fbf6e9;
+  --hl:#f6df6b;
+  --f-sans:"Kaiti TC","BiauKai","DFKai-SB","標楷體","STKaiti","KaiTi","Noto Serif TC",serif;
+  --paper:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.3 0 0 0 0 0.2 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  --wob:255px 14px 225px 14px/14px 225px 14px 255px;
+}
+:root[data-style="sketch"][data-theme="dark"]{
+  --bg:#1e2a25; --panel:#25332d; --fg:#efeadc; --muted:#b9b6a6; --line:#61736a; --line-strong:#a9b3a6; --grid:#2c3a34;
+  --accent:#f3b48b; --head-bg:#2d3d36; --sea:#17211d; --land:#2a3832;
+  --hl:rgba(243,180,139,.28);
+  --paper:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme:dark){:root[data-style="sketch"]:not([data-theme="light"]){
+  --bg:#1e2a25; --panel:#25332d; --fg:#efeadc; --muted:#b9b6a6; --line:#61736a; --line-strong:#a9b3a6; --grid:#2c3a34;
+  --accent:#f3b48b; --head-bg:#2d3d36; --sea:#17211d; --land:#2a3832;
+  --hl:rgba(243,180,139,.28);
+  --paper:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}}
+[data-style="sketch"] body{background-image:var(--paper);font-size:16px}
+[data-style="sketch"] .tbl,[data-style="sketch"] .card,[data-style="sketch"] .callout,[data-style="sketch"] .route,
+[data-style="sketch"] .map,[data-style="sketch"] .tab,[data-style="sketch"] .pager button,[data-style="sketch"] #themeBtn,
+[data-style="sketch"] .chip,[data-style="sketch"] .mbtn,[data-style="sketch"] .stylesw,[data-style="sketch"] .map .ctl button{
+  border-radius:var(--wob);border-width:2px;border-color:var(--line-strong)}
+[data-style="sketch"] .card,[data-style="sketch"] .callout{border-left-width:2px;border-left-color:var(--line-strong);box-shadow:inset 5px 0 0 var(--c,var(--c-book))}
+[data-style="sketch"] .tbl,[data-style="sketch"] .map,[data-style="sketch"] .route{box-shadow:2px 3px 0 var(--line)}
+[data-style="sketch"] h1{font-weight:700;letter-spacing:.06em}
+[data-style="sketch"] h2{text-decoration:underline wavy var(--accent) 1.5px;text-underline-offset:7px}
+[data-style="sketch"] th{border-bottom:2px dashed var(--line-strong);font-weight:700}
+[data-style="sketch"] td{border-bottom:1px dashed var(--line)}
+[data-style="sketch"] .route b,[data-style="sketch"] .lede b{background:linear-gradient(transparent 58%,var(--hl) 58%);color:var(--fg);padding:0 2px}
+[data-style="sketch"] .badge{border-radius:10px 3px 9px 3px/3px 9px 3px 10px}
+[data-style="sketch"] header.top{border-bottom:2px dashed var(--line-strong)}
+[data-style="sketch"] .map .leaflet-tile-pane{filter:grayscale(1) sepia(.45) contrast(1.05) brightness(1.03)}
+[data-style="sketch"][data-theme="dark"] .map .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) grayscale(.7) sepia(.3) brightness(.9) contrast(.9)}
+@media (prefers-color-scheme:dark){[data-style="sketch"]:not([data-theme="light"]) .map .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) grayscale(.7) sepia(.3) brightness(.9) contrast(.9)}}
+[data-style="sketch"] .mki .lab{border-radius:9px 3px 8px 3px/3px 8px 3px 9px;border-width:1.5px;font-size:13px}
+
+/* ---------- 漫畫（manga）：黑線分格＋網點＋硬陰影 ---------- */
+:root[data-style="manga"]{
+  --bg:#ffffff; --panel:#ffffff; --fg:#111111; --muted:#3b3b3b; --line:#111111; --line-strong:#111111; --grid:#e4e4e4;
+  --accent:#c8001e; --on-accent:#ffffff; --head-bg:#ececec; --sea:#e8e8e8; --land:#ffffff;
+  --dot:#d6d6d6; --ink:#111111;
+  --f-sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;
+}
+:root[data-style="manga"][data-theme="dark"]{
+  --bg:#0c0c0c; --panel:#171717; --fg:#f5f5f5; --muted:#c4c4c4; --line:#f5f5f5; --line-strong:#f5f5f5; --grid:#262626;
+  --accent:#ff7085; --on-accent:#0c0c0c; --head-bg:#262626; --sea:#141414; --land:#1f1f1f;
+  --dot:#2a2a2a; --ink:#f5f5f5;
+}
+@media (prefers-color-scheme:dark){:root[data-style="manga"]:not([data-theme="light"]){
+  --bg:#0c0c0c; --panel:#171717; --fg:#f5f5f5; --muted:#c4c4c4; --line:#f5f5f5; --line-strong:#f5f5f5; --grid:#262626;
+  --accent:#ff7085; --on-accent:#0c0c0c; --head-bg:#262626; --sea:#141414; --land:#1f1f1f;
+  --dot:#2a2a2a; --ink:#f5f5f5;
+}}
+[data-style="manga"] body{background-image:radial-gradient(var(--dot) 1.1px,transparent 1.6px);background-size:9px 9px;font-weight:500}
+[data-style="manga"] header.top{background:var(--panel);border-bottom:4px solid var(--ink)}
+[data-style="manga"] h1{font-weight:900;letter-spacing:.03em}
+[data-style="manga"] .tabbar{background:var(--panel);border-bottom:3px solid var(--ink)}
+[data-style="manga"] .tbl,[data-style="manga"] .card,[data-style="manga"] .callout,[data-style="manga"] .route,[data-style="manga"] .map{
+  border:3px solid var(--ink);border-radius:3px;box-shadow:5px 5px 0 var(--ink)}
+[data-style="manga"] .card,[data-style="manga"] .callout{border-left-width:8px;border-left-color:var(--c,var(--c-book))}
+[data-style="manga"] .tab,[data-style="manga"] .pager button,[data-style="manga"] #themeBtn,[data-style="manga"] .chip,
+[data-style="manga"] .mbtn,[data-style="manga"] .map .ctl button,[data-style="manga"] .stylesw{border:2px solid var(--ink);border-radius:3px;font-weight:700}
+[data-style="manga"] .tab[aria-selected="true"]{background:var(--accent);color:var(--on-accent);border-color:var(--ink)}
+[data-style="manga"] .tab[aria-selected="true"] small{color:var(--on-accent)}
+[data-style="manga"] .stylesw button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+[data-style="manga"] h2{background:var(--panel);border:3px solid var(--ink);border-radius:24px;padding:6px 18px;width:fit-content;max-width:100%;box-shadow:4px 4px 0 var(--ink);font-weight:900}
+[data-style="manga"] h2 .num{background:var(--accent);color:var(--on-accent);padding:0 8px;border-radius:3px;border:2px solid var(--ink)}
+[data-style="manga"] h3{font-weight:900;border-left:6px solid var(--accent);padding-left:8px}
+[data-style="manga"] th{background:var(--head-bg);border-bottom:3px solid var(--ink);font-weight:900}
+[data-style="manga"] td{border-bottom:1.5px solid var(--line)}
+[data-style="manga"] .badge{border:1.5px solid var(--ink);border-radius:2px}
+[data-style="manga"] .route b{color:var(--accent);font-weight:900}
+[data-style="manga"] .map .lg,[data-style="manga"] .chips{border-top:2px solid var(--ink)}
+[data-style="manga"] .map .leaflet-tile-pane{filter:grayscale(1) contrast(1.35) brightness(1.06)}
+[data-style="manga"][data-theme="dark"] .map .leaflet-tile-pane{filter:invert(1) grayscale(1) contrast(1.25) brightness(.8)}
+@media (prefers-color-scheme:dark){[data-style="manga"]:not([data-theme="light"]) .map .leaflet-tile-pane{filter:invert(1) grayscale(1) contrast(1.25) brightness(.8)}}
+[data-style="manga"] .mki .lab{border:2px solid var(--ink);border-radius:2px;font-weight:700}
+[data-style="manga"] .mki .d{border-color:var(--panel);box-shadow:0 0 0 2px var(--ink)}
+[data-style="manga"] .seg-case{stroke:var(--panel);stroke-width:9;opacity:1}
+@media print{[data-style] body{background-image:none}}
+/* ================= 當地特色插畫（SVG，隨風格／深淺色變化） ================= */
+:root{--a-sky:#dcebf2;--a-sun:#f3c86b;--a-far:#a9c3cf;--a-mid:#6f9a7c;--a-near:#3f6b4f;--a-water:#7fb3c9;--a-snow:#ffffff;--a-wood:#8a5a3b;--a-warm:#e8b04a;--a-acc:#9a3a21;--a-light:#f4f1ea;--a-stone:#c9c3b6;--a-rock:#3b3632;--a-steam:#ffffff;--a-onsen:#5fbfae;--a-paddy:#a8c97a;--a-ln:#3a4a52;--a-ol:transparent;--a-ow:0;--a-flt:none;--a-pbg:#fff;--a-pdot:#111}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--a-sky:#16232c;--a-sun:#e9d48a;--a-far:#2c4350;--a-mid:#2f5640;--a-near:#1f3a2a;--a-water:#2a5368;--a-snow:#dfe8ec;--a-wood:#6b4a35;--a-warm:#d9a441;--a-acc:#f0a080;--a-light:#cfd6d9;--a-stone:#5d5b56;--a-rock:#0f0e0d;--a-steam:#c8d3d8;--a-onsen:#3f9488;--a-paddy:#4f6e3a;--a-ln:#9fb3bd;--a-ol:transparent;--a-ow:0;--a-flt:none;--a-pbg:#000;--a-pdot:#fff}}
+:root[data-theme="dark"]{--a-sky:#16232c;--a-sun:#e9d48a;--a-far:#2c4350;--a-mid:#2f5640;--a-near:#1f3a2a;--a-water:#2a5368;--a-snow:#dfe8ec;--a-wood:#6b4a35;--a-warm:#d9a441;--a-acc:#f0a080;--a-light:#cfd6d9;--a-stone:#5d5b56;--a-rock:#0f0e0d;--a-steam:#c8d3d8;--a-onsen:#3f9488;--a-paddy:#4f6e3a;--a-ln:#9fb3bd;--a-ol:transparent;--a-ow:0;--a-flt:none;--a-pbg:#000;--a-pdot:#fff}
+:root[data-style="sketch"]{--a-sky:#f2ead6;--a-sun:#f0c77a;--a-far:#c9c6b0;--a-mid:#9fb08a;--a-near:#6f8a63;--a-water:#a9c4c4;--a-snow:#fffaf0;--a-wood:#a07450;--a-warm:#e7c071;--a-acc:#b4533a;--a-light:#fbf6ea;--a-stone:#d8cfbd;--a-rock:#5a4e44;--a-steam:#fffaf0;--a-onsen:#8fcabb;--a-paddy:#c7d39a;--a-ln:#4a4238;--a-ol:#3b342c;--a-ow:1.6;--a-flt:url(#rough);--a-pbg:#fff;--a-pdot:#111}
+@media (prefers-color-scheme:dark){:root[data-style="sketch"]:not([data-theme="light"]){--a-sky:#1e2a25;--a-sun:#f3e3a4;--a-far:#3d4e47;--a-mid:#4e6b57;--a-near:#33493d;--a-water:#3f5f63;--a-snow:#eef0e6;--a-wood:#7c6448;--a-warm:#e6c36f;--a-acc:#f3b48b;--a-light:#e6e2d3;--a-stone:#5f665e;--a-rock:#141b18;--a-steam:#e6e2d3;--a-onsen:#5e9a8f;--a-paddy:#5f7a4c;--a-ln:#efeadc;--a-ol:#efeadc;--a-ow:1.3;--a-flt:url(#rough);--a-pbg:#000;--a-pdot:#fff}}
+:root[data-style="sketch"][data-theme="dark"]{--a-sky:#1e2a25;--a-sun:#f3e3a4;--a-far:#3d4e47;--a-mid:#4e6b57;--a-near:#33493d;--a-water:#3f5f63;--a-snow:#eef0e6;--a-wood:#7c6448;--a-warm:#e6c36f;--a-acc:#f3b48b;--a-light:#e6e2d3;--a-stone:#5f665e;--a-rock:#141b18;--a-steam:#e6e2d3;--a-onsen:#5e9a8f;--a-paddy:#5f7a4c;--a-ln:#efeadc;--a-ol:#efeadc;--a-ow:1.3;--a-flt:url(#rough);--a-pbg:#000;--a-pdot:#fff}
+:root[data-style="manga"]{--a-sky:#ffffff;--a-sun:#ffffff;--a-far:url(#ht1);--a-mid:url(#ht2);--a-near:url(#ht3);--a-water:url(#hl);--a-snow:#ffffff;--a-wood:url(#hx);--a-warm:#ffffff;--a-acc:#c8001e;--a-light:#ffffff;--a-stone:url(#ht1);--a-rock:#111111;--a-steam:#ffffff;--a-onsen:url(#hl);--a-paddy:url(#ht1);--a-ln:#111111;--a-ol:#111111;--a-ow:2.2;--a-flt:none;--a-pbg:#ffffff;--a-pdot:#111111}
+@media (prefers-color-scheme:dark){:root[data-style="manga"]:not([data-theme="light"]){--a-sky:#0c0c0c;--a-sun:#0c0c0c;--a-far:url(#ht1);--a-mid:url(#ht2);--a-near:url(#ht3);--a-water:url(#hl);--a-snow:#0c0c0c;--a-wood:url(#hx);--a-warm:#0c0c0c;--a-acc:#ff7085;--a-light:#0c0c0c;--a-stone:url(#ht1);--a-rock:#f5f5f5;--a-steam:#0c0c0c;--a-onsen:url(#hl);--a-paddy:url(#ht1);--a-ln:#f5f5f5;--a-ol:#f5f5f5;--a-ow:2;--a-flt:none;--a-pbg:#0c0c0c;--a-pdot:#f5f5f5}}
+:root[data-style="manga"][data-theme="dark"]{--a-sky:#0c0c0c;--a-sun:#0c0c0c;--a-far:url(#ht1);--a-mid:url(#ht2);--a-near:url(#ht3);--a-water:url(#hl);--a-snow:#0c0c0c;--a-wood:url(#hx);--a-warm:#0c0c0c;--a-acc:#ff7085;--a-light:#0c0c0c;--a-stone:url(#ht1);--a-rock:#f5f5f5;--a-steam:#0c0c0c;--a-onsen:url(#hl);--a-paddy:url(#ht1);--a-ln:#f5f5f5;--a-ol:#f5f5f5;--a-ow:2;--a-flt:none;--a-pbg:#0c0c0c;--a-pdot:#f5f5f5}
+.art{margin:8px 0 14px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel)}
+.art svg{display:block;width:100%;height:150px}
+.art figcaption{font-size:12px;color:var(--muted);padding:5px 12px;border-top:1px solid var(--line);background:var(--panel)}
+.art .sky{fill:var(--a-sky)}
+.art .sun{fill:var(--a-sun)}.art .far{fill:var(--a-far)}.art .mid{fill:var(--a-mid)}.art .near{fill:var(--a-near)}.art .water{fill:var(--a-water)}.art .snow{fill:var(--a-snow)}.art .wood{fill:var(--a-wood)}.art .warm{fill:var(--a-warm)}.art .acc{fill:var(--a-acc)}.art .light{fill:var(--a-light)}.art .stone{fill:var(--a-stone)}.art .rock{fill:var(--a-rock)}.art .steam{fill:var(--a-steam)}.art .onsen{fill:var(--a-onsen)}.art .paddy{fill:var(--a-paddy)}
+.art :is(.sun,.far,.mid,.near,.water,.snow,.wood,.warm,.acc,.light,.stone,.rock,.onsen,.paddy){stroke:var(--a-ol);stroke-width:var(--a-ow);stroke-linejoin:round}
+.art .steam{opacity:.85;stroke:var(--a-ol);stroke-width:var(--a-ow)}
+.art .ln{fill:none;stroke:var(--a-ln);stroke-width:2.2;stroke-linecap:round}
+.art .lt{fill:none;stroke:var(--a-ln);stroke-width:1.2;opacity:.55}
+.art .sc{filter:var(--a-flt)}
+[data-style="sketch"] .art{border-radius:var(--wob);border-width:2px;border-color:var(--line-strong);box-shadow:2px 3px 0 var(--line)}
+[data-style="sketch"] .art .sc :is(.far,.mid,.near,.water,.stone,.wood,.paddy,.onsen){fill-opacity:.88}
+[data-style="manga"] .art{border:3px solid var(--ink);border-radius:3px;box-shadow:5px 5px 0 var(--ink)}
+[data-style="manga"] .art figcaption{border-top:2px solid var(--ink);font-weight:700;color:var(--fg)}
+@media (max-width:760px){.art svg{height:112px}}
+@media print{.art{break-inside:avoid}}
+@media (max-width:760px){
+  h1{font-size:24px}
+  .grid{grid-template-columns:minmax(0,1fr)}
+  body{font-size:14.5px}
+  .map .stage{height:320px}
+}
+@media print{
+  .tabbar,.pager,.map .ctl{display:none}
+  .panel[hidden]{display:block}
+  .card,.tbl,.map{break-inside:avoid}
+  :root{--bg:#fff;--panel:#fff}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><filter id="rough" x="-2%" y="-2%" width="104%" height="104%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="3.2"/></filter><pattern id="ht1" width="7" height="7" patternUnits="userSpaceOnUse"><rect width="7" height="7" style="fill:var(--a-pbg)"/><circle cx="3.5" cy="3.5" r="1.1" style="fill:var(--a-pdot)"/></pattern><pattern id="ht2" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" style="fill:var(--a-pbg)"/><circle cx="3" cy="3" r="1.6" style="fill:var(--a-pdot)"/></pattern><pattern id="ht3" width="5" height="5" patternUnits="userSpaceOnUse"><rect width="5" height="5" style="fill:var(--a-pbg)"/><circle cx="2.5" cy="2.5" r="1.9" style="fill:var(--a-pdot)"/></pattern><pattern id="hl" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" style="fill:var(--a-pbg)"/><rect y="2" width="6" height="1.4" style="fill:var(--a-pdot)"/></pattern><pattern id="hx" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" style="fill:var(--a-pbg)"/><path d="M0 6 L6 0" style="stroke:var(--a-pdot);stroke-width:1.2"/></pattern></defs></svg>
+<!--@@BANNER@@--><header class="top">
+  <div class="wrap">
+    <div class="eyebrow">2027.07.17 — 07.25 ・ 羽田進出 ・ v1 越後・上州</div>
+    <h1>新潟 → 越後妻有 → 湯澤 → 水上 → 草津 → 輕井澤 → 品川</h1>
+    <p class="lede">親子 4 人（2 大人＋國中生＋小學生）9 天 8 夜。新幹線北上新潟，中段自駕走山線，輕井澤還車搭北陸新幹線回東京。大地藝術祭第 10 屆 7/17 開幕，與本次行程完全重疊。</p>
+    <div class="ctrlrow"><div class="stylesw" role="group" aria-label="版面風格"><span class="lbl">風格</span><button type="button" data-style="std" aria-pressed="true">標準</button><button type="button" data-style="sketch" aria-pressed="false">手繪</button><button type="button" data-style="manga" aria-pressed="false">漫畫</button></div><button id="themeBtn" type="button" aria-label="切換深淺色">深色</button></div>
+  </div>
+</header>
+
+<div class="tabbar">
+  <div class="wrap" role="tablist" aria-label="行程分頁">
+    <button class="tab" role="tab" id="tab-overview" aria-controls="overview" data-p="overview"><b>00</b>總覽<small>路線・死線</small></button>
+    <button class="tab" role="tab" id="tab-d1" aria-controls="d1" data-p="d1"><b>D1</b>7/17 六<small>抵達新潟</small></button>
+    <button class="tab" role="tab" id="tab-d2" aria-controls="d2" data-p="d2"><b>D2</b>7/18 日<small>水族館・松代</small></button>
+    <button class="tab" role="tab" id="tab-d3" aria-controls="d3" data-p="d3"><b>D3</b>7/19 一<small>清津峽・湯澤</small></button>
+    <button class="tab" role="tab" id="tab-d4" aria-controls="d4" data-p="d4"><b>D4</b>7/20 二<small>高原・水上</small></button>
+    <button class="tab" role="tab" id="tab-d5" aria-controls="d5" data-p="d5"><b>D5</b>7/21 三<small>泛舟・谷川岳</small></button>
+    <button class="tab" role="tab" id="tab-d6" aria-controls="d6" data-p="d6"><b>D6</b>7/22 四<small>草津</small></button>
+    <button class="tab" role="tab" id="tab-d7" aria-controls="d7" data-p="d7"><b>D7</b>7/23 五<small>輕井澤</small></button>
+    <button class="tab" role="tab" id="tab-d8" aria-controls="d8" data-p="d8"><b>D8</b>7/24 六<small>回東京</small></button>
+    <button class="tab" role="tab" id="tab-d9" aria-controls="d9" data-p="d9"><b>D9</b>7/25 日<small>回程</small></button>
+    <button class="tab" role="tab" id="tab-prep" aria-controls="prep" data-p="prep"><b>P</b>行前<small>預約・票券</small></button>
+    <button class="tab" role="tab" id="tab-risk" aria-controls="risk" data-p="risk"><b>R</b>風險<small>假設・待確認</small></button>
+  </div>
+</div>
+
+<main class="wrap">
+
+<!-- ================= 總覽 ================= -->
+<section class="panel" id="overview" role="tabpanel" aria-labelledby="tab-overview">
+  <h2><span class="num">00</span>行程總覽</h2>
+  <figure class="art"><svg viewBox="0 0 1000 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect class="sky" width="1000" height="220"/><g class="sc"><circle class="sun" cx="860" cy="58" r="26"/><path class="far" d="M0 150 L110 92 L190 122 L320 52 L420 112 L520 70 L640 122 L760 82 L880 124 L1000 98 V220 H0Z"/><path class="snow" d="M302 62 L320 52 L340 64 L330 70 L320 64 L310 70Z"/><path class="snow" d="M506 78 L520 70 L536 80 L526 84 L520 80 L512 84Z"/><path class="water" d="M0 158 H170 Q205 172 240 220 H0Z"/><path class="ln" d="M24 182 q12 -6 24 0 t24 0 M70 200 q12 -6 24 0 t24 0"/><path class="mid" d="M180 220 Q260 160 400 172 T660 160 T1000 150 V220Z"/><rect class="light" x="880" y="120" width="16" height="100"/><rect class="light" x="900" y="104" width="16" height="116"/><rect class="light" x="920" y="128" width="16" height="92"/><rect class="light" x="944" y="96" width="16" height="124"/><rect class="light" x="966" y="116" width="16" height="104"/><path class="near" d="M150 204 H1000 V220 H150Z"/><path class="ln" d="M150 200 H1000"/><path class="light" d="M520 198 V186 Q520 174 548 172 H700 Q740 172 770 186 Q780 192 780 198Z"/><path class="acc" d="M540 188 H770 V193 H540Z"/><rect class="water" x="560" y="177" width="14" height="6" rx="2"/><rect class="water" x="582" y="177" width="14" height="6" rx="2"/><rect class="water" x="604" y="177" width="14" height="6" rx="2"/><rect class="water" x="626" y="177" width="14" height="6" rx="2"/><rect class="water" x="648" y="177" width="14" height="6" rx="2"/><rect class="water" x="670" y="177" width="14" height="6" rx="2"/><rect class="water" x="692" y="177" width="14" height="6" rx="2"/></g></svg><figcaption>總覽：日本海、越後山脈與新幹線，一路回到東京</figcaption></figure>
+  <div class="route"><b>主軸：</b>羽田 →（上越新幹線）新潟取車 → 大地藝術祭（松代・松之山・清津峽・十日町）→ 越後湯澤 → 水上連住 2 晚 → 草津 → 北輕井澤 → 輕井澤還車 →（北陸新幹線）品川 → 羽田。</div>
+
+  <div class="map" data-map="overview"></div>
+
+  <h3>每日摘要</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Day</th><th>日期</th><th>主題</th><th>一句話</th><th>住宿</th></tr></thead>
+    <tbody>
+      <tr><td><a class="daylink" href="#d1">D1</a></td><td class="t">7/17 六</td><td>抵達・北上</td><td>羽田入境，新幹線 2 小時到新潟，晚上萬代橋散步。</td><td>新潟站</td></tr>
+      <tr><td><a class="daylink" href="#d2">D2</a></td><td class="t">7/18 日</td><td>水族館＋藝術祭</td><td>站前取車，早上水族館，下午松代「農舞台」與美人林。</td><td>松之山溫泉</td></tr>
+      <tr><td><a class="daylink" href="#d3">D3</a></td><td class="t">7/19 一 <small>海の日</small></td><td>清津峽・十日町</td><td>8:30 搶頭班進光之隧道，再看 MonET，傍晚入住湯澤。</td><td>越後湯澤</td></tr>
+      <tr><td><a class="daylink" href="#d4">D4</a></td><td class="t">7/20 二</td><td>高原・移動</td><td>湯澤高原纜車玩半天，午後翻關越到水上。</td><td>水上溫泉</td></tr>
+      <tr><td><a class="daylink" href="#d5">D5</a></td><td class="t">7/21 三</td><td>戶外日</td><td>上午利根川泛舟，下午谷川岳纜車上天神平。</td><td>水上溫泉（續住）</td></tr>
+      <tr><td><a class="daylink" href="#d6">D6</a></td><td class="t">7/22 四</td><td>草津溫泉</td><td>途經八ッ場水壩，下午西之河原露天風呂＋湯もみ秀。</td><td>草津（湯畑圈）</td></tr>
+      <tr><td><a class="daylink" href="#d7">D7</a></td><td class="t">7/23 五</td><td>火山・輕井澤</td><td>鬼押出し園、白絲瀑布、榆樹街，下午還車逛 Outlet。</td><td>輕井澤站</td></tr>
+      <tr><td><a class="daylink" href="#d8">D8</a></td><td class="t">7/24 六</td><td>回東京</td><td>雲場池＋舊輕銀座，中午新幹線到東京，入住品川。</td><td>品川站</td></tr>
+      <tr><td><a class="daylink" href="#d9">D9</a></td><td class="t">7/25 日</td><td>回程</td><td>京急 15 分到羽田。</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>關鍵預約死線（依日期排序）</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>期限</th><th>項目</th><th>說明</th></tr></thead>
+    <tbody>
+      <tr><td class="t">立即</td><td><span class="badge book">預約</span>機票＋全程住宿</td><td>7/17–19 為海の日三連休＋藝術祭開幕；松之山、湯澤、草津（含貸切風呂）最先滿。</td></tr>
+      <tr><td class="t">立即–2027 春</td><td><span class="badge book">預約</span>租車（新潟站取／輕井澤站還）</td><td>甲地乙還跨縣須付回送費，報價時一併確認；開放預約時點依各家而定。</td></tr>
+      <tr><td class="t">2027/02/28 起</td><td><span class="badge info">開賣</span>大地藝術祭護照預售</td><td>預售期 2/28–7/16；一般 ¥4,000、小中學生 ¥1,000（當日券 ¥5,000／¥2,000）。</td></tr>
+      <tr><td class="t">2027/05–06</td><td><span class="badge book">預約</span>水上泛舟（7/21 上午）</td><td>選明確收 6 歲／小學生的家庭行程。</td></tr>
+      <tr><td class="t">待公告</td><td><span class="badge warn">確認</span>清津峽 7/19 預約</td><td>2026 年 7/18–20 為預約制；2027 開放日期需追官網。</td></tr>
+      <tr><td class="t">2027/06/17 10:00</td><td><span class="badge book">開賣</span>東京→新潟 とき（7/17）</td><td>JR 東日本乘車日前 1 個月開賣；えきねっと「トクだ値」可再省。</td></tr>
+      <tr><td class="t">2027/06/24 10:00</td><td><span class="badge book">開賣</span>輕井澤→東京 北陸新幹線（7/24）</td><td>週六中午班次易滿，開賣即訂。</td></tr>
+      <tr><td class="t">2027/07/16</td><td><span class="badge warn">截止</span>藝術祭護照預售最後一天</td><td>錯過即以當日價購買（全家多付約 ¥4,000）。</td></tr>
+    </tbody>
+  </table></div>
+  <div class="legend"><span><span class="badge book">預約</span>需事先預訂</span><span><span class="badge info">資訊</span>營業／票價</span><span><span class="badge ok">免費</span>免費入場</span><span><span class="badge warn">確認</span>需自行確認</span></div>
+</section>
+
+<!-- ================= D1 ================= -->
+<section class="panel" id="d1" role="tabpanel" aria-labelledby="tab-d1" hidden>
+  <h2><span class="num">DAY 1</span>抵達・北上新潟<span class="date">2027/07/17（六）</span></h2>
+  <p class="theme-line">今天只做一件事：把全家安全送到新潟。</p>
+  <figure class="art"><svg viewBox="0 0 1000 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect class="sky" width="1000" height="220"/><g class="sc"><circle class="sun" cx="800" cy="112" r="36"/><rect class="far" x="0" y="96" width="40" height="54"/><rect class="far" x="44" y="110" width="30" height="40"/><rect class="far" x="80" y="84" width="26" height="66"/><rect class="far" x="110" y="104" width="44" height="46"/><rect class="far" x="600" y="100" width="38" height="50"/><rect class="far" x="642" y="70" width="22" height="80"/><rect class="far" x="668" y="96" width="40" height="54"/><rect class="far" x="900" y="92" width="34" height="58"/><rect class="far" x="938" y="108" width="62" height="42"/><rect class="water" y="148" width="1000" height="72"/><rect class="stone" x="70" y="120" width="860" height="40"/><ellipse class="water" cx="150" cy="168" rx="54" ry="30"/><ellipse class="water" cx="290" cy="168" rx="54" ry="30"/><ellipse class="water" cx="430" cy="168" rx="54" ry="30"/><ellipse class="water" cx="570" cy="168" rx="54" ry="30"/><ellipse class="water" cx="710" cy="168" rx="54" ry="30"/><ellipse class="water" cx="850" cy="168" rx="54" ry="30"/><path class="ln" d="M110 118 V100"/><circle class="warm" cx="110" cy="98" r="5"/><path class="ln" d="M208 118 V100"/><circle class="warm" cx="208" cy="98" r="5"/><path class="ln" d="M306 118 V100"/><circle class="warm" cx="306" cy="98" r="5"/><path class="ln" d="M404 118 V100"/><circle class="warm" cx="404" cy="98" r="5"/><path class="ln" d="M502 118 V100"/><circle class="warm" cx="502" cy="98" r="5"/><path class="ln" d="M600 118 V100"/><circle class="warm" cx="600" cy="98" r="5"/><path class="ln" d="M698 118 V100"/><circle class="warm" cx="698" cy="98" r="5"/><path class="ln" d="M796 118 V100"/><circle class="warm" cx="796" cy="98" r="5"/><path class="ln" d="M894 118 V100"/><circle class="warm" cx="894" cy="98" r="5"/><path class="ln" d="M70 120 H930"/><path class="ln" d="M120 196 H260 M380 206 H560 M650 194 H860" style="opacity:.55"/><path class="sun" d="M770 168 H830 V172 H770Z M780 182 H820 V186 H780Z" style="opacity:.7"/></g></svg><figcaption>D1：新潟萬代橋，信濃川上的六連拱石橋與夕陽</figcaption></figure>
+  <div class="blocks" data-day="d1"></div>
+  <div class="tbl"><table class="day">
+    <thead><tr><th>時間</th><th>地點</th><th>停留</th><th>移動</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td class="t">12:00</td><td>羽田機場 第 3 航廈 入境</td><td>60 分</td><td class="mv">—</td><td>假設中午抵達；入境＋領行李</td></tr>
+      <tr><td class="t">13:15</td><td>機場利木津巴士 → 東京站八重洲</td><td>—</td><td class="mv">巴士 40–60 分</td><td>帶行李優先巴士；週六午後可能塞車</td></tr>
+      <tr><td class="t">14:40</td><td>東京站 上越新幹線「とき」</td><td>—</td><td class="mv">新幹線 約 2 小時</td><td><span class="badge book">預約</span>指定席通常期 ¥10,980；三連休屬繁忙期 +¥200</td></tr>
+      <tr><td class="t">16:45</td><td>新潟站 → 飯店寄放行李</td><td>20 分</td><td class="mv">步行 5 分</td><td>選隔天取車點步行範圍內</td></tr>
+      <tr><td class="t">17:30</td><td>萬代橋・信濃川畔</td><td>45 分</td><td class="mv">步行 15 分</td><td><span class="badge ok">免費</span>傍晚散步、看夕陽</td></tr>
+      <tr><td class="t">18:30</td><td>新潟站周邊晚餐（へぎそば／タレカツ丼）</td><td>75 分</td><td class="mv">步行 15 分</td><td>店家公休日須以「週六」查證</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid">
+    <div class="card stay"><h4>住宿</h4><p>新潟站周邊商務飯店。理由：隔天 8:00 站前取車，免拖行李移動。</p></div>
+    <div class="card planb"><h4>Plan B</h4><ul><li>航班延誤：改搭較晚班「とき」（班次密集）。</li><li>體力不足：晚餐改在站內解決，不出門。</li></ul></div>
+    <div class="card note"><h4>注意事項</h4><ul><li>羽田→東京站備案：京急到品川，轉 JR 到東京（約 10 分）。</li><li>新幹線大件行李規定：三邊合計超過 160 cm 需預約行李座位。</li></ul></div>
+  </div>
+</section>
+
+<!-- ================= D2 ================= -->
+<section class="panel" id="d2" role="tabpanel" aria-labelledby="tab-d2" hidden>
+  <h2><span class="num">DAY 2</span>水族館 → 大地藝術祭・松代<span class="date">2027/07/18（日）</span></h2>
+  <p class="theme-line">藝術祭開幕第二天；週二、三休，所以藝術祭集中排在 D2、D3。</p>
+  <figure class="art"><svg viewBox="0 0 1000 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect class="sky" width="1000" height="220"/><g class="sc"><rect class="water" y="112" width="460" height="108"/><path class="ln" d="M30 140 q14 -8 28 0 t28 0 M120 168 q14 -8 28 0 t28 0 M40 196 q14 -8 28 0 t28 0 M300 150 q14 -8 28 0 t28 0 M260 190 q14 -8 28 0 t28 0"/><path class="far" d="M140 118 Q196 52 270 92 Q252 92 244 102 Q214 86 168 124 Z"/><path class="far" d="M206 74 L214 56 L224 78Z M262 92 L284 84 L276 100Z"/><circle class="snow" cx="128" cy="126" r="6"/><circle class="snow" cx="116" cy="114" r="4"/><circle class="snow" cx="290" cy="110" r="5"/><path class="sun" d="M600 0 L660 0 L760 186 L700 186Z M780 0 L820 0 L900 186 L860 186Z" style="opacity:.35"/><ellipse class="mid" cx="500" cy="34" rx="70" ry="30"/><ellipse class="mid" cx="590" cy="22" rx="80" ry="30"/><ellipse class="mid" cx="690" cy="36" rx="76" ry="32"/><ellipse class="mid" cx="790" cy="20" rx="84" ry="30"/><ellipse class="mid" cx="890" cy="34" rx="80" ry="30"/><ellipse class="mid" cx="980" cy="24" rx="70" ry="30"/><rect class="light" x="480" y="36" width="7" height="150"/><path class="lt" d="M482 80 h4 M481 120 h5"/><rect class="light" x="514" y="40" width="8" height="146"/><path class="lt" d="M516 92 h5 M515 130 h6"/><rect class="light" x="548" y="44" width="9" height="142"/><path class="lt" d="M550 104 h6 M549 140 h7"/><rect class="light" x="582" y="48" width="7" height="138"/><path class="lt" d="M584 116 h4 M583 120 h5"/><rect class="light" x="616" y="36" width="8" height="150"/><path class="lt" d="M618 128 h5 M617 130 h6"/><rect class="light" x="650" y="40" width="9" height="146"/><path class="lt" d="M652 80 h6 M651 140 h7"/><rect class="light" x="684" y="44" width="7" height="142"/><path class="lt" d="M686 92 h4 M685 120 h5"/><rect class="light" x="718" y="48" width="8" height="138"/><path class="lt" d="M720 104 h5 M719 130 h6"/><rect class="light" x="752" y="36" width="9" height="150"/><path class="lt" d="M754 116 h6 M753 140 h7"/><rect class="light" x="786" y="40" width="7" height="146"/><path class="lt" d="M788 128 h4 M787 120 h5"/><rect class="light" x="820" y="44" width="8" height="142"/><path class="lt" d="M822 80 h5 M821 130 h6"/><rect class="light" x="854" y="48" width="9" height="138"/><path class="lt" d="M856 92 h6 M855 140 h7"/><rect class="light" x="888" y="36" width="7" height="150"/><path class="lt" d="M890 104 h4 M889 120 h5"/><rect class="light" x="922" y="40" width="8" height="146"/><path class="lt" d="M924 116 h5 M923 130 h6"/><rect class="light" x="956" y="44" width="9" height="142"/><path class="lt" d="M958 128 h6 M957 140 h7"/><rect class="light" x="990" y="48" width="7" height="138"/><path class="lt" d="M992 80 h4 M991 120 h5"/><path class="near" d="M450 220 V180 Q640 166 1000 182 V220Z"/></g></svg><figcaption>D2：新潟市水族館的海豚，與松之山「美人林」筆直的山毛櫸林</figcaption></figure>
+  <div class="blocks" data-day="d2"></div>
+  <div class="tbl"><table class="day">
+    <thead><tr><th>時間</th><th>地點</th><th>停留</th><th>移動</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td class="t">08:00</td><td>新潟站前 取車</td><td>30 分</td><td class="mv">步行 5 分</td><td><span class="badge book">預約</span>台灣駕照正本＋日文譯本</td></tr>
+      <tr><td class="t">08:45</td><td>新潟市水族館 マリンピア日本海</td><td>2 小時</td><td class="mv">車 15 分</td><td><span class="badge info">資訊</span>9:00–17:00；大人 ¥1,500／小中 ¥600；免費停車</td></tr>
+      <tr><td class="t">11:00</td><td>移動＋午餐（長岡周邊休息站）</td><td>—</td><td class="mv">車 約 2 小時</td><td>高速＋一般道</td></tr>
+      <tr><td class="t">13:30</td><td>まつだい「農舞台」＋周邊田野作品</td><td>2 小時</td><td class="mv">—</td><td><span class="badge info">資訊</span>10:00–17:00；週二、三休；可用藝術祭護照</td></tr>
+      <tr><td class="t">16:00</td><td>美人林（松之山）</td><td>40 分</td><td class="mv">車 20 分</td><td><span class="badge ok">免費</span>山毛櫸林，傍晚光線最好</td></tr>
+      <tr><td class="t">17:00</td><td>松之山溫泉 入住</td><td>—</td><td class="mv">車 15 分</td><td>泡湯、晚餐在旅館</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid">
+    <div class="card stay"><h4>住宿</h4><p>松之山溫泉。理由：緊鄰松代與美人林，隔天到清津峽約 50 分，可搶 8:30 開門。</p></div>
+    <div class="card planb"><h4>Plan B</h4><ul><li>大雨：戶外田野作品縮短，改看農舞台室內展。</li><li>體力不足：跳過美人林，提早入住。</li></ul></div>
+    <div class="card note"><h4>注意事項</h4><ul><li>開幕週末人潮大，作品停車場小，避免正午時段集中。</li><li>護照需在 7/16 前預售購買。</li></ul></div>
+  </div>
+</section>
+
+<!-- ================= D3 ================= -->
+<section class="panel" id="d3" role="tabpanel" aria-labelledby="tab-d3" hidden>
+  <h2><span class="num">DAY 3</span>清津峽 → 十日町 → 越後湯澤<span class="date">2027/07/19（一・海の日）</span></h2>
+  <p class="theme-line">國定假日，清津峽預約制機率極高；第一個時段進場人最少。</p>
+  <figure class="art"><svg viewBox="0 0 1000 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect class="sky" width="1000" height="220"/><g class="sc"><path class="far" d="M260 110 L360 50 L450 86 L540 40 L640 92 L740 60 L800 110Z"/><path class="paddy" d="M330 86 Q500 76 670 86 V97 H330Z"/><path class="lt" d="M336 87 Q500 77 664 87"/><path class="mid" d="M338 97 Q500 87 662 97 V108 H338Z"/><path class="lt" d="M344 98 Q500 88 656 98"/><path class="paddy" d="M346 108 Q500 98 654 108 V119 H346Z"/><path class="lt" d="M352 109 Q500 99 648 109"/><path class="mid" d="M354 119 Q500 109 646 119 V130 H354Z"/><path class="lt" d="M360 120 Q500 110 640 120"/><path class="paddy" d="M362 130 Q500 120 638 130 V141 H362Z"/><path class="lt" d="M368 131 Q500 121 632 131"/><path class="mid" d="M370 141 Q500 131 630 141 V152 H370Z"/><path class="lt" d="M376 142 Q500 132 624 142"/><path class="mid" d="M0 220 V36 L130 26 L290 220Z"/><path class="mid" d="M1000 220 V32 L860 40 L700 220Z"/><clipPath id="d3cliff"><path d="M0 220 V36 L130 26 L290 220Z M1000 220 V32 L860 40 L700 220Z"/></clipPath><g clip-path="url(#d3cliff)"><path class="lt" d="M14 41 L112 220"/><path class="lt" d="M36 42 L133 220"/><path class="lt" d="M58 44 L154 220"/><path class="lt" d="M80 46 L175 220"/><path class="lt" d="M102 48 L196 220"/><path class="lt" d="M124 49 L217 220"/><path class="lt" d="M146 51 L238 220"/><path class="lt" d="M168 53 L259 220"/><path class="lt" d="M190 55 L280 220"/><path class="lt" d="M212 56 L301 220"/><path class="lt" d="M986 41 L888 220"/><path class="lt" d="M964 42 L867 220"/><path class="lt" d="M942 44 L846 220"/><path class="lt" d="M920 46 L825 220"/><path class="lt" d="M898 48 L804 220"/><path class="lt" d="M876 49 L783 220"/><path class="lt" d="M854 51 L762 220"/><path class="lt" d="M832 53 L741 220"/><path class="lt" d="M810 55 L720 220"/><path class="lt" d="M788 56 L699 220"/></g><path class="water" d="M290 220 L400 156 H600 L700 220Z"/><path class="ln" d="M380 186 q20 -6 40 0 t40 0 M520 204 q20 -6 40 0 t40 0 M440 168 q16 -5 32 0"/><path class="near" d="M0 220 V196 L80 188 L160 220Z M1000 220 V190 L900 196 L860 220Z"/></g></svg><figcaption>D3：清津峽的柱狀節理 V 字峽谷，遠方是越後妻有的梯田</figcaption></figure>
+  <div class="blocks" data-day="d3"></div>
+  <div class="tbl"><table class="day">
+    <thead><tr><th>時間</th><th>地點</th><th>停留</th><th>移動</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td class="t">07:50</td><td>松之山出發</td><td>—</td><td class="mv">車 50 分</td><td>—</td></tr>
+      <tr><td class="t">08:40</td><td>清津峽溪谷隧道（光之隧道）</td><td>1.5 小時</td><td class="mv">—</td><td><span class="badge book">預約</span>8:30–17:00；大人 ¥1,200／小中 ¥500；免費停車場</td></tr>
+      <tr><td class="t">10:30</td><td>越後妻有里山現代美術館 MonET（十日町）</td><td>1.5 小時</td><td class="mv">車 40 分</td><td><span class="badge info">資訊</span>10:00–17:00；可用護照</td></tr>
+      <tr><td class="t">12:15</td><td>十日町午餐（へぎそば）</td><td>1 小時</td><td class="mv">步行／車 5 分</td><td>國定假日排隊，提早入店</td></tr>
+      <tr><td class="t">13:30</td><td>十日町市區作品（依當日地圖挑 1–2 件）</td><td>1 小時</td><td class="mv">車 10 分</td><td>選短時間、近停車場者</td></tr>
+      <tr><td class="t">15:00</td><td>前往越後湯澤</td><td>—</td><td class="mv">車 約 1 小時</td><td>—</td></tr>
+      <tr><td class="t">16:30</td><td>入住；越後湯澤站「ぽんしゅ館」</td><td>1 小時</td><td class="mv">步行</td><td>站內伴手禮、米食</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid">
+    <div class="card stay"><h4>住宿</h4><p>越後湯澤溫泉（站周邊）。理由：隔天湯澤高原纜車山麓站步行可達，免開車。</p></div>
+    <div class="card planb"><h4>Plan B</h4><ul><li>清津峽沒搶到預約：改 MonET 先行，十日町作品加量；清津峽列 D4 早上（週二是否為預約日需確認）。</li><li>大雨：隧道為室內，可照常；田野作品取消。</li></ul></div>
+    <div class="card note"><h4>注意事項</h4><ul><li>三連休最後一天，下午關越道上行塞車，本日行進方向不受影響。</li><li>清津峽第 1 停車場 18:00–翌 7:00 封閉。</li></ul></div>
+  </div>
+</section>
+
+<!-- ================= D4 ================= -->
+<section class="panel" id="d4" role="tabpanel" aria-labelledby="tab-d4" hidden>
+  <h2><span class="num">DAY 4</span>湯澤高原 → 水上<span class="date">2027/07/20（二）</span></h2>
+  <p class="theme-line">藝術祭週二休館，這天改玩高原與移動。</p>
+  <figure class="art"><svg viewBox="0 0 1000 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect class="sky" width="1000" height="220"/><g class="sc"><path class="far" d="M0 120 L140 60 L260 104 L400 44 L540 96 L680 50 L820 100 L1000 62 V220 H0Z"/><path class="mid" d="M0 220 V176 Q300 120 620 92 T1000 40 V220Z"/><path class="ln" d="M60 196 L960 56"/><path class="stone" d="M300 168 L312 112 L324 168Z"/><path class="ln" d="M296 126 H328"/><path class="ln" d="M560 117 V134"/><rect class="acc" x="532" y="134" width="56" height="40" rx="8"/><rect class="light" x="540" y="142" width="40" height="14" rx="3"/><path class="near" d="M0 220 V186 Q500 166 1000 190 V220Z"/><circle class="snow" cx="351" cy="187" r="4"/><circle class="warm" cx="69" cy="182" r="5"/><circle class="warm" cx="394" cy="181" r="5"/><circle class="acc" cx="58" cy="183" r="4"/><circle class="snow" cx="91" cy="193" r="3"/><circle class="warm" cx="454" cy="181" r="5"/><circle class="snow" cx="248" cy="181" r="5"/><circle class="warm" cx="426" cy="181" r="3"/><circle class="acc" cx="590" cy="186" r="4"/><circle class="snow" cx="167" cy="212" r="3"/><circle class="warm" cx="335" cy="213" r="5"/><circle class="warm" cx="125" cy="214" r="5"/><circle class="snow" cx="401" cy="184" r="5"/><circle class="snow" cx="84" cy="214" r="3"/><circle class="snow" cx="230" cy="209" r="5"/><circle class="snow" cx="457" cy="198" r="4"/><circle class="acc" cx="965" cy="207" r="4"/><circle class="warm" cx="274" cy="189" r="5"/><circle class="snow" cx="103" cy="214" r="4"/><circle class="acc" cx="526" cy="199" r="5"/><circle class="snow" cx="314" cy="182" r="3"/><circle class="warm" cx="448" cy="188" r="4"/><circle class="warm" cx="975" cy="209" r="4"/><circle class="snow" cx="704" cy="182" r="5"/><circle class="snow" cx="828" cy="198" r="4"/><circle class="acc" cx="378" cy="209" r="5"/><circle class="acc" cx="90" cy="183" r="4"/><circle class="snow" cx="733" cy="182" r="3"/><circle class="snow" cx="738" cy="197" r="5"/><circle class="snow" cx="717" cy="206" r="4"/><circle class="acc" cx="415" cy="200" r="3"/><circle class="warm" cx="383" cy="188" r="5"/><circle class="acc" cx="525" cy="181" r="3"/><circle class="acc" cx="152" cy="193" r="4"/><circle class="warm" cx="958" cy="209" r="3"/><circle class="acc" cx="479" cy="203" r="5"/><circle class="snow" cx="924" cy="186" r="4"/><circle class="snow" cx="305" cy="204" r="4"/><circle class="warm" cx="925" cy="202" r="3"/><circle class="warm" cx="104" cy="189" r="3"/><circle class="acc" cx="694" cy="192" r="3"/><circle class="acc" cx="871" cy="189" r="4"/><circle class="snow" cx="24" cy="187" r="4"/><circle class="warm" cx="398" cy="214" r="4"/><circle class="snow" cx="727" cy="210" r="5"/><circle class="snow" cx="712" cy="181" r="4"/></g></svg><figcaption>D4：湯澤高原纜車越過綠色山坡，山頂是高山植物花田</figcaption></figure>
+  <div class="blocks" data-day="d4"></div>
+  <div class="tbl"><table class="day">
+    <thead><tr><th>時間</th><th>地點</th><th>停留</th><th>移動</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td class="t">09:00</td><td>湯澤高原パノラマパーク（纜車）</td><td>3 小時</td><td class="mv">步行 10 分</td><td><span class="badge info">資訊</span>國中以上 ¥3,500／小學以下 ¥1,700；Summer Bobsleigh 小二以上可單人</td></tr>
+      <tr><td class="t">12:15</td><td>湯澤午餐</td><td>1 小時</td><td class="mv">步行</td><td>—</td></tr>
+      <tr><td class="t">13:30</td><td>關越道 → 水上</td><td>—</td><td class="mv">車 約 45 分</td><td>經關越隧道</td></tr>
+      <tr><td class="t">14:30</td><td>諏訪峽・笹笛橋散步</td><td>1 小時</td><td class="mv">—</td><td><span class="badge ok">免費</span>溪谷步道，熱天較涼</td></tr>
+      <tr><td class="t">16:00</td><td>水上溫泉 入住（連住 2 晚）</td><td>—</td><td class="mv">車 10 分</td><td>可洗衣整理行李</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid">
+    <div class="card stay"><h4>住宿</h4><p>水上溫泉（連住 2 晚）。理由：泛舟集合點與谷川岳纜車都在 25 分車程內，少一次搬行李。</p></div>
+    <div class="card planb"><h4>Plan B</h4><ul><li>山上起霧／雨：湯澤高原取消，上午逛溫泉街後提早前往水上。</li><li>體力不足：直接移動到水上休息。</li></ul></div>
+    <div class="card note"><h4>注意事項</h4><ul><li>2026 年湯澤高原夏季營運為 7/18–8/23；2027 年起始日需確認。</li><li>水遊び廣場需自備泳衣。</li></ul></div>
+  </div>
+</section>
+
+<!-- ================= D5 ================= -->
+<section class="panel" id="d5" role="tabpanel" aria-labelledby="tab-d5" hidden>
+  <h2><span class="num">DAY 5</span>水上 戶外日<span class="date">2027/07/21（三）</span></h2>
+  <p class="theme-line">全程最「動」的一天；兩個活動都受天氣影響，先看當天預報調整前後順序。</p>
+  <figure class="art"><svg viewBox="0 0 1000 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect class="sky" width="1000" height="220"/><g class="sc"><path class="far" d="M0 140 L170 92 L300 40 L350 64 L400 34 L520 100 L700 70 L1000 118 V220 H0Z"/><path class="snow" d="M286 48 L300 40 L314 50 Z M388 42 L400 34 L412 44Z"/><path class="mid" d="M0 220 V150 Q200 126 420 146 T1000 140 V220Z"/><path class="water" d="M0 220 V160 Q500 146 1000 162 V220Z"/><path class="snow" d="M60 170 q10 -10 20 0 q-10 -4 -20 0Z"/><path class="snow" d="M160 188 q10 -10 20 0 q-10 -4 -20 0Z"/><path class="snow" d="M240 166 q10 -10 20 0 q-10 -4 -20 0Z"/><path class="snow" d="M380 196 q10 -10 20 0 q-10 -4 -20 0Z"/><path class="snow" d="M470 172 q10 -10 20 0 q-10 -4 -20 0Z"/><path class="snow" d="M620 190 q10 -10 20 0 q-10 -4 -20 0Z"/><path class="snow" d="M720 170 q10 -10 20 0 q-10 -4 -20 0Z"/><path class="snow" d="M820 196 q10 -10 20 0 q-10 -4 -20 0Z"/><path class="snow" d="M920 176 q10 -10 20 0 q-10 -4 -20 0Z"/><path class="ln" d="M100 200 q30 -10 60 0 t60 0 M560 206 q30 -10 60 0 t60 0"/><ellipse class="warm" cx="520" cy="182" rx="110" ry="18"/><ellipse class="water" cx="520" cy="178" rx="88" ry="9"/><circle class="acc" cx="450" cy="164" r="9"/><path class="ln" d="M450 172 L424 200"/><circle class="acc" cx="490" cy="164" r="9"/><path class="ln" d="M490 172 L516 200"/><circle class="acc" cx="530" cy="164" r="9"/><path class="ln" d="M530 172 L504 200"/><circle class="acc" cx="570" cy="164" r="9"/><path class="ln" d="M570 172 L596 200"/><circle class="acc" cx="600" cy="164" r="9"/><path class="ln" d="M600 172 L574 200"/><path class="near" d="M0 220 V206 H1000 V220Z"/></g></svg><figcaption>D5：利根川泛舟，後方是谷川岳的「雙耳」山峰</figcaption></figure>
+  <div class="blocks" data-day="d5"></div>
+  <div class="tbl"><table class="day">
+    <thead><tr><th>時間</th><th>地點</th><th>停留</th><th>移動</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td class="t">08:30</td><td>利根川泛舟（半日家庭團）</td><td>3–3.5 小時</td><td class="mv">車 10–15 分</td><td><span class="badge book">預約</span>7 月起多家收 6 歲／小學生；半日大人約 ¥6,000 起；集合點依業者</td></tr>
+      <tr><td class="t">12:30</td><td>午餐（水上站周邊）</td><td>1 小時</td><td class="mv">車 10 分</td><td>—</td></tr>
+      <tr><td class="t">14:00</td><td>谷川岳纜車 土合口 → 天神平</td><td>2 小時</td><td class="mv">車 20 分</td><td><span class="badge info">資訊</span>平日 8:00–17:00；大人 ¥3,000／小學生 ¥1,500</td></tr>
+      <tr><td class="t">14:30</td><td>天神平 展望台・1 小時周遊步道</td><td>（含上）</td><td class="mv">纜車 約 15 分</td><td>7 月中旬日光黃萓、高山花</td></tr>
+      <tr><td class="t">17:00</td><td>回飯店</td><td>—</td><td class="mv">車 20 分</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid">
+    <div class="card stay"><h4>住宿</h4><p>水上溫泉（續住）。</p></div>
+    <div class="card planb"><h4>Plan B</h4><ul><li>午後雷雨預報：纜車改上午、泛舟改下午場（需業者有下午團）。</li><li>河水過高泛舟取消：改月夜野玻璃工房體驗（營業日需確認）。</li></ul></div>
+    <div class="card note"><h4>注意事項</h4><ul><li>泛舟準備：泳衣當內層、防水涼鞋、毛巾、換洗衣物。</li><li>國中生多數業者依成人計價。</li></ul></div>
+  </div>
+</section>
+
+<!-- ================= D6 ================= -->
+<section class="panel" id="d6" role="tabpanel" aria-labelledby="tab-d6" hidden>
+  <h2><span class="num">DAY 6</span>水上 → 草津<span class="date">2027/07/22（四）</span></h2>
+  <p class="theme-line">海拔約 1,200 m，比平地涼；湯畑周邊步行即可。</p>
+  <figure class="art"><svg viewBox="0 0 1000 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect class="sky" width="1000" height="220"/><g class="sc"><rect class="far" x="20" y="70" width="120" height="50"/><path class="wood" d="M12 70 L80 46 L148 70Z"/><rect class="far" x="170" y="80" width="100" height="40"/><path class="wood" d="M162 80 L220 56 L278 80Z"/><rect class="far" x="820" y="74" width="110" height="46"/><path class="wood" d="M812 74 L875 50 L938 74Z"/><rect class="far" x="950" y="84" width="60" height="36"/><path class="wood" d="M942 84 L980 60 L1018 84Z"/><rect class="warm" x="60" y="96" width="10" height="16" rx="5"/><rect class="warm" x="110" y="96" width="10" height="16" rx="5"/><rect class="warm" x="200" y="104" width="10" height="16" rx="5"/><rect class="warm" x="860" y="98" width="10" height="16" rx="5"/><rect class="warm" x="920" y="98" width="10" height="16" rx="5"/><path class="stone" d="M0 220 V120 H1000 V220Z"/><path class="lt" d="M0 140 H1000 M0 160 H1000 M0 180 H1000 M0 200 H1000"/><path class="wood" d="M300 100 L346 100 L386 186 L340 186Z"/><path class="onsen" d="M308 106 L338 106 L374 180 L344 180Z"/><path class="wood" d="M358 100 L404 100 L444 186 L398 186Z"/><path class="onsen" d="M366 106 L396 106 L432 180 L402 180Z"/><path class="wood" d="M416 100 L462 100 L502 186 L456 186Z"/><path class="onsen" d="M424 106 L454 106 L490 180 L460 180Z"/><path class="wood" d="M474 100 L520 100 L560 186 L514 186Z"/><path class="onsen" d="M482 106 L512 106 L548 180 L518 180Z"/><path class="wood" d="M532 100 L578 100 L618 186 L572 186Z"/><path class="onsen" d="M540 106 L570 106 L606 180 L576 180Z"/><path class="wood" d="M590 100 L636 100 L676 186 L630 186Z"/><path class="onsen" d="M598 106 L628 106 L664 180 L634 180Z"/><path class="wood" d="M648 100 L694 100 L734 186 L688 186Z"/><path class="onsen" d="M656 106 L686 106 L722 180 L692 180Z"/><path class="onsen" d="M330 186 H800 V214 H330Z"/><circle class="steam" cx="330" cy="86" r="22"/><circle class="steam" cx="360" cy="66" r="26"/><circle class="steam" cx="400" cy="80" r="20"/><circle class="steam" cx="470" cy="58" r="30"/><circle class="steam" cx="520" cy="78" r="24"/><circle class="steam" cx="590" cy="52" r="28"/><circle class="steam" cx="640" cy="74" r="22"/><circle class="steam" cx="700" cy="60" r="26"/><circle class="steam" cx="740" cy="82" r="20"/></g></svg><figcaption>D6：草津溫泉的湯畑，木造湯樋與不斷冒出的蒸氣</figcaption></figure>
+  <div class="blocks" data-day="d6"></div>
+  <div class="tbl"><table class="day">
+    <thead><tr><th>時間</th><th>地點</th><th>停留</th><th>移動</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td class="t">09:30</td><td>水上出發 → 八ッ場水壩（途中停）</td><td>40 分</td><td class="mv">車 約 1 小時 20 分</td><td><span class="badge ok">免費</span>停車與展望免費，順路休息點</td></tr>
+      <tr><td class="t">11:30</td><td>→ 草津溫泉</td><td>—</td><td class="mv">車 30 分</td><td>停車場選湯畑周邊收費場</td></tr>
+      <tr><td class="t">12:00</td><td>湯畑・午餐</td><td>1.5 小時</td><td class="mv">步行</td><td><span class="badge ok">免費</span>湯畑本體</td></tr>
+      <tr><td class="t">13:30</td><td>西之河原公園・露天風呂</td><td>1.5 小時</td><td class="mv">步行 15 分</td><td><span class="badge info">資訊</span>7:00–20:00；大人 ¥800／小人 ¥400；無洗髮精，毛巾付費</td></tr>
+      <tr><td class="t">15:30</td><td>熱乃湯「湯もみと踊り」</td><td>30 分</td><td class="mv">步行 15 分</td><td>午後場 15:30／16:00／16:30；開演前 30 分售票</td></tr>
+      <tr><td class="t">16:30</td><td>旅館入住；晚間湯畑點燈</td><td>—</td><td class="mv">步行</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid">
+    <div class="card stay"><h4>住宿</h4><p>湯畑步行 5 分內、附貸切風呂的旅館。理由：國中生與異性家長無法同泡大浴場。備案：大滝乃湯貸切 60 分 ¥2,000（電話預約）。</p></div>
+    <div class="card planb"><h4>Plan B</h4><ul><li>雨天：西之河原改大滝乃湯（室內大浴場＋貸切，地圖灰色標記）。</li><li>體力不足：跳過八ッ場，直達草津。</li></ul></div>
+    <div class="card note"><h4>注意事項</h4><ul><li>西之河原週五 17:30 起為混浴日，本日週四不受影響。</li><li>強酸性泉，泡後沖淨飾品、避免泡太久。</li></ul></div>
+  </div>
+</section>
+
+<!-- ================= D7 ================= -->
+<section class="panel" id="d7" role="tabpanel" aria-labelledby="tab-d7" hidden>
+  <h2><span class="num">DAY 7</span>草津 → 北輕井澤 → 輕井澤<span class="date">2027/07/23（五）</span></h2>
+  <p class="theme-line">最後一天開車；下午在輕井澤站還車，晚上不用再碰車。</p>
+  <figure class="art"><svg viewBox="0 0 1000 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect class="sky" width="1000" height="220"/><g class="sc"><circle class="steam" cx="470" cy="34" r="22"/><circle class="steam" cx="500" cy="22" r="26"/><circle class="steam" cx="535" cy="30" r="18"/><path class="far" d="M240 220 L430 72 Q470 56 510 72 L700 220Z"/><path class="lt" d="M452 68 L440 130 M490 66 L496 140"/><path class="mid" d="M0 220 V150 Q300 128 560 150 T1000 140 V220Z"/><path class="near" d="M380 131 L393 196 H367Z"/><path class="near" d="M410 136 L423 196 H397Z"/><path class="near" d="M440 136 L453 196 H427Z"/><path class="near" d="M470 136 L483 196 H457Z"/><path class="near" d="M500 136 L513 196 H487Z"/><path class="near" d="M530 145 L543 196 H517Z"/><path class="near" d="M560 133 L573 196 H547Z"/><path class="near" d="M590 128 L603 196 H577Z"/><path class="near" d="M620 136 L633 196 H607Z"/><path class="near" d="M650 147 L663 196 H637Z"/><path class="near" d="M680 142 L693 196 H667Z"/><path class="near" d="M710 146 L723 196 H697Z"/><path class="near" d="M740 142 L753 196 H727Z"/><path class="stone" d="M770 220 V120 Q880 104 990 120 V220Z"/><path class="ln" style="stroke:var(--a-snow)" d="M790 132 V200"/><path class="ln" style="stroke:var(--a-snow)" d="M799 132 V200"/><path class="ln" style="stroke:var(--a-snow)" d="M808 132 V200"/><path class="ln" style="stroke:var(--a-snow)" d="M817 132 V200"/><path class="ln" style="stroke:var(--a-snow)" d="M826 132 V200"/><path class="ln" style="stroke:var(--a-snow)" d="M835 132 V200"/><path class="ln" style="stroke:var(--a-snow)" d="M844 132 V200"/><path class="ln" style="stroke:var(--a-snow)" d="M853 132 V200"/><path class="ln" style="stroke:var(--a-snow)" d="M862 132 V200"/><path class="ln" style="stroke:var(--a-snow)" d="M871 132 V200"/><path class="ln" style="stroke:var(--a-snow)" d="M880 132 V200"/><path class="ln" style="stroke:var(--a-snow)" d="M889 132 V200"/><path class="ln" style="stroke:var(--a-snow)" d="M898 132 V200"/><path class="ln" style="stroke:var(--a-snow)" d="M907 132 V200"/><path class="ln" style="stroke:var(--a-snow)" d="M916 132 V200"/><path class="ln" style="stroke:var(--a-snow)" d="M925 132 V200"/><path class="ln" style="stroke:var(--a-snow)" d="M934 132 V200"/><path class="ln" style="stroke:var(--a-snow)" d="M943 132 V200"/><path class="ln" style="stroke:var(--a-snow)" d="M952 132 V200"/><path class="ln" style="stroke:var(--a-snow)" d="M961 132 V200"/><path class="rock" d="M0 220 L10 170 L28 156 L46 176 L60 220Z"/><path class="rock" d="M50 220 L60 184 L78 170 L96 190 L110 220Z"/><path class="rock" d="M100 220 L110 164 L128 150 L146 170 L160 220Z"/><path class="rock" d="M160 220 L170 180 L188 166 L206 186 L220 220Z"/><path class="rock" d="M220 220 L230 172 L248 158 L266 178 L280 220Z"/><path class="rock" d="M280 220 L290 188 L308 174 L326 194 L340 220Z"/><path class="water" d="M780 200 H980 V220 H780Z"/></g></svg><figcaption>D7：淺間山與鬼押出し熔岩、落葉松林，右側是白絲瀑布的水簾</figcaption></figure>
+  <div class="blocks" data-day="d7"></div>
+  <div class="tbl"><table class="day">
+    <thead><tr><th>時間</th><th>地點</th><th>停留</th><th>移動</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td class="t">09:00</td><td>草津出發</td><td>—</td><td class="mv">車 50 分</td><td>—</td></tr>
+      <tr><td class="t">10:00</td><td>鬼押出し園（淺間山熔岩）</td><td>1 小時</td><td class="mv">—</td><td><span class="badge info">資訊</span>8:00–17:00；大人 ¥700／小孩 ¥500</td></tr>
+      <tr><td class="t">11:15</td><td>白絲瀑布</td><td>40 分</td><td class="mv">車 30 分</td><td>白糸ハイランドウェイ為收費道路</td></tr>
+      <tr><td class="t">12:30</td><td>榆樹街小鎮（ハルニレテラス）午餐</td><td>1.5 小時</td><td class="mv">車 15 分</td><td>停車場僅收現金</td></tr>
+      <tr><td class="t">14:30</td><td>輕井澤站 還車</td><td>20 分</td><td class="mv">車 15 分</td><td>還車前加滿油</td></tr>
+      <tr><td class="t">15:00</td><td>輕井澤王子購物廣場</td><td>2.5 小時</td><td class="mv">步行 3 分</td><td>10:00–19:00；草地區可讓小孩放電</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid">
+    <div class="card stay"><h4>住宿</h4><p>輕井澤站周邊。理由：已還車，隔天步行上新幹線。</p></div>
+    <div class="card planb"><h4>Plan B</h4><ul><li>淺間山警戒或大霧：跳過鬼押出し，草津直走國道到輕井澤。</li><li>雨天：購物廣場提前，白絲瀑布取消。</li></ul></div>
+    <div class="card note"><h4>注意事項</h4><ul><li>甲地乙還（新潟→長野跨縣）回送費需於訂車時確認。</li><li>輕井澤市區假日前夕傍晚塞車，還車時間預留餘裕。</li></ul></div>
+  </div>
+</section>
+
+<!-- ================= D8 ================= -->
+<section class="panel" id="d8" role="tabpanel" aria-labelledby="tab-d8" hidden>
+  <h2><span class="num">DAY 8</span>輕井澤 → 品川<span class="date">2027/07/24（六）</span></h2>
+  <p class="theme-line">早上趁人少走雲場池，中午回東京，下午留給品川自由時間。</p>
+  <figure class="art"><svg viewBox="0 0 1000 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect class="sky" width="1000" height="220"/><g class="sc"><path class="far" d="M0 100 L200 64 L420 90 L640 56 L860 88 L1000 70 V120 H0Z"/><ellipse class="mid" cx="60" cy="86" rx="60" ry="40"/><ellipse class="near" cx="170" cy="74" rx="58" ry="48"/><ellipse class="mid" cx="280" cy="90" rx="60" ry="36"/><ellipse class="near" cx="390" cy="70" rx="62" ry="50"/><ellipse class="acc" cx="510" cy="86" rx="64" ry="40"/><ellipse class="near" cx="630" cy="72" rx="60" ry="48"/><ellipse class="mid" cx="740" cy="90" rx="60" ry="36"/><ellipse class="near" cx="850" cy="74" rx="62" ry="48"/><ellipse class="mid" cx="960" cy="88" rx="60" ry="38"/><rect class="near" y="116" width="1000" height="8"/><rect class="water" y="124" width="1000" height="96"/><g transform="translate(0 240) scale(1 -1)" style="opacity:.38"><ellipse class="mid" cx="60" cy="86" rx="60" ry="40"/><ellipse class="near" cx="170" cy="74" rx="58" ry="48"/><ellipse class="mid" cx="280" cy="90" rx="60" ry="36"/><ellipse class="near" cx="390" cy="70" rx="62" ry="50"/><ellipse class="acc" cx="510" cy="86" rx="64" ry="40"/><ellipse class="near" cx="630" cy="72" rx="60" ry="48"/><ellipse class="mid" cx="740" cy="90" rx="60" ry="36"/><ellipse class="near" cx="850" cy="74" rx="62" ry="48"/><ellipse class="mid" cx="960" cy="88" rx="60" ry="38"/></g><path class="ln" d="M80 150 H220 M360 170 H520 M640 156 H820 M200 196 H420 M700 200 H900" style="opacity:.6"/></g></svg><figcaption>D8：輕井澤雲場池，水面映出整排樹影</figcaption></figure>
+  <div class="blocks" data-day="d8"></div>
+  <div class="tbl"><table class="day">
+    <thead><tr><th>時間</th><th>地點</th><th>停留</th><th>移動</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td class="t">08:30</td><td>雲場池</td><td>45 分</td><td class="mv">計程車 10 分</td><td><span class="badge ok">免費</span>週六 9 點後人潮湧入；夏季蚊多</td></tr>
+      <tr><td class="t">09:30</td><td>舊輕井澤銀座通</td><td>1.5 小時</td><td class="mv">步行 15 分</td><td>—</td></tr>
+      <tr><td class="t">11:15</td><td>回飯店取行李 → 輕井澤站</td><td>30 分</td><td class="mv">計程車 10 分</td><td>—</td></tr>
+      <tr><td class="t">12:15</td><td>北陸新幹線 → 東京</td><td>—</td><td class="mv">新幹線 約 1 小時 10 分</td><td><span class="badge book">預約</span>指定席約 ¥6,020（2026 改定前價格）</td></tr>
+      <tr><td class="t">13:30</td><td>東京 → 品川，入住</td><td>30 分</td><td class="mv">JR 10 分</td><td>—</td></tr>
+      <tr><td class="t">15:00</td><td>品川站周邊自由時間（水族館／購物）</td><td>3 小時</td><td class="mv">步行</td><td><span class="badge warn">確認</span>品川水族館營業時間</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid">
+    <div class="card stay"><h4>住宿</h4><p>品川站高輪口。理由：京急直達羽田約 15 分，最後一晚零轉乘。</p></div>
+    <div class="card planb"><h4>Plan B</h4><ul><li>雨天：取消雲場池，上午改王子購物廣場，提早一班新幹線。</li><li>體力不足：下午留在飯店休息、整理行李。</li></ul></div>
+    <div class="card note"><h4>注意事項</h4><ul><li>週六中午新幹線易滿，6/24 開賣即訂。</li><li>伴手禮可在東京站或羽田補買，不必在輕井澤一次買齊。</li></ul></div>
+  </div>
+</section>
+
+<!-- ================= D9 ================= -->
+<section class="panel" id="d9" role="tabpanel" aria-labelledby="tab-d9" hidden>
+  <h2><span class="num">DAY 9</span>回程<span class="date">2027/07/25（日）</span></h2>
+  <figure class="art"><svg viewBox="0 0 1000 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect class="sky" width="1000" height="220"/><g class="sc"><circle class="sun" cx="140" cy="60" r="24"/><rect class="far" x="560" y="96" width="30" height="54"/><rect class="far" x="594" y="74" width="24" height="76"/><rect class="far" x="622" y="104" width="40" height="46"/><rect class="far" x="668" y="86" width="26" height="64"/><rect class="far" x="698" y="110" width="50" height="40"/><rect class="far" x="752" y="90" width="28" height="60"/><rect class="far" x="786" y="70" width="20" height="80"/><rect class="far" x="810" y="104" width="44" height="46"/><rect class="far" x="860" y="92" width="30" height="58"/><rect class="far" x="896" y="112" width="60" height="38"/><rect class="far" x="960" y="98" width="40" height="52"/><rect class="water" y="140" width="1000" height="80"/><path class="stone" d="M0 186 L560 168 L600 176 L40 200Z"/><path class="ln" d="M80 190 L520 176" style="stroke-dasharray:14 12"/><g transform="translate(330 96) rotate(-14)"><path class="light" d="M0 10 Q0 0 14 0 H150 Q176 2 186 10 Q176 18 150 20 H14 Q0 20 0 10Z"/><path class="light" d="M70 10 L40 -34 H60 L104 10Z M70 12 L40 52 H60 L104 12Z"/><path class="acc" d="M14 2 L0 -26 H14 L34 2Z"/><rect class="water" x="40" y="6" width="6" height="5" rx="1"/><rect class="water" x="52" y="6" width="6" height="5" rx="1"/><rect class="water" x="64" y="6" width="6" height="5" rx="1"/><rect class="water" x="76" y="6" width="6" height="5" rx="1"/><rect class="water" x="88" y="6" width="6" height="5" rx="1"/><rect class="water" x="100" y="6" width="6" height="5" rx="1"/><rect class="water" x="112" y="6" width="6" height="5" rx="1"/><rect class="water" x="124" y="6" width="6" height="5" rx="1"/><rect class="water" x="136" y="6" width="6" height="5" rx="1"/><rect class="water" x="148" y="6" width="6" height="5" rx="1"/></g></g></svg><figcaption>D9：從羽田起飛，結束這趟越後・上州之旅</figcaption></figure>
+  <div class="blocks" data-day="d9"></div>
+  <div class="tbl"><table class="day">
+    <thead><tr><th>時間</th><th>地點</th><th>停留</th><th>移動</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td class="t">起飛 −3h</td><td>品川站 京急 → 羽田機場 第 3 航廈</td><td>—</td><td class="mv">京急 約 15 分</td><td>國際線起飛前 2.5 小時到</td></tr>
+      <tr><td class="t">起飛 −2.5h</td><td>報到、退稅、出境</td><td>—</td><td class="mv">—</td><td>依實際航班</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid">
+    <div class="card stay"><h4>住宿</h4><p>—</p></div>
+    <div class="card planb"><h4>Plan B</h4><p>京急異常：改搭機場利木津巴士或計程車（約 20–30 分）。</p></div>
+    <div class="card note"><h4>注意事項</h4><p>週日上午羽田出境人潮多，預留時間。</p></div>
+  </div>
+</section>
+
+<!-- ================= 行前 ================= -->
+<section class="panel" id="prep" role="tabpanel" aria-labelledby="tab-prep" hidden>
+  <h2><span class="num">PREP</span>行前準備清單</h2>
+
+  <h3>需預約項目</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>項目</th><th>日期</th><th>開放預約</th><th>狀態</th></tr></thead>
+    <tbody>
+      <tr><td>機票（羽田進出）</td><td class="t">7/17、7/25</td><td>已開放</td><td><span class="badge book">立即</span></td></tr>
+      <tr><td>住宿 8 晚（草津需貸切風呂）</td><td class="t">7/17–7/24</td><td>多數已開放</td><td><span class="badge book">立即</span></td></tr>
+      <tr><td>租車 新潟站→輕井澤站（甲地乙還）</td><td class="t">7/18–7/23</td><td>依租車公司</td><td><span class="badge warn">確認回送費</span></td></tr>
+      <tr><td>大地藝術祭護照（預售）</td><td class="t">7/18–19 使用</td><td>2027/02/28–07/16</td><td><span class="badge info">2 月開賣</span></td></tr>
+      <tr><td>清津峽溪谷隧道</td><td class="t">7/19 08:30</td><td>待官網公告</td><td><span class="badge warn">追蹤</span></td></tr>
+      <tr><td>水上泛舟半日家庭團</td><td class="t">7/21 上午</td><td>各業者（建議 5–6 月）</td><td><span class="badge book">預約</span></td></tr>
+      <tr><td>上越新幹線 東京→新潟</td><td class="t">7/17</td><td>2027/06/17 10:00</td><td><span class="badge book">預約</span></td></tr>
+      <tr><td>北陸新幹線 輕井澤→東京</td><td class="t">7/24</td><td>2027/06/24 10:00</td><td><span class="badge book">預約</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>交通 Pass 試算（每位大人）</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>方案</th><th>內容</th><th class="num-r">金額</th><th>結論</th></tr></thead>
+    <tbody>
+      <tr><td>單買</td><td>東京→新潟 指定 ¥11,180（繁忙期）＋輕井澤→東京 指定 約 ¥6,020</td><td class="num-r">≈ ¥17,200</td><td><span class="badge ok">採用</span></td></tr>
+      <tr><td>單買＋トクだ値14</td><td>東京→新潟 ¥7,530（14 天前，名額有限）＋輕井澤→東京</td><td class="num-r">≈ ¥13,550</td><td>可搶則更省</td></tr>
+      <tr><td>JR EAST PASS 5 日</td><td>連續 5 日；兩段新幹線相隔 8 天，5 日券無法同時涵蓋</td><td class="num-r">¥35,000</td><td>不划算</td></tr>
+      <tr><td>JR EAST PASS 10 日</td><td>可涵蓋兩段，但中段自駕不用 JR</td><td class="num-r">¥50,000</td><td>不划算</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><p>全家（3 位大人票＋1 位兒童票）單買新幹線合計約 <b>¥60,000</b>；Pass 方案最低也要 ¥120,000 以上。結論：<b>單買，能搶トクだ値就搶</b>。</p></div>
+
+  <h3>主要門票估算（2 大＋國中生＋小學生）</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>項目</th><th>單價</th><th class="num-r">全家</th></tr></thead>
+    <tbody>
+      <tr><td>大地藝術祭護照（預售）</td><td>一般 ¥4,000／小中 ¥1,000</td><td class="num-r">¥10,000</td></tr>
+      <tr><td>清津峽溪谷隧道</td><td>大人 ¥1,200／小中 ¥500</td><td class="num-r">¥3,400</td></tr>
+      <tr><td>マリンピア日本海</td><td>大人 ¥1,500／小中 ¥600</td><td class="num-r">¥4,200</td></tr>
+      <tr><td>湯澤高原パノラマパーク</td><td>國中以上 ¥3,500／小學以下 ¥1,700</td><td class="num-r">¥12,200</td></tr>
+      <tr><td>水上泛舟（估）</td><td>大人約 ¥6,000／小學生約 ¥5,000</td><td class="num-r">≈ ¥23,000</td></tr>
+      <tr><td>谷川岳纜車</td><td>大人 ¥3,000／小學生 ¥1,500</td><td class="num-r">¥10,500</td></tr>
+      <tr><td>西之河原露天風呂</td><td>大人 ¥800／小人 ¥400</td><td class="num-r">≈ ¥2,800</td></tr>
+      <tr><td>鬼押出し園</td><td>大人 ¥700／小孩 ¥500</td><td class="num-r">≈ ¥2,600</td></tr>
+      <tr><td><b>合計</b></td><td>不含交通、住宿、餐飲</td><td class="num-r"><b>≈ ¥68,700</b></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>裝備提醒（7 月下旬）</h3>
+  <ul class="plain">
+    <li><b>雙溫層衣物：</b>平地 30°C 以上、草津與天神平約低 8–10°C，帶薄外套。</li>
+    <li><b>雨具：</b>山區午後雷陣雨常見，輕便雨衣比傘好用（藝術祭田野作品多在戶外）。</li>
+    <li><b>泛舟：</b>泳衣、防水涼鞋（腳跟有扣帶）、毛巾、整套換洗衣物、防水手機袋。</li>
+    <li><b>防蚊防曬：</b>美人林、田野作品、溪谷步道、雲場池蚊蟲多。</li>
+    <li><b>溫泉：</b>自備毛巾（西之河原付費）、沐浴用品。</li>
+    <li><b>自駕：</b>台灣駕照正本＋日文譯本、ETC 卡（租車加購）、手機車架；榆樹街停車場備零錢。</li>
+  </ul>
+</section>
+
+<!-- ================= 風險 ================= -->
+<section class="panel" id="risk" role="tabpanel" aria-labelledby="tab-risk" hidden>
+  <h2><span class="num">RISK</span>已知風險與假設</h2>
+  <h3>本次規劃假設</h3>
+  <ul class="plain">
+    <li>航班：7/17 約 12:00 抵羽田、7/25 下午起飛（未定航班）。</li>
+    <li>成員：2 大人＋國中生（12 歲以上，JR 與多數設施以大人計，藝術祭護照以小中學生計）＋小學生（6–11 歲）。若老大已是高中生，護照改一般價，全家多 ¥3,000。</li>
+    <li>中段自駕，新潟站取車、輕井澤站還車；駕照以台灣駕照＋日文譯本。</li>
+    <li>大地藝術祭第 10 屆會期 2027/07/17–11/07，週二、三休（8/10、8/11、11/3 除外）。</li>
+    <li>各設施票價沿用 2025–2026 公開資訊，2027 年可能調整。</li>
+    <li>地圖座標以 Google 地點資料查證（2026/10/13）；地圖上的路線為站點間示意直線，非實際道路。</li>
+  </ul>
+  <h3>風險與對策</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>風險</th><th>影響</th><th>對策</th></tr></thead>
+    <tbody>
+      <tr><td>海の日三連休＋藝術祭開幕重疊</td><td>D1–D3 住宿難訂、作品與清津峽排隊</td><td>住宿立即訂；清津峽搶 8:30 頭班；作品避開正午</td></tr>
+      <tr><td>藝術祭週二、三休</td><td>D4、D5 無法看作品</td><td>已將藝術祭排在 D2（日）、D3（一）</td></tr>
+      <tr><td>甲地乙還回送費</td><td>新潟→長野跨縣，費用未知</td><td>訂車時多家比價；替代：越後湯澤取車可縮短一段</td></tr>
+      <tr><td>山區午後雷雨</td><td>纜車、泛舟、高原中止</td><td>戶外排上午；各日 Plan B</td></tr>
+      <tr><td>淺間山火山警戒等級</td><td>鬼押出し周邊交通</td><td>出發前查氣象廳警戒等級</td></tr>
+      <tr><td>2026 年 3 月 JR 東日本運賃改定</td><td>北陸新幹線價格可能高於表列</td><td>開賣時以實價為準</td></tr>
+    </tbody>
+  </table></div>
+  <h3>需自行確認</h3>
+  <ul class="plain">
+    <li><span class="badge warn">確認</span>清津峽 2027/07/19 是否為預約制及開放預約日期。</li>
+    <li><span class="badge warn">確認</span>湯澤高原パノラマパーク 2027 年夏季營運起始日（2026 年為 7/18）。</li>
+    <li><span class="badge warn">確認</span>新潟→輕井澤甲地乙還回送費（各租車公司）。</li>
+    <li><span class="badge warn">確認</span>輕井澤→東京 新幹線 2026 改定後票價。</li>
+    <li><span class="badge warn">確認</span>泛舟業者接受的最低年齡、國中生計價方式與集合點。</li>
+    <li><span class="badge warn">確認</span>大滝乃湯貸切風呂營業時間與預約方式；西之河原國中生票價。</li>
+    <li><span class="badge warn">確認</span>MonET、農舞台 2027 藝術祭期間開館時間與護照適用範圍。</li>
+    <li><span class="badge warn">確認</span>D1、D3 晚餐店家及 D8 品川水族館的營業日與時間。</li>
+  </ul>
+</section>
+</main>
+
+<footer class="wrap">
+  <b>資料來源（查證日 2026/10/13）</b>
+  <ol>
+    <li>大地の芸術祭 官方公告：第 10 回展會期與護照 — echigo-tsumari.jp/news/20261008/</li>
+    <li>新潟縣觀光協會：清津峽溪谷隧道、マリンピア日本海、湯澤高原パノラマパーク</li>
+    <li>谷川岳纜車 2026 資訊整理 — kaibutsu-blog.com</li>
+    <li>JR 東日本 Media：西之河原露天風呂、熱乃湯湯もみ秀；Jorudan 溫泉：西之河原入浴料</li>
+    <li>tabiris：東京–新潟新幹線 2026 票價；jr-shinkansen.net：東京–輕井澤票價</li>
+    <li>Travel Voice：JR EAST PASS 2026 年 3 月新制價格</li>
+    <li>nap-camp：みなかみ泛舟年齡與價格；るるぶ：鬼押出し園；いこーよ：大滝乃湯貸切</li>
+    <li>地點座標與導航連結：Google Maps（2026/11/04 逐點核對，含 place_id）</li>
+    <li>@@BASEMAP_SOURCE@@</li>
+    <li>周邊設施（停車場、便利商店、道の駅）：Google Maps 搜尋 2026/11/04；營業時間與收費以出發前查詢為準</li>
+  </ol>
+  <p>v@@VERSION@@ 越後・上州版（分頁＋總覽／單日分區地圖＋當地特色插畫＋標準／手繪／漫畫風格）・產出日 2026/10/13・@@BUILD@@</p>
+  <p>@@KML_LINKS@@</p>
+</footer>
+
+<script>/*@@LEAFLET_JS@@*/
+</script>
+<script>
+(function(){
+"use strict";
+/* ================= theme ================= */
+var root=document.documentElement, themeBtn=document.getElementById('themeBtn');
+function sysDark(){return !!(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches);}
+function curTheme(){var t=root.getAttribute('data-theme');return t?t:(sysDark()?'dark':'light');}
+function paintTheme(){var c=curTheme();themeBtn.textContent=c==='dark'?'淺色':'深色';themeBtn.setAttribute('aria-pressed',String(c==='dark'));}
+try{var sv=localStorage.getItem('ng27-theme');if(sv==='dark'||sv==='light')root.setAttribute('data-theme',sv);}catch(e){}
+themeBtn.addEventListener('click',function(){var n=curTheme()==='dark'?'light':'dark';root.setAttribute('data-theme',n);try{localStorage.setItem('ng27-theme',n);}catch(e){}paintTheme();});
+if(window.matchMedia)matchMedia('(prefers-color-scheme: dark)').addEventListener('change',paintTheme);
+paintTheme();
+
+/* ================= style switch ================= */
+var styleBtns=[].slice.call(document.querySelectorAll('.stylesw button'));
+function curStyle(){return root.getAttribute('data-style')||'std';}
+function paintStyle(){var c=curStyle();styleBtns.forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-style')===c));});}
+styleBtns.forEach(function(b){b.addEventListener('click',function(){
+  var v=b.getAttribute('data-style');
+  if(v==='std')root.removeAttribute('data-style'); else root.setAttribute('data-style',v);
+  try{localStorage.setItem('ng27-style',v);}catch(e){}
+  paintStyle();
+  setTimeout(function(){Object.keys(maps).forEach(function(k){if(maps[k].map){maps[k].map.invalidateSize({pan:false});maps[k].layout();}});},60);
+});});
+paintStyle();
+
+/* ================= places（座標與 gid：Google Maps，2026/11/04 核對） ================= */
+// lv: 1 地標 2 交通 3 景點 4 購物 5 細節｜cat: station/sight/park/shop｜kind: tr 交通 / sight 景點 / stay 住宿 / act 活動・溫泉 / alt 備案
+var PL=/*@@PLACES@@*/;
+var KLAB={tr:"交通",sight:"景點",stay:"住宿",act:"活動・溫泉",alt:"備案",fac:"周邊設施"};
+var SEGLAB={car:"開車／巴士",rail:"鐵路",walk:"步行",rope:"纜車"};
+// mode: driving / transit / walking（導航用）
+var MAPS=/*@@MAPS@@*/;
+
+/* ================= map component (offline SVG) ================= */
+var NS="http://www.w3.org/2000/svg";
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function links(p,mode){
+  var q=encodeURIComponent(p.jp), la=p.ll[0], lo=p.ll[1];
+  var af={driving:"d",transit:"r",walking:"w"}[mode]||"d";
+  var gq=p.gid?"&query_place_id="+p.gid:"", gdq=p.gid?"&destination_place_id="+p.gid:"";
+  return {
+    gv:"https://www.google.com/maps/search/?api=1&query="+q+gq,
+    gd:"https://www.google.com/maps/dir/?api=1&destination="+q+gdq+"&travelmode="+mode,
+    av:"https://maps.apple.com/?q="+q+"&ll="+la+","+lo+"&z=16",
+    ad:"https://maps.apple.com/?daddr="+q+"&ll="+la+","+lo+"&dirflg="+af
+  };
+}
+/* 離線海岸線（Natural Earth 10m，已裁切簡化） */
+var COAST=/*@@COAST@@*/;
+/* ================= map component (Leaflet + 線上圖磚；離線時退回內嵌海岸線) ================= */
+var TILE_URL=/*@@TILE_URL@@*/;
+var TILE_ATTR=/*@@TILE_ATTR@@*/;
+var TILE_OPTS=/*@@TILE_OPTS@@*/;
+var BLANK="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+var hasL=typeof L!=="undefined";
+
+var LVLAB={1:"L1 地標",2:"L2 交通",3:"L3 景點",4:"L4 購物",5:"L5 全部"};
+/* 地點資訊面板：整頁共用一個，固定在畫面底部，不放在地圖裡 */
+var SHEET=null;
+function placeSheet(){
+  if(SHEET)return SHEET;
+  SHEET=document.createElement('div');
+  SHEET.id='placeSheet'; SHEET.className='sheet';
+  SHEET.setAttribute('role','dialog'); SHEET.setAttribute('aria-modal','false');
+  SHEET.setAttribute('aria-label','地點資訊'); SHEET.setAttribute('aria-hidden','true');
+  document.body.appendChild(SHEET);
+  SHEET.addEventListener('click',function(e){
+    if(!SHEET.owner)return;
+    if(e.target.closest('.x')){SHEET.owner.close();return;}
+    var f=e.target.closest('[data-goto]'); if(f)SHEET.owner.select(+f.getAttribute('data-goto'),false);
+  });
+  return SHEET;
+}
+function MapView(el,key){
+  var cfg=MAPS[key], self=this;
+  this.el=el; this.cfg=cfg; this.key=key; this.sel=null; this.map=null;
+  var blk=!!cfg.block; this.blk=blk;
+  this.lvSel=blk?5:(key==='overview'?3:4);
+  var stops=[], n=0, inStop={};
+  cfg.stops.forEach(function(s){
+    var id=Array.isArray(s)?s[0]:s, lab;
+    if(Array.isArray(s)) lab=s[1]; else { n++; lab=String(n); }
+    if(cfg.labels&&cfg.labels[id]) lab=cfg.labels[id];
+    inStop[id]=1;
+    stops.push({id:id,lab:lab,p:PL[id],stop:true});
+  });
+  this.stops=stops;
+  // 路線以外的地點：依分級顯示
+  var extra=Object.keys(PL).filter(function(id){
+    if(inStop[id])return false;
+    var p=PL[id];
+    if(blk)return p.kind==='fac'&&(p.days||[]).indexOf(cfg.day)>=0&&(p.near||[]).some(function(n){return inStop[n];});
+    return key==='overview' ? p.kind!=='fac' : (p.days||[]).indexOf(key)>=0;
+  }).map(function(id){return{id:id,lab:null,p:PL[id],stop:false};});
+  this.all=stops.concat(extra);
+  var kinds={}; this.all.forEach(function(s){kinds[s.p.kind]=1;});
+  var segk={}; cfg.seg.forEach(function(s){segk[s[0]]=1;});
+  var lg='';
+  Object.keys(segk).forEach(function(k){lg+='<span><svg viewBox="0 0 30 10" aria-hidden="true"><line class="seg seg-'+k+'" x1="2" y1="5" x2="28" y2="5"/></svg>'+SEGLAB[k]+'</span>';});
+  ["tr","sight","act","stay","alt","fac"].forEach(function(k){if(kinds[k])lg+='<span><i class="k-'+k+'"></i>'+KLAB[k]+'</span>';});
+  lg+=blk?'<span>P 停車場・便 便利商店・道 道の駅</span>':key==='overview'?'<span>大圓＝路線與住宿；小點＝沿途地點（依分級）。路線為示意直線</span>':'<span>點選景點後才顯示該處周邊設施（P 停車場、便 便利商店、道 道の駅）。路線為示意直線</span>';
+  var lvb='<div class="lvsw" role="group" aria-label="地點分級"><span class="lbl">分級</span>';
+  for(var l=1;l<=5;l++)lvb+='<button type="button" data-lv="'+l+'" aria-pressed="'+(l===this.lvSel)+'">'+LVLAB[l]+'</button>';
+  lvb+='<span class="lvhint" aria-live="polite"></span></div>';
+  if(blk)lvb='';
+  var chips='';
+  stops.forEach(function(s,i){chips+='<button type="button" class="chip" data-i="'+i+'" aria-pressed="false"><span class="n k-'+s.p.kind+'">'+(s.lab?esc(s.lab):'·')+'</span>'+esc(s.p.name)+'</button>';});
+  if(blk){var fl=this.all.map(function(s,i){return[s,i];}).filter(function(x){return x[0].p.kind==='fac';});
+    if(fl.length){chips+='<span class="chips-h">周邊設施（Google Maps 搜尋）</span>';fl.forEach(function(x){chips+='<button type="button" class="chip fac" data-i="'+x[1]+'" aria-pressed="false"><span class="n k-fac">'+esc(x[0].p.glyph)+'</span>'+esc(x[0].p.name)+'</button>';});}}
+  el.innerHTML=lvb+'<div class="stage"><div class="lmap" role="region" aria-label="'+(key==='overview'?'全程路線':'當日路線')+'地圖"></div>'+
+    '<div class="ctl"><button type="button" data-z="in" aria-label="放大">＋</button><button type="button" data-z="out" aria-label="縮小">－</button><button type="button" data-z="fit" aria-label="顯示全部">⤢</button></div>'+
+    '</div>'+
+    '<div class="lg">'+lg+'</div><div class="chips">'+chips+'</div><div class="chips facs" hidden></div>'+
+    '<p class="map-hint">'+(blk?'點景點或周邊設施，畫面底部會展開資訊與導航。':'點地圖標記或上方地點，畫面底部會展開地點資訊、導航與該處的周邊設施。')+'</p>'+
+    (cfg.note?'<div class="note-s">'+esc(cfg.note)+'</div>':'');
+  this.box=el.querySelector('.lmap'); this.sheet=placeSheet(); this.focus=null; this.facBox=el.querySelector('.facs'); this.hint=el.querySelector('.lvhint');
+  el.querySelector('.ctl').addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b||!self.map)return;
+    var z=b.getAttribute('data-z');
+    if(z==='fit')self.fit(); else if(z==='in')self.map.zoomIn(); else self.map.zoomOut();
+  });
+  if(!blk)el.querySelector('.lvsw').addEventListener('click',function(e){
+    var b=e.target.closest('button[data-lv]'); if(!b)return;
+    self.lvSel=+b.getAttribute('data-lv');
+    el.querySelectorAll('.lvsw button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b));});
+    self.layout();
+  });
+  el.querySelectorAll('.chips').forEach(function(box){box.addEventListener('click',function(e){
+    var b=e.target.closest('.chip'); if(!b)return;
+    self.select(+b.getAttribute('data-i'),true);
+  });});
+  if(window.ResizeObserver){new ResizeObserver(function(){self.ensure();}).observe(el);}
+}
+MapView.prototype.ensure=function(){
+  if(!hasL)return;
+  var r=this.box.getBoundingClientRect(); if(!(r.width>0&&r.height>0))return;
+  if(!this.map){this.build();return;}
+  this.map.invalidateSize({pan:false}); this.layout();
+};
+MapView.prototype.build=function(){
+  var self=this;
+  var m=L.map(this.box,{zoomControl:false,attributionControl:true,minZoom:5,maxZoom:18,zoomSnap:0.25,wheelPxPerZoomLevel:90,tap:false});
+  m.attributionControl.setPrefix('<a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a>');
+  m.createPane('land').style.zIndex=150;
+  m.createPane('segs').style.zIndex=420;
+  L.polygon(COAST.map(function(r){return[r];}),{pane:'land',className:'land',interactive:false}).addTo(m);
+  this.tiles=L.tileLayer(TILE_URL,Object.assign({attribution:TILE_ATTR,maxZoom:19,errorTileUrl:BLANK,crossOrigin:true},TILE_OPTS)).addTo(m);
+  this.cfg.seg.forEach(function(s){
+    var ll=s[1].map(function(id){return PL[id].ll;});
+    L.polyline(ll,{pane:'segs',className:'seg-case',interactive:false}).addTo(m);
+    L.polyline(ll,{pane:'segs',className:'seg seg-'+s[0],interactive:false}).addTo(m);
+  });
+  this.mk=this.all.map(function(s,i){
+    var fac=s.p.kind==='fac', sm=!s.lab&&!fac, long=s.lab&&s.lab.length>2;
+    var html='<div class="mki k-'+s.p.kind+(sm?' sm':'')+(s.stop?'':' ex')+(fac?' fac':'')+'" data-i="'+i+'"><svg class="ld" width="1" height="1"></svg><div class="w">'+
+      '<span class="d k-'+s.p.kind+(long?' long':'')+'">'+(s.lab?esc(s.lab):(fac?esc(s.p.glyph):''))+'</span><span class="lab p-r">'+esc(s.p.name)+'</span></div></div>';
+    var mk=L.marker(s.p.ll,{icon:L.divIcon({className:'mk-i',html:html,iconSize:[0,0],iconAnchor:[0,0]}),title:s.p.name,alt:s.p.name,riseOnHover:true,keyboard:true});
+    if(s.stop)mk.addTo(m);
+    mk.on('click',function(){self.select(i,false);});
+    return mk;
+  });
+  this.map=m;
+  m.on('zoomend viewreset resize moveend',function(){self.layout();});
+  m.on('click',function(){self.close();});
+  this.fit();
+};
+MapView.prototype.fit=function(){
+  if(!this.map)return;
+  var self=this, pts=this.stops.map(function(s){return s.p.ll;});
+  if(this.blk)this.all.forEach(function(s){if(s.p.kind==='fac'&&pts.some(function(q){return self.map.distance(q,s.p.ll)<5000;}))pts.push(s.p.ll);});
+  var b=L.latLngBounds(pts);
+  var w=this.box.clientWidth, px=Math.min(90,Math.round(w*0.18));
+  this.map.fitBounds(b,{paddingTopLeft:[px,36],paddingBottomRight:[px+20,36],maxZoom:15,animate:false});
+  this.fitZ=this.map.getZoom();
+  this.layout();
+};
+/* 有效分級：比初始縮放再縮小約 1 級時最多 L2；zoom ≥ 14 自動 L5；其餘依使用者選擇 */
+MapView.prototype.effLv=function(){
+  var z=this.map.getZoom();
+  return (this.fitZ!=null&&z<this.fitZ-0.75)?Math.min(this.lvSel,2):(z>=14?5:this.lvSel);
+};
+/* 標記避讓＋標籤擺放（畫面像素座標，貪婪法） */
+MapView.prototype.layout=function(){
+  var m=this.map; if(!m)return;
+  var self=this, sz=m.getSize(), W=sz.x, H=sz.y, eff=this.effLv();
+  var shownEx=0;
+  // 顯示／隱藏非路線地點
+  this.all.forEach(function(s,i){
+    if(s.stop)return;
+    var on=s.p.kind==='fac'?(self.blk||i===self.sel||(self.focus!=null&&(s.p.near||[]).indexOf(self.focus)>=0)):(s.p.lv<=eff||i===self.sel), has=m.hasLayer(self.mk[i]);
+    if(on&&!has)self.mk[i].addTo(m); else if(!on&&has)m.removeLayer(self.mk[i]);
+    if(on)shownEx++;
+  });
+  if(this.hint)this.hint.textContent=eff!==this.lvSel?('目前縮放顯示到 L'+eff):'';
+  var items=[];
+  this.all.forEach(function(s,i){
+    if(!m.hasLayer(self.mk[i]))return;
+    var p=m.latLngToContainerPoint(s.p.ll);
+    if(p.x<-80||p.x>W+80||p.y<-80||p.y>H+80)return;
+    items.push({s:s,i:i,x:p.x,y:p.y,ox:p.x,oy:p.y,r:s.lab?12:(s.p.kind==='fac'?9:(s.stop?7:5))});
+  });
+  var pri=function(it){return (it.i===self.sel?100:0)+(it.s.stop?10:0)+(it.s.lab?5:0)+(6-it.s.p.lv);};
+  var order=items.slice().sort(function(a,b){return pri(b)-pri(a)||a.i-b.i;});
+  order.forEach(function(it,ix){
+    for(var pass=0;pass<8;pass++){var moved=false;
+      for(var q=0;q<ix;q++){var o=order[q],dx=it.x-o.x,dy=it.y-o.y,d=Math.hypot(dx,dy),need=it.r+o.r+3;
+        if(d<need){if(d<0.5){dx=0.7;dy=-0.7;d=1;}it.x=o.x+dx/d*need;it.y=o.y+dy/d*need;moved=true;}}
+      if(!moved)break;}
+  });
+  var boxes=items.map(function(it){return[it.x-it.r,it.y-it.r,it.x+it.r,it.y+it.r];});
+  function tw(t,ex){var w=0,cj=ex?11.4:12.4,la=ex?6.4:7;for(var c=0;c<t.length;c++)w+=t.charCodeAt(c)>255?cj:la;return w+14;}
+  function hit(b){for(var q=0;q<boxes.length;q++){var o=boxes[q];if(b[0]<o[2]&&b[2]>o[0]&&b[1]<o[3]&&b[3]>o[1])return true;}return b[0]<2||b[2]>W-2||b[1]<2||b[3]>H-22;}
+  var DIRS={right:'p-r',left:'p-l',top:'p-t',bottom:'p-b'};
+  var pos={};
+  order.forEach(function(it){
+    var ex=!it.s.stop, w=tw(it.s.p.name,ex), h=ex?18:20, g=it.r+4, x=it.x, y=it.y, cand={
+      'p-r':[x+g,y-h/2,x+g+w,y+h/2],'p-l':[x-g-w,y-h/2,x-g,y+h/2],
+      'p-t':[x-w/2,y-g-h,x+w/2,y-g],'p-b':[x-w/2,y+g,x+w/2,y+g+h]};
+    var first=DIRS[it.s.p.dir]||'p-r', tryOrder=[first].concat(['p-r','p-l','p-t','p-b'].filter(function(k){return k!==first;}));
+    for(var c=0;c<tryOrder.length;c++){var b=cand[tryOrder[c]];if(!hit(b)){boxes.push(b);pos[it.i]=tryOrder[c];return;}}
+    pos[it.i]=it.i===self.sel?first:'hide';
+  });
+  items.forEach(function(it){
+    var root=self.mk[it.i].getElement(); if(!root)return;
+    var mki=root.querySelector('.mki'), w=root.querySelector('.w'), lab=root.querySelector('.lab'), ld=root.querySelector('.ld');
+    var dx=it.x-it.ox, dy=it.y-it.oy, off=Math.hypot(dx,dy)>1;
+    w.style.transform=off?'translate('+dx.toFixed(1)+'px,'+dy.toFixed(1)+'px)':'';
+    ld.innerHTML=off?'<line x1="0" y1="0" x2="'+dx.toFixed(1)+'" y2="'+dy.toFixed(1)+'"/><circle r="2.5"/>':'';
+    lab.className='lab '+pos[it.i];
+    mki.classList.toggle('sel',it.i===self.sel);
+    self.mk[it.i].setZIndexOffset(it.i===self.sel?3000:(it.s.lab?600:(it.s.stop?400:0)));
+  });
+};
+MapView.prototype.theme=function(){};
+var FACICON={"P":"🅿️","便":"🏪","道":"🛣️"}, FACTAG={"P":"停車場","便":"便利商店","道":"道の駅・休息站"};
+function placeIcon(id,p){
+  if(p.kind==='fac')return FACICON[p.glyph]||'📍';
+  if(id==='hnd')return '✈️';
+  if(/溫泉|湯|風呂/.test(p.name))return '♨️';
+  if(p.kind==='stay')return '🏨';
+  if(p.kind==='tr'||p.cat==='station')return /纜車|ロープウェイ|天神平/.test(p.name+p.jp)?'🚡':'🚉';
+  if(p.kind==='act')return '🎟️';
+  if(p.kind==='alt')return '☔';
+  if(p.cat==='park')return '🌲';
+  if(p.cat==='shop')return '🛍️';
+  return '📍';
+}
+MapView.prototype.tagsFor=function(s){
+  var t=[];
+  if(s.p.kind==='fac')t.push(FACTAG[s.p.glyph]||'周邊設施');
+  else if(s.stop){
+    if(this.key==='overview')t.push(s.lab==='✈'?'出入境':(s.lab?'第 '+s.lab+' 晚住宿':'沿途地點'));
+    else t.push('今日第 '+s.lab+' 站');
+    t.push(KLAB[s.p.kind]);
+  } else t.push(KLAB[s.p.kind]);
+  t.push('L'+s.p.lv);
+  return t;
+};
+MapView.prototype.nearFacs=function(id){
+  var out=[]; if(id==null)return out;
+  this.all.forEach(function(s,i){if(s.p.kind==='fac'&&(s.p.near||[]).indexOf(id)>=0)out.push(i);});
+  return out;
+};
+MapView.prototype.idx=function(id){for(var i=0;i<this.all.length;i++)if(this.all[i].id===id)return i;return -1;};
+MapView.prototype.renderFacs=function(){
+  if(!this.facBox||this.blk)return;
+  var self=this, list=this.nearFacs(this.focus);
+  if(!list.length){this.facBox.hidden=true;this.facBox.innerHTML='';return;}
+  this.facBox.hidden=false;
+  this.facBox.innerHTML='<span class="chips-h">'+esc(PL[this.focus].name)+' 周邊設施（Google Maps 搜尋）</span>'+
+    list.map(function(i){var p=self.all[i].p;return '<button type="button" class="chip fac" data-i="'+i+'" aria-pressed="'+(i===self.sel)+'"><span class="n k-fac">'+esc(p.glyph)+'</span>'+esc(p.name)+'</button>';}).join('');
+};
+MapView.prototype.close=function(){
+  if(this.sel===null)return;
+  if(this.sheet.owner===this){
+    this.sheet.classList.remove('open'); this.sheet.setAttribute('aria-hidden','true');
+    this.sheet.owner=null; document.body.style.paddingBottom='';
+  }
+  this.sel=null; this.focus=null; this.renderFacs(); if(this.map)this.layout();
+  this.el.querySelectorAll('.chip').forEach(function(c){c.setAttribute('aria-pressed','false');});
+};
+MapView.prototype.sheetNear=function(s){
+  var self=this;
+  if(s.p.kind==='fac'){
+    var bi=this.idx(this.focus);
+    return bi>=0?'<button type="button" class="back" data-goto="'+bi+'">← 回到 '+esc(this.all[bi].p.name)+'</button>':'';
+  }
+  var list=this.nearFacs(s.id);
+  if(!list.length)return '';
+  return '<div class="near"><div class="near-h">周邊設施</div>'+list.map(function(i){var p=self.all[i].p;
+    return '<button type="button" class="near-i" data-goto="'+i+'"><span class="n k-fac">'+esc(p.glyph)+'</span><span class="t"><b>'+esc(p.name)+'</b><small>'+esc(p.note)+'</small></span></button>';}).join('')+'</div>';
+};
+MapView.prototype.select=function(i,center){
+  var self=this, s=this.all[i];
+  if(this.sheet.owner&&this.sheet.owner!==this)this.sheet.owner.close();
+  this.sel=i; this.sheet.owner=this;
+  if(s.p.kind!=='fac')this.focus=s.id; else if(this.focus==null||(s.p.near||[]).indexOf(this.focus)<0)this.focus=(s.p.near||[null])[0];
+  this.renderFacs();
+  this.el.querySelectorAll('.chip').forEach(function(c){c.setAttribute('aria-pressed',String(+c.getAttribute('data-i')===i));});
+  var Lk=links(s.p,this.cfg.mode);
+  this.sheet.innerHTML='<button type="button" class="x" aria-label="關閉">✕</button>'+
+    '<h4><span>'+esc(s.p.name)+'</span><span class="ic" aria-hidden="true">'+placeIcon(s.id,s.p)+'</span></h4>'+
+    '<div class="tags">'+this.tagsFor(s).map(function(t,k){return '<span class="tag'+(k===0?' main':'')+'">'+esc(t)+'</span>';}).join('')+'</div>'+
+    '<p class="desc">'+esc(s.p.desc||s.p.note)+'</p>'+
+    (s.p.desc?'<p class="meta"><b>實用資訊</b>'+esc(s.p.note)+'</p>':'')+
+    '<p class="jp">'+esc(s.p.jp)+'・'+s.p.ll[0].toFixed(4)+', '+s.p.ll[1].toFixed(4)+(s.p.kind==='fac'?'・資料：Google Maps':'')+'</p>'+
+    '<div class="acts"><a class="mbtn go" href="'+Lk.gd+'" target="_blank" rel="noopener">Google 導航</a><a class="mbtn go" href="'+Lk.ad+'" target="_blank" rel="noopener">Apple 導航</a>'+
+    '<a class="mbtn" href="'+Lk.gv+'" target="_blank" rel="noopener">Google 地圖</a><a class="mbtn" href="'+Lk.av+'" target="_blank" rel="noopener">Apple 地圖</a></div>'+
+    this.sheetNear(s);
+  this.sheet.classList.add('open'); this.sheet.setAttribute('aria-hidden','false');
+  var sh=this.sheet.offsetHeight;
+  document.body.style.paddingBottom=sh+'px';
+  if(this.map){
+    // 地圖若被底部面板或黏頂分頁列擋住，先捲到可見範圍
+    var bar=document.querySelector('.tabbar'), top=bar?bar.getBoundingClientRect().bottom:0;
+    var vb=window.innerHeight-sh, r=this.box.getBoundingClientRect();
+    if(r.bottom>vb||r.top<top){
+      var dy=(r.height<=vb-top)?(r.bottom-vb+8):(r.top-top-8);
+      if(r.top-dy<top)dy=r.top-top-8;
+      window.scrollBy(0,dy); r=this.box.getBoundingClientRect();
+    }
+    var padT=Math.max(0,top-r.top)+28, padB=Math.max(0,r.bottom-vb)+28;
+    // 景點：連同 5 km 內的周邊設施一起框進可見範圍；其他：置中於可見部分
+    var pts=[s.p.ll];
+    if(s.p.kind!=='fac')this.nearFacs(s.id).forEach(function(k){var q=self.all[k].p.ll;if(self.map.distance(s.p.ll,q)<5000)pts.push(q);});
+    if(pts.length>1&&(center||true)){
+      this.map.fitBounds(L.latLngBounds(pts),{paddingTopLeft:[40,padT],paddingBottomRight:[40,padB],maxZoom:16,animate:false});
+    } else {
+      var z=center?Math.max(this.map.getZoom(),14):this.map.getZoom();
+      this.map.setView(s.p.ll,z,{animate:false});
+      var vt=Math.max(r.top,top), vbt=Math.min(r.bottom,vb);
+      if(vbt>vt){var want=(vt+vbt)/2-r.top; this.map.panBy([0,Math.round(r.height/2-want)],{animate:false});}
+    }
+    this.layout();
+  }
+  var x=this.sheet.querySelector('.x'); if(x&&center)x.focus({preventScroll:true});
+};
+
+var maps={}; window.tripMaps=maps;
+document.addEventListener('keydown',function(e){if(e.key==='Escape')Object.keys(maps).forEach(function(k){maps[k].close();});});
+function retheme(){Object.keys(maps).forEach(function(k){maps[k].theme();});}
+if(window.MutationObserver)new MutationObserver(retheme).observe(root,{attributes:true,attributeFilter:['data-theme']});
+if(window.matchMedia)matchMedia('(prefers-color-scheme: dark)').addEventListener('change',retheme);
+document.querySelectorAll('.map[data-map]').forEach(function(el){var k=el.getAttribute('data-map');maps[k]=new MapView(el,k);});
+
+/* ================= 每日景點區塊：點區塊展開該區地圖 ================= */
+var SEGICON={car:"🚗 開車",rail:"🚆 鐵路",walk:"🚶 步行",rope:"🚡 纜車"};
+function distM(a,b){var dx=(a[1]-b[1])*111320*Math.cos(a[0]*Math.PI/180),dy=(a[0]-b[0])*110540;return Math.sqrt(dx*dx+dy*dy);}
+function segBetween(cfg,a,b){var t=null;cfg.seg.forEach(function(sg){var ids=sg[1];for(var i=0;i<ids.length-1;i++)if(ids[i]===a&&ids[i+1]===b)t=sg[0];});return t;}
+function buildBlocks(root){
+  var day=root.getAttribute('data-day'), cfg=MAPS[day], n=0;
+  var st=cfg.stops.map(function(s){var id=Array.isArray(s)?s[0]:s,lab;if(Array.isArray(s))lab=s[1];else{n++;lab=String(n);}return{id:id,lab:lab};});
+  // 相鄰且距離 1.2 km 內的站點併成同一區塊
+  var groups=[];
+  st.forEach(function(x){var g=groups[groups.length-1];
+    if(g&&g.some(function(y){return distM(PL[y.id].ll,PL[x.id].ll)<1200;}))g.push(x); else groups.push([x]);});
+  var html='';
+  groups.forEach(function(g,gi){
+    var ids=g.map(function(x){return x.id;}), key=day+'-b'+(gi+1);
+    var seg=cfg.seg.map(function(sg){var keep=[];sg[1].forEach(function(id){if(ids.indexOf(id)>=0)keep.push(id);});return keep.length>1?[sg[0],keep]:null;}).filter(Boolean);
+    MAPS[key]={block:true,day:day,mode:cfg.mode,stops:g.map(function(x){return[x.id,x.lab];}),seg:seg};
+    var facN=Object.keys(PL).filter(function(k){var p=PL[k];return p.kind==='fac'&&(p.days||[]).indexOf(day)>=0&&(p.near||[]).some(function(nid){return ids.indexOf(nid)>=0;});}).length;
+    var main=PL[ids[0]], lead=(main.desc||main.note).split('。')[0]+'。';
+    if(gi>0){var prev=groups[gi-1][groups[gi-1].length-1].id, t=segBetween(cfg,prev,ids[0]);
+      html+='<div class="blk-mv" aria-hidden="true">'+(t?SEGICON[t]:'↓')+'</div>';}
+    html+='<section class="blk"><button type="button" class="blk-h" aria-expanded="false" data-key="'+key+'">'+
+      '<span class="blk-n">'+g.map(function(x){return '<span class="n k-'+PL[x.id].kind+'">'+esc(x.lab||'·')+'</span>';}).join('')+'</span>'+
+      '<span class="blk-t"><b>'+g.map(function(x){return esc(PL[x.id].name);}).join('・')+'</b><small>'+esc(lead)+'</small>'+(facN?'<em class="fcm">周邊設施 '+facN+'</em>':'')+'</span>'+
+      '<span class="blk-m">'+(facN?'<span class="fc">周邊設施 '+facN+'</span>':'')+'<i class="chev" aria-hidden="true">▾</i></span></button>'+
+      '<div class="blk-b" hidden><div class="map" data-map="'+key+'"></div></div></section>';
+  });
+  root.innerHTML='<div class="blk-hd">今日景點區塊<small>點區塊看該區地圖；點地圖上的景點或設施看詳細資訊</small></div>'+html;
+  root.addEventListener('click',function(e){
+    var h=e.target.closest('.blk-h'); if(!h)return;
+    var open=h.getAttribute('aria-expanded')==='true';
+    root.querySelectorAll('.blk-h').forEach(function(o){
+      if(o===h)return; o.setAttribute('aria-expanded','false'); o.nextElementSibling.hidden=true;
+      var k2=o.getAttribute('data-key'); if(maps[k2])maps[k2].close();
+    });
+    var k=h.getAttribute('data-key'), body=h.nextElementSibling;
+    if(open){h.setAttribute('aria-expanded','false'); body.hidden=true; if(maps[k])maps[k].close(); return;}
+    h.setAttribute('aria-expanded','true'); body.hidden=false;
+    if(!maps[k])maps[k]=new MapView(body.querySelector('.map'),k);
+    maps[k].ensure();
+    // 每次展開都回到預設視角（框住該區所有站點與設施）
+    if(maps[k].map){maps[k].close();maps[k].map.invalidateSize({pan:false});maps[k].fit();}
+    var top=document.querySelector('.tabbar').getBoundingClientRect().bottom, r=h.getBoundingClientRect();
+    if(r.top<top||r.top>window.innerHeight*0.5)window.scrollBy(0,r.top-top-8);
+  });
+}
+document.querySelectorAll('.blocks[data-day]').forEach(buildBlocks);
+
+/* ================= tabs ================= */
+var tabs=[].slice.call(document.querySelectorAll('.tab')), order=tabs.map(function(t){return t.getAttribute('data-p');});
+var TITLES={overview:"總覽",d1:"D1 7/17",d2:"D2 7/18",d3:"D3 7/19",d4:"D4 7/20",d5:"D5 7/21",d6:"D6 7/22",d7:"D7 7/23",d8:"D8 7/24",d9:"D9 7/25",prep:"行前準備",risk:"風險與假設"};
+// pager
+order.forEach(function(id,i){
+  var sec=document.getElementById(id), pg=document.createElement('div'); pg.className='pager';
+  var h='';
+  if(i>0)h+='<button type="button" class="prev" data-go="'+order[i-1]+'">← '+TITLES[order[i-1]]+'</button>';
+  if(i<order.length-1)h+='<button type="button" class="next" data-go="'+order[i+1]+'">'+TITLES[order[i+1]]+' →</button>';
+  pg.innerHTML=h; sec.appendChild(pg);
+});
+function show(id,push,scroll){
+  if(order.indexOf(id)<0)id='overview';
+  tabs.forEach(function(t){var on=t.getAttribute('data-p')===id;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;if(on&&t.scrollIntoView)t.scrollIntoView({block:'nearest',inline:'nearest'});});
+  order.forEach(function(p){document.getElementById(p).hidden=p!==id;});
+  if(push){try{history.replaceState(null,'','#'+id);}catch(e){}}
+  Object.keys(maps).forEach(function(k){if(k!==id&&k.indexOf(id+'-')!==0)maps[k].close();});
+  if(maps[id])maps[id].ensure();
+  if(scroll){var bar=document.querySelector('.tabbar');var top=bar.getBoundingClientRect().top+window.pageYOffset;if(window.pageYOffset>top)window.scrollTo(0,top);}
+}
+tabs.forEach(function(t){t.addEventListener('click',function(){show(t.getAttribute('data-p'),true,true);});});
+document.querySelector('[role="tablist"]').addEventListener('keydown',function(e){
+  var i=tabs.indexOf(document.activeElement); if(i<0)return;
+  var n=null;
+  if(e.key==='ArrowRight')n=(i+1)%tabs.length; else if(e.key==='ArrowLeft')n=(i-1+tabs.length)%tabs.length; else if(e.key==='Home')n=0; else if(e.key==='End')n=tabs.length-1;
+  if(n!==null){e.preventDefault();tabs[n].focus();show(tabs[n].getAttribute('data-p'),true,false);}
+});
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-go]'); if(b){show(b.getAttribute('data-go'),true,true);return;}
+  var a=e.target.closest('a[href^="#"]'); if(a){var id=a.getAttribute('href').slice(1);if(order.indexOf(id)>=0){e.preventDefault();show(id,true,true);}}
+});
+window.addEventListener('hashchange',function(){show(location.hash.slice(1),false,true);});
+show((location.hash||'#overview').slice(1),false,false);
+})();
+</script>
+</body>
+</html>

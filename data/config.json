@@ -1,0 +1,28 @@
+{
+  "title": "越後・上州 9 日｜新潟 → 東京",
+  "version": "1.16",
+  "basemaps": {
+    "osm": {
+      "url": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+      "attribution": "&copy; <a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener\">OpenStreetMap</a> contributors",
+      "options": {},
+      "source": "底圖：OpenStreetMap（OSM 標準圖磚）"
+    },
+    "gsi-pale": {
+      "url": "https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
+      "attribution": "出典：<a href=\"https://maps.gsi.go.jp/development/ichiran.html\" target=\"_blank\" rel=\"noopener\">国土地理院（地理院タイル 淡色地図）</a>",
+      "options": { "minNativeZoom": 5, "maxNativeZoom": 18 },
+      "source": "底圖：國土地理院 地理院タイル（淡色地図）"
+    }
+  },
+  "pages": [
+    { "out": "index.html", "basemap": "osm" },
+    {
+      "out": "preview.html",
+      "basemap": "gsi-pale",
+      "title": "【預覽】越後・上州 9 日｜底圖：地理院淡色地図",
+      "banner": "預覽版：底圖改為國土地理院「淡色地図」。<a href=\"./\" style=\"color:#fff;text-decoration:underline\">回正式版（OSM）比較</a>"
+    }
+  ],
+  "kml": { "dir": "kml", "name": "越後・上州 9 日（2027/7/17–7/25）", "all": "All-越後上州9日.kml" }
+}

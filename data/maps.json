@@ -1,0 +1,170 @@
+{
+  "overview": {
+    "mode": "driving",
+    "stops": [
+      ["hnd", "✈"],
+      ["tokyo", ""],
+      ["niigata", "1"],
+      ["matsunoyama", "2"],
+      ["kiyotsu", ""],
+      ["yuzawa", "3"],
+      ["minakami", "4"],
+      ["yamba", ""],
+      ["yubatake", "6"],
+      ["onioshi", ""],
+      ["karuizawa", "7"],
+      ["shinagawa", "8"]
+    ],
+    "seg": [
+      [
+        "car",
+        ["hnd", "tokyo"]
+      ],
+      [
+        "rail",
+        ["tokyo", "niigata"]
+      ],
+      [
+        "car",
+        [
+          "niigata",
+          "matsunoyama",
+          "kiyotsu",
+          "yuzawa",
+          "minakami",
+          "yamba",
+          "yubatake",
+          "onioshi",
+          "karuizawa"
+        ]
+      ],
+      [
+        "rail",
+        ["karuizawa", "tokyo", "shinagawa", "hnd"]
+      ]
+    ],
+    "labels": {
+      "minakami": "4·5"
+    },
+    "note": "圓圈數字＝第幾晚的住宿；小點＝途經景點。"
+  },
+  "d1": {
+    "mode": "transit",
+    "stops": ["hnd", "tokyo", "niigata", "bandai"],
+    "seg": [
+      [
+        "car",
+        ["hnd", "tokyo"]
+      ],
+      [
+        "rail",
+        ["tokyo", "niigata"]
+      ],
+      [
+        "walk",
+        ["niigata", "bandai"]
+      ]
+    ]
+  },
+  "d2": {
+    "mode": "driving",
+    "stops": ["niigata", "marinepia", "nobutai", "bijin", "matsunoyama"],
+    "seg": [
+      [
+        "car",
+        ["niigata", "marinepia", "nobutai", "bijin", "matsunoyama"]
+      ]
+    ]
+  },
+  "d3": {
+    "mode": "driving",
+    "stops": ["matsunoyama", "kiyotsu", "monet", "yuzawa"],
+    "seg": [
+      [
+        "car",
+        ["matsunoyama", "kiyotsu", "monet", "yuzawa"]
+      ]
+    ]
+  },
+  "d4": {
+    "mode": "driving",
+    "stops": ["yuzawa", "ropeyz", "suwakyo", "minakami"],
+    "seg": [
+      [
+        "walk",
+        ["yuzawa", "ropeyz"]
+      ],
+      [
+        "car",
+        ["ropeyz", "suwakyo", "minakami"]
+      ]
+    ]
+  },
+  "d5": {
+    "mode": "driving",
+    "stops": ["minakami", "doai", "tenjin"],
+    "seg": [
+      [
+        "car",
+        ["minakami", "doai"]
+      ],
+      [
+        "rope",
+        ["doai", "tenjin"]
+      ]
+    ],
+    "note": "泛舟集合點依業者而定，未標於地圖。"
+  },
+  "d6": {
+    "mode": "driving",
+    "stops": ["minakami", "yamba", "yubatake", "sainokawara", "netsunoyu", "otaki"],
+    "seg": [
+      [
+        "car",
+        ["minakami", "yamba", "yubatake"]
+      ],
+      [
+        "walk",
+        ["yubatake", "sainokawara", "netsunoyu"]
+      ]
+    ]
+  },
+  "d7": {
+    "mode": "driving",
+    "stops": ["yubatake", "onioshi", "shiraito", "harunire", "karuizawa", "prince"],
+    "seg": [
+      [
+        "car",
+        ["yubatake", "onioshi", "shiraito", "harunire", "karuizawa"]
+      ],
+      [
+        "walk",
+        ["karuizawa", "prince"]
+      ]
+    ]
+  },
+  "d8": {
+    "mode": "transit",
+    "stops": ["kumoba", "kyukaru", "karuizawa", "tokyo", "shinagawa"],
+    "seg": [
+      [
+        "car",
+        ["kumoba", "kyukaru", "karuizawa"]
+      ],
+      [
+        "rail",
+        ["karuizawa", "tokyo", "shinagawa"]
+      ]
+    ]
+  },
+  "d9": {
+    "mode": "transit",
+    "stops": ["shinagawa", "hnd"],
+    "seg": [
+      [
+        "rail",
+        ["shinagawa", "hnd"]
+      ]
+    ]
+  }
+}
