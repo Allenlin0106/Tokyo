@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2"><Document><name>D7 7/23 五 輕井澤</name><description>越後・上州 9 日（2027/7/17–7/25）｜D7 7/23 五 輕井澤｜景點依當天順序編號，[ ] 為周邊設施</description><Style id="placemark-green"><IconStyle><color>ff3c8a2f</color><scale>1.1</scale><Icon><href>https://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href></Icon></IconStyle></Style><Style id="placemark-red"><IconStyle><color>ff2b3ba9</color><scale>1.1</scale><Icon><href>https://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href></Icon></IconStyle></Style><Style id="placemark-orange"><IconStyle><color>ff1f8ae0</color><scale>1.1</scale><Icon><href>https://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href></Icon></IconStyle></Style><Style id="placemark-blue"><IconStyle><color>ffb0732a</color><scale>1.1</scale><Icon><href>https://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href></Icon></IconStyle></Style><Style id="placemark-gray"><IconStyle><color>ff808080</color><scale>1.1</scale><Icon><href>https://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href></Icon></IconStyle></Style><Style id="placemark-purple"><IconStyle><color>ff8a4a5b</color><scale>1.1</scale><Icon><href>https://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href></Icon></IconStyle></Style><Style id="line-car"><LineStyle><color>ff2b3ba9</color><width>4</width></LineStyle></Style><Style id="line-rail"><LineStyle><color>ffb0732a</color><width>4</width></LineStyle></Style><Style id="line-walk"><LineStyle><color>ff333333</color><width>4</width></LineStyle></Style><Style id="line-rope"><LineStyle><color>ff3c8a2f</color><width>4</width></LineStyle></Style><Placemark><name>① 湯畑</name><description>草津溫泉的中心，源泉在木造湯樋中流動降溫，四周是旅館與商店。D6 住宿選步行 5 分內，晚上有點燈。強酸性泉，泡完記得沖淨飾品。
+【實用資訊】D6 住宿圈；夜間點燈
+【當地名稱】湯畑 草津温泉
+https://www.google.com/maps/search/?api=1&amp;query=%E6%B9%AF%E7%95%91%20%E8%8D%89%E6%B4%A5%E6%B8%A9%E6%B3%89&amp;query_place_id=ChIJtVM3GVXmHWARIF_lzsQfQuk</description><styleUrl>#placemark-green</styleUrl><ExtendedData><Data name="type"><value>住宿</value></Data></ExtendedData><Point><coordinates>138.5967,36.623,0</coordinates></Point></Placemark><Placemark><name>② 鬼押出し園</name><description>1783 年淺間山大噴發留下的熔岩奇景，黑色岩塊間有寺院與步道，天氣好可看到淺間山。D7 從草津約 50 分；淺間山警戒或大霧時跳過。
+【實用資訊】8:00–17:00；大人 ¥700
+【當地名稱】鬼押出し園
+https://www.google.com/maps/search/?api=1&amp;query=%E9%AC%BC%E6%8A%BC%E5%87%BA%E3%81%97%E5%9C%92&amp;query_place_id=ChIJQ3awBRjFHWARO9ZhUDZoWeE</description><styleUrl>#placemark-red</styleUrl><ExtendedData><Data name="type"><value>景點</value></Data></ExtendedData><Point><coordinates>138.5371,36.4448,0</coordinates></Point></Placemark><Placemark><name>③ 白絲瀑布</name><description>地下水從岩壁滲出，形成寬約 70 m、像白絲般的水簾，從停車場走約 5 分。前往需走白糸ハイランドウェイ收費道路，夏天也很涼。
+【實用資訊】免費；收費道路前往
+【當地名稱】白糸の滝 軽井沢
+https://www.google.com/maps/search/?api=1&amp;query=%E7%99%BD%E7%B3%B8%E3%81%AE%E6%BB%9D%20%E8%BB%BD%E4%BA%95%E6%B2%A2&amp;query_place_id=ChIJFYs9aaXYHWARsnooiOit2r0</description><styleUrl>#placemark-red</styleUrl><ExtendedData><Data name="type"><value>景點</value></Data></ExtendedData><Point><coordinates>138.5926,36.4103,0</coordinates></Point></Placemark><Placemark><name>④ 榆樹街小鎮</name><description>星野度假區內沿溪的木棧道商店街，有咖啡、麵包與餐廳，是 D7 的午餐點。停車場先付費、只收現金；飯後可沿溪散步。
+【實用資訊】午餐；停車場僅收現金
+【當地名稱】ハルニレテラス
+https://www.google.com/maps/search/?api=1&amp;query=%E3%83%8F%E3%83%AB%E3%83%8B%E3%83%AC%E3%83%86%E3%83%A9%E3%82%B9&amp;query_place_id=ChIJ5cLxXiXSHWARz4pWcUXMYWk</description><styleUrl>#placemark-red</styleUrl><ExtendedData><Data name="type"><value>景點</value></Data></ExtendedData><Point><coordinates>138.5903,36.3593,0</coordinates></Point></Placemark><Placemark><name>⑤ 輕井澤站</name><description>D7 還車與住宿。還車前加滿油，甲地乙還的回送費訂車時確認。南口直通王子購物廣場；D8 搭北陸新幹線回東京約 1 小時 10 分。
+【實用資訊】D7 還車、住宿；北陸新幹線
+【當地名稱】軽井沢駅
+https://www.google.com/maps/search/?api=1&amp;query=%E8%BB%BD%E4%BA%95%E6%B2%A2%E9%A7%85&amp;query_place_id=ChIJydEjjXzTHWARpROziUCAlHs</description><styleUrl>#placemark-green</styleUrl><ExtendedData><Data name="type"><value>住宿</value></Data></ExtendedData><Point><coordinates>138.6353,36.3426,0</coordinates></Point></Placemark><Placemark><name>⑥ 王子購物廣場</name><description>站南口旁的大型 Outlet，中間有大片草地讓小孩放電。10:00–19:00；D7 還車後逛 2.5 小時，雨天可改到上午。
+【實用資訊】10:00–19:00；站南口旁
+【當地名稱】軽井沢・プリンスショッピングプラザ
+https://www.google.com/maps/search/?api=1&amp;query=%E8%BB%BD%E4%BA%95%E6%B2%A2%E3%83%BB%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B9%E3%82%B7%E3%83%A7%E3%83%83%E3%83%94%E3%83%B3%E3%82%B0%E3%83%97%E3%83%A9%E3%82%B6&amp;query_place_id=ChIJs2bRqHvTHWARcl6bPa7ly-g</description><styleUrl>#placemark-red</styleUrl><ExtendedData><Data name="type"><value>景點</value></Data></ExtendedData><Point><coordinates>138.6331,36.341,0</coordinates></Point></Placemark><Placemark><name>[便利商店] 7-Eleven 草津湯畑（湯畑）</name><description>湯畑旁的 24 小時 7-Eleven，招牌配合溫泉街改成木色，買水與零食最方便。
+【實用資訊】24 小時；湯畑旁
+【當地名稱】セブンイレブン 草津湯畑
+（資料：Google Maps 搜尋）
+https://www.google.com/maps/search/?api=1&amp;query=%E3%82%BB%E3%83%96%E3%83%B3%E3%82%A4%E3%83%AC%E3%83%96%E3%83%B3%20%E8%8D%89%E6%B4%A5%E6%B9%AF%E7%95%91&amp;query_place_id=ChIJKQq7BFXmHWARw6Jr9V6TUFI</description><styleUrl>#placemark-purple</styleUrl><ExtendedData><Data name="type"><value>便利商店</value></Data></ExtendedData><Point><coordinates>138.5966,36.6232,0</coordinates></Point></Placemark><Placemark><name>[道の駅] 道の駅 草津運動茶屋公園（湯畑）</name><description>草津入口的道の駅，可拿溫泉街地圖、問停車資訊；D7 離開草津前休息一下。
+【實用資訊】9:00–17:00；離開草津前休息
+【當地名稱】道の駅草津運動茶屋公園
+（資料：Google Maps 搜尋）
+https://www.google.com/maps/search/?api=1&amp;query=%E9%81%93%E3%81%AE%E9%A7%85%E8%8D%89%E6%B4%A5%E9%81%8B%E5%8B%95%E8%8C%B6%E5%B1%8B%E5%85%AC%E5%9C%92&amp;query_place_id=ChIJLRiX3a3nHWARKiVNfN2OQso</description><styleUrl>#placemark-purple</styleUrl><ExtendedData><Data name="type"><value>道の駅</value></Data></ExtendedData><Point><coordinates>138.5903,36.6148,0</coordinates></Point></Placemark><Placemark><name>[停車場] 鬼押出し園第 1 停車場（鬼押出し園）</name><description>鬼押出し園的免費大停車場，有廁所與販賣機，天氣好可看到淺間山。
+【實用資訊】園區步行 5 分；廁所、販賣機
+【當地名稱】鬼押出し園第１駐車場
+（資料：Google Maps 搜尋）
+https://www.google.com/maps/search/?api=1&amp;query=%E9%AC%BC%E6%8A%BC%E5%87%BA%E3%81%97%E5%9C%92%E7%AC%AC%EF%BC%91%E9%A7%90%E8%BB%8A%E5%A0%B4&amp;query_place_id=ChIJW6_P9tjFHWARlS-I0Pr-hoQ</description><styleUrl>#placemark-purple</styleUrl><ExtendedData><Data name="type"><value>停車場</value></Data></ExtendedData><Point><coordinates>138.5376,36.4445,0</coordinates></Point></Placemark><Placemark><name>[停車場] 白絲瀑布第 1 停車場（白絲瀑布）</name><description>離白絲瀑布最近的停車場，旁邊有商店與廁所，走約 150 m 緩坡就到瀑布。
+【實用資訊】8:00–17:30；經收費道路
+【當地名稱】白糸の滝 第1駐車場
+（資料：Google Maps 搜尋）
+https://www.google.com/maps/search/?api=1&amp;query=%E7%99%BD%E7%B3%B8%E3%81%AE%E6%BB%9D%20%E7%AC%AC1%E9%A7%90%E8%BB%8A%E5%A0%B4&amp;query_place_id=ChIJuTSFjb_RHWAR714FE9LU09Q</description><styleUrl>#placemark-purple</styleUrl><ExtendedData><Data name="type"><value>停車場</value></Data></ExtendedData><Point><coordinates>138.5944,36.4111,0</coordinates></Point></Placemark><Placemark><name>[停車場] 星野區 P2（榆樹街）（榆樹街小鎮）</name><description>榆樹街旁的星野區停車場，先付款、收現金；看起來滿車時排一下通常很快有位。
+【實用資訊】7:00–23:00；先付款、收現金
+【當地名稱】星野エリア 第2駐車場
+（資料：Google Maps 搜尋）
+https://www.google.com/maps/search/?api=1&amp;query=%E6%98%9F%E9%87%8E%E3%82%A8%E3%83%AA%E3%82%A2%20%E7%AC%AC2%E9%A7%90%E8%BB%8A%E5%A0%B4&amp;query_place_id=ChIJVSU32CPTHWARMJvZqj0w5oY</description><styleUrl>#placemark-purple</styleUrl><ExtendedData><Data name="type"><value>停車場</value></Data></ExtendedData><Point><coordinates>138.5901,36.3597,0</coordinates></Point></Placemark><Placemark><name>[便利商店] FamilyMart 輕井澤（北口）（輕井澤站）</name><description>輕井澤站北口的 FamilyMart，6:00 開門，D8 早上去雲場池前可買早餐。
+【實用資訊】6:00–23:00；站北口約 300 m
+【當地名稱】ファミリーマート 八百徳軽井沢店
+（資料：Google Maps 搜尋）
+https://www.google.com/maps/search/?api=1&amp;query=%E3%83%95%E3%82%A1%E3%83%9F%E3%83%AA%E3%83%BC%E3%83%9E%E3%83%BC%E3%83%88%20%E5%85%AB%E7%99%BE%E5%BE%B3%E8%BB%BD%E4%BA%95%E6%B2%A2%E5%BA%97&amp;query_place_id=ChIJecBt5HvTHWAR6SobcSwhmbA</description><styleUrl>#placemark-purple</styleUrl><ExtendedData><Data name="type"><value>便利商店</value></Data></ExtendedData><Point><coordinates>138.6329,36.3442,0</coordinates></Point></Placemark><Placemark><name>路線示意：湯畑 → 鬼押出し園 → 白絲瀑布 → 榆樹街小鎮 → 輕井澤站</name><description>直線示意，非實際道路；導航請用 Google／Apple 地圖。交通方式：開車</description><styleUrl>#line-car</styleUrl><LineString><tessellate>1</tessellate><coordinates>138.5967,36.623,0 138.5371,36.4448,0 138.5926,36.4103,0 138.5903,36.3593,0 138.6353,36.3426,0</coordinates></LineString></Placemark><Placemark><name>路線示意：輕井澤站 → 王子購物廣場</name><description>直線示意，非實際道路；導航請用 Google／Apple 地圖。交通方式：步行</description><styleUrl>#line-walk</styleUrl><LineString><tessellate>1</tessellate><coordinates>138.6353,36.3426,0 138.6331,36.341,0</coordinates></LineString></Placemark></Document></kml>

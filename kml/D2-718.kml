@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2"><Document><name>D2 7/18 日 水族館・松代</name><description>越後・上州 9 日（2027/7/17–7/25）｜D2 7/18 日 水族館・松代｜景點依當天順序編號，[ ] 為周邊設施</description><Style id="placemark-green"><IconStyle><color>ff3c8a2f</color><scale>1.1</scale><Icon><href>https://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href></Icon></IconStyle></Style><Style id="placemark-red"><IconStyle><color>ff2b3ba9</color><scale>1.1</scale><Icon><href>https://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href></Icon></IconStyle></Style><Style id="placemark-orange"><IconStyle><color>ff1f8ae0</color><scale>1.1</scale><Icon><href>https://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href></Icon></IconStyle></Style><Style id="placemark-blue"><IconStyle><color>ffb0732a</color><scale>1.1</scale><Icon><href>https://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href></Icon></IconStyle></Style><Style id="placemark-gray"><IconStyle><color>ff808080</color><scale>1.1</scale><Icon><href>https://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href></Icon></IconStyle></Style><Style id="placemark-purple"><IconStyle><color>ff8a4a5b</color><scale>1.1</scale><Icon><href>https://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href></Icon></IconStyle></Style><Style id="line-car"><LineStyle><color>ff2b3ba9</color><width>4</width></LineStyle></Style><Style id="line-rail"><LineStyle><color>ffb0732a</color><width>4</width></LineStyle></Style><Style id="line-walk"><LineStyle><color>ff333333</color><width>4</width></LineStyle></Style><Style id="line-rope"><LineStyle><color>ff3c8a2f</color><width>4</width></LineStyle></Style><Placemark><name>① 新潟站</name><description>D1 住宿、D2 早上 8:00 站前取車；選步行可到取車點的飯店，就不用拖行李。站內有大量米食與清酒伴手禮，晚餐可吃へぎそば或タレカツ丼。
+【實用資訊】D1 住宿、D2 取車
+【當地名稱】新潟駅
+https://www.google.com/maps/search/?api=1&amp;query=%E6%96%B0%E6%BD%9F%E9%A7%85&amp;query_place_id=ChIJAWuK6JrJ9F8R6qO5mIuSHTs</description><styleUrl>#placemark-green</styleUrl><ExtendedData><Data name="type"><value>住宿</value></Data></ExtendedData><Point><coordinates>139.0618,37.912,0</coordinates></Point></Placemark><Placemark><name>② 新潟市水族館</name><description>D2 第一站，取車後約 15 分。海豚秀場次平日與週末不同，到館先看時刻表；館外就是海灘。大人 ¥1,500、小中 ¥600，停車免費。
+【實用資訊】9:00–17:00；海豚秀時段週末不同
+【當地名稱】新潟市水族館マリンピア日本海
+https://www.google.com/maps/search/?api=1&amp;query=%E6%96%B0%E6%BD%9F%E5%B8%82%E6%B0%B4%E6%97%8F%E9%A4%A8%E3%83%9E%E3%83%AA%E3%83%B3%E3%83%94%E3%82%A2%E6%97%A5%E6%9C%AC%E6%B5%B7&amp;query_place_id=ChIJgcnOweDJ9F8R3wOwnTD7Sb0</description><styleUrl>#placemark-red</styleUrl><ExtendedData><Data name="type"><value>景點</value></Data></ExtendedData><Point><coordinates>139.028,37.9237,0</coordinates></Point></Placemark><Placemark><name>③ まつだい農舞台</name><description>大地藝術祭松代地區的據點，室內展與周邊田野作品都可用藝術祭護照。週二、三休館，所以排在 D2（週日）。開幕週末人多、停車場小，避開正午。
+【實用資訊】10:00–17:00；週二、三休；藝術祭據點
+【當地名稱】まつだい農舞台
+https://www.google.com/maps/search/?api=1&amp;query=%E3%81%BE%E3%81%A4%E3%81%A0%E3%81%84%E8%BE%B2%E8%88%9E%E5%8F%B0&amp;query_place_id=ChIJFVD7sCzm9V8RbKydgLjGvHQ</description><styleUrl>#placemark-red</styleUrl><ExtendedData><Data name="type"><value>景點</value></Data></ExtendedData><Point><coordinates>138.615,37.1316,0</coordinates></Point></Placemark><Placemark><name>④ 美人林</name><description>松之山的山毛櫸林，因樹幹筆直整齊而得名，免費、全天開放。傍晚斜光穿過樹林最好看；林間步道雨後易滑，注意小朋友腳步。
+【實用資訊】免費；山毛櫸林
+【當地名稱】美人林 十日町市松之山
+https://www.google.com/maps/search/?api=1&amp;query=%E7%BE%8E%E4%BA%BA%E6%9E%97%20%E5%8D%81%E6%97%A5%E7%94%BA%E5%B8%82%E6%9D%BE%E4%B9%8B%E5%B1%B1&amp;query_place_id=ChIJsTz-Rcvn9V8R8L_dKIGMLOU</description><styleUrl>#placemark-red</styleUrl><ExtendedData><Data name="type"><value>景點</value></Data></ExtendedData><Point><coordinates>138.6197,37.101,0</coordinates></Point></Placemark><Placemark><name>⑤ 松之山溫泉</name><description>D2 住宿，日本三大藥湯之一。緊鄰松代與美人林，隔天到清津峽約 50 分，可搶 8:30 開門。溫泉街商店少，零食飲料最好先在路上買。
+【實用資訊】D2 住宿
+【當地名稱】松之山温泉
+https://www.google.com/maps/search/?api=1&amp;query=%E6%9D%BE%E4%B9%8B%E5%B1%B1%E6%B8%A9%E6%B3%89&amp;query_place_id=ChIJxUKsXdPn9V8R8bprx1NVLSw</description><styleUrl>#placemark-green</styleUrl><ExtendedData><Data name="type"><value>住宿</value></Data></ExtendedData><Point><coordinates>138.5991,37.0647,0</coordinates></Point></Placemark><Placemark><name>[便利商店] 7-Eleven 新潟駅（新潟站）</name><description>新潟站旁的 24 小時便利商店，D2 取車前可買早餐和車上飲料。
+【實用資訊】24 小時；站前約 200 m
+【當地名稱】セブンイレブン 新潟駅
+（資料：Google Maps 搜尋）
+https://www.google.com/maps/search/?api=1&amp;query=%E3%82%BB%E3%83%96%E3%83%B3%E3%82%A4%E3%83%AC%E3%83%96%E3%83%B3%20%E6%96%B0%E6%BD%9F%E9%A7%85&amp;query_place_id=ChIJpYgu-Y_J9F8RhzGeJFczb1g</description><styleUrl>#placemark-purple</styleUrl><ExtendedData><Data name="type"><value>便利商店</value></Data></ExtendedData><Point><coordinates>139.0618,37.9138,0</coordinates></Point></Placemark><Placemark><name>[停車場] 水族館第 1 停車場（新潟市水族館）</name><description>離水族館入口最近的停車場，假日容易滿；滿了就停旁邊的專用或一般停車場，走幾分鐘就到。
+【實用資訊】最近入口、易滿；旁有專用停車場
+【當地名稱】マリンピア日本海 第１駐車場
+（資料：Google Maps 搜尋）
+https://www.google.com/maps/search/?api=1&amp;query=%E3%83%9E%E3%83%AA%E3%83%B3%E3%83%94%E3%82%A2%E6%97%A5%E6%9C%AC%E6%B5%B7%20%E7%AC%AC%EF%BC%91%E9%A7%90%E8%BB%8A%E5%A0%B4&amp;query_place_id=ChIJ7zxmk_3J9F8ReFU46tc8cUg</description><styleUrl>#placemark-purple</styleUrl><ExtendedData><Data name="type"><value>停車場</value></Data></ExtendedData><Point><coordinates>139.0264,37.923,0</coordinates></Point></Placemark><Placemark><name>[道の駅] 道の駅 ながおか花火館（新潟市水族館）</name><description>長岡的道の駅，有長岡花火劇場、美食區與伴手禮，D2 往松代途中吃午餐、休息剛好。10:00 才開門。
+【實用資訊】10:00–17:30；午餐、花火劇場
+【當地名稱】道の駅ながおか花火館
+（資料：Google Maps 搜尋）
+https://www.google.com/maps/search/?api=1&amp;query=%E9%81%93%E3%81%AE%E9%A7%85%E3%81%AA%E3%81%8C%E3%81%8A%E3%81%8B%E8%8A%B1%E7%81%AB%E9%A4%A8&amp;query_place_id=ChIJdb7WPeup9V8RMACZQo_WiRE</description><styleUrl>#placemark-purple</styleUrl><ExtendedData><Data name="type"><value>道の駅</value></Data></ExtendedData><Point><coordinates>138.8047,37.4556,0</coordinates></Point></Placemark><Placemark><name>[停車場] まつだい道の駅停車場（まつだい農舞台）</name><description>道の駅まつだい的停車場，緊鄰農舞台。圓環內以接送為主，停在圓環外側比較方便。
+【實用資訊】農舞台旁；圓環內為接送區
+【當地名稱】道の駅まつだいふるさと会館 駐車場
+（資料：Google Maps 搜尋）
+https://www.google.com/maps/search/?api=1&amp;query=%E9%81%93%E3%81%AE%E9%A7%85%E3%81%BE%E3%81%A4%E3%81%A0%E3%81%84%E3%81%B5%E3%82%8B%E3%81%95%E3%81%A8%E4%BC%9A%E9%A4%A8%20%E9%A7%90%E8%BB%8A%E5%A0%B4&amp;query_place_id=ChIJUdsS_2Tn9V8RgvD9tJyion4</description><styleUrl>#placemark-purple</styleUrl><ExtendedData><Data name="type"><value>停車場</value></Data></ExtendedData><Point><coordinates>138.6141,37.1326,0</coordinates></Point></Placemark><Placemark><name>[停車場] 美人林停車場（美人林）</name><description>美人林入口旁的停車場，下車走幾步就進林子。
+【實用資訊】美人林入口旁
+【當地名稱】美人林 駐車場
+（資料：Google Maps 搜尋）
+https://www.google.com/maps/search/?api=1&amp;query=%E7%BE%8E%E4%BA%BA%E6%9E%97%20%E9%A7%90%E8%BB%8A%E5%A0%B4&amp;query_place_id=ChIJU08DJgDn9V8RIlqnRKD1i-k</description><styleUrl>#placemark-purple</styleUrl><ExtendedData><Data name="type"><value>停車場</value></Data></ExtendedData><Point><coordinates>138.6188,37.1006,0</coordinates></Point></Placemark><Placemark><name>[便利商店] 渕岡商店（松之山）（松之山溫泉）</name><description>松之山溫泉街少數的小商店，以日用品與飲料為主。週三公休，D2 晚上與 D3 早上都能用。
+【實用資訊】7:00–19:00、週三休；溫泉街唯一
+【當地名稱】渕岡商店 松之山
+（資料：Google Maps 搜尋）
+https://www.google.com/maps/search/?api=1&amp;query=%E6%B8%95%E5%B2%A1%E5%95%86%E5%BA%97%20%E6%9D%BE%E4%B9%8B%E5%B1%B1&amp;query_place_id=ChIJQeHiJ4jj9V8R9yURWll7zRI</description><styleUrl>#placemark-purple</styleUrl><ExtendedData><Data name="type"><value>便利商店</value></Data></ExtendedData><Point><coordinates>138.6032,37.0654,0</coordinates></Point></Placemark><Placemark><name>路線示意：新潟站 → 新潟市水族館 → まつだい農舞台 → 美人林 → 松之山溫泉</name><description>直線示意，非實際道路；導航請用 Google／Apple 地圖。交通方式：開車</description><styleUrl>#line-car</styleUrl><LineString><tessellate>1</tessellate><coordinates>139.0618,37.912,0 139.028,37.9237,0 138.615,37.1316,0 138.6197,37.101,0 138.5991,37.0647,0</coordinates></LineString></Placemark></Document></kml>
