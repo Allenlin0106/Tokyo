@@ -22,7 +22,7 @@
 ## 更新流程
 
 1. 改 `data/*.json` 或 `src/index.template.html`，並把 `data/config.json` 的 `version` 加一。
-2. 本機檢查（選用，需要 Node.js 20 以上）：
+2. 本機檢查（選用，需要 Node.js 22 以上）：
    ```bash
    node build/build.mjs --check   # 只檢查資料
    node build/build.mjs           # 建置到 dist/，直接開 dist/index.html 看
